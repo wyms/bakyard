@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install:*)",
+      "Bash(supabase init:*)",
+      "Bash(supabase link:*)",
+      "Bash(PGPASSWORD=\"cXr8XneGlQykrGBL\" psql:*)",
+      "Bash(nslookup:*)",
+      "Bash(curl:*)",
+      "Bash(for:*)",
+      "Bash(do echo:*)",
+      "Bash(break)",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(supabase login:*)",
+      "Bash(supabase db push:*)",
+      "Bash(supabase functions deploy:*)",
+      "Bash(git init:*)",
+      "Bash(git -C:*)",
+      "Bash(git -C /Users/wyoung/Documents/personal_repos/bakyard status --short)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
+}
