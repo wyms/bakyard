@@ -43,7 +43,7 @@ export default function Skeleton({
             width: width as number,
             height: height as number,
             borderRadius,
-            backgroundColor: '#E0E0E0',
+            backgroundColor: 'rgba(17,24,39,0.08)',
           },
           animatedStyle,
         ]}

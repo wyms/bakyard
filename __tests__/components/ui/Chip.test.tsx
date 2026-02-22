@@ -48,8 +48,8 @@ describe('Chip', () => {
     it('defaults to unselected (selected=false)', () => {
       const { toJSON } = render(<Chip {...defaultProps} />);
       const root = toJSON();
-      expect(root!.props.className).toContain('bg-gray-100');
-      expect(root!.props.className).not.toContain('bg-[#1A5E63]');
+      expect(root!.props.className).toContain('bg-surface');
+      expect(root!.props.className).not.toContain('bg-primary');
     });
 
     it('applies selected container style when selected=true', () => {
@@ -57,14 +57,14 @@ describe('Chip', () => {
         <Chip {...defaultProps} selected={true} />,
       );
       const root = toJSON();
-      expect(root!.props.className).toContain('bg-[#1A5E63]');
-      expect(root!.props.className).not.toContain('bg-gray-100');
+      expect(root!.props.className).toContain('bg-primary');
+      expect(root!.props.className).not.toContain('bg-surface');
     });
 
     it('applies unselected text style when not selected', () => {
       render(<Chip {...defaultProps} selected={false} />);
       const text = screen.getByText('Filter');
-      expect(text.props.className).toContain('text-[#2D2D2D]');
+      expect(text.props.className).toContain('text-text');
     });
 
     it('applies selected text style when selected', () => {

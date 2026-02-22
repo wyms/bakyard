@@ -70,33 +70,33 @@ export default function ActiveMembershipCard({
   };
 
   return (
-    <Card className="mb-4 border border-[#1A5E63]/20">
+    <Card className="mb-4 border border-primary/20">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-2">
-          <Ionicons name="star" size={20} color="#1A5E63" />
-          <Text className="text-lg font-bold text-charcoal">{tierName}</Text>
+          <Ionicons name="star" size={20} color="#3F6F6A" />
+          <Text className="text-lg font-bold text-text">{tierName}</Text>
         </View>
         <Badge label={statusLabel} variant={statusVariant} size="sm" />
       </View>
 
       {/* Stats Grid */}
       <View className="flex-row gap-3 mb-4">
-        <View className="flex-1 bg-[#FAFAF8] rounded-xl p-3">
-          <Text className="text-xs text-charcoal/50 mb-1">Discount</Text>
-          <Text className="text-xl font-bold text-[#1A5E63]">
+        <View className="flex-1 bg-bg rounded-xl p-3">
+          <Text className="text-xs text-muted mb-1">Discount</Text>
+          <Text className="text-xl font-bold text-primary">
             {membership.discount_percent}%
           </Text>
         </View>
-        <View className="flex-1 bg-[#FAFAF8] rounded-xl p-3">
-          <Text className="text-xs text-charcoal/50 mb-1">Priority</Text>
-          <Text className="text-xl font-bold text-[#1A5E63]">
+        <View className="flex-1 bg-bg rounded-xl p-3">
+          <Text className="text-xs text-muted mb-1">Priority</Text>
+          <Text className="text-xl font-bold text-primary">
             {membership.priority_booking_hours}hr
           </Text>
         </View>
-        <View className="flex-1 bg-[#FAFAF8] rounded-xl p-3">
-          <Text className="text-xs text-charcoal/50 mb-1">Guest Passes</Text>
-          <Text className="text-xl font-bold text-[#1A5E63]">
+        <View className="flex-1 bg-bg rounded-xl p-3">
+          <Text className="text-xs text-muted mb-1">Guest Passes</Text>
+          <Text className="text-xl font-bold text-primary">
             {membership.guest_passes_remaining === -1
               ? 'Unlimited'
               : membership.guest_passes_remaining}
@@ -105,9 +105,9 @@ export default function ActiveMembershipCard({
       </View>
 
       {/* Billing Period */}
-      <View className="bg-[#FAFAF8] rounded-xl p-3 mb-4">
-        <Text className="text-xs text-charcoal/50 mb-0.5">Current Period</Text>
-        <Text className="text-sm font-medium text-charcoal">
+      <View className="bg-bg rounded-xl p-3 mb-4">
+        <Text className="text-xs text-muted mb-0.5">Current Period</Text>
+        <Text className="text-sm font-medium text-text">
           {periodStart} - {periodEnd}
         </Text>
       </View>

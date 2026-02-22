@@ -39,8 +39,8 @@ const SIZE_CONFIG = {
 };
 
 function getCapacityColor(percentage: number): string {
-  if (percentage > 50) return '#4CAF50';
-  if (percentage > 25) return '#FF9800';
+  if (percentage > 50) return '#3F6F6A';
+  if (percentage > 25) return '#D6B07A';
   return '#FF6B6B';
 }
 
@@ -97,16 +97,16 @@ export default function CapacityIndicator({
 
       {/* Text and progress bar */}
       <View className="ml-3 flex-1">
-        <Text className={`${config.textSize} font-semibold text-[#2D2D2D]`}>
+        <Text className={`${config.textSize} font-semibold text-text`}>
           {label}
         </Text>
-        <Text className={`${config.labelSize} text-[#2D2D2D]/50 mt-0.5`}>
+        <Text className={`${config.labelSize} text-text/50 mt-0.5`}>
           {remaining === 0 ? 'Join the waitlist' : 'Spots fill fast'}
         </Text>
 
         {/* Progress bar */}
         <View
-          className="w-full rounded-full bg-[#E8E5E0] mt-2 overflow-hidden"
+          className="w-full rounded-full bg-stroke mt-2 overflow-hidden"
           style={{ height: config.barHeight }}
         >
           <Animated.View

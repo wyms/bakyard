@@ -49,11 +49,11 @@ export default function CourtPicker({
 
   return (
     <View>
-      <Text className="text-base font-semibold text-[#2D2D2D] mb-3">
+      <Text className="text-base font-semibold text-text mb-3">
         Pick a court
       </Text>
 
-      <View className="bg-[#E8E5E0]/30 rounded-2xl p-3">
+      <View className="bg-stroke/30 rounded-2xl p-3">
         {/* Court map visual header */}
         <View className="flex-row items-center justify-center mb-3 py-2">
           <View className="flex-row items-center gap-3">
@@ -64,7 +64,7 @@ export default function CourtPicker({
                   key={court.id}
                   className={[
                     'w-8 h-12 rounded-lg border-2',
-                    isSelected ? 'border-[#1A5E63] bg-[#1A5E63]/10' : 'border-[#E8E5E0] bg-white/50',
+                    isSelected ? 'border-primary bg-primary/10' : 'border-stroke bg-surface/50',
                     !court.is_available ? 'opacity-30' : '',
                   ]
                     .filter(Boolean)
@@ -95,10 +95,10 @@ export default function CourtPicker({
                   className={[
                     'rounded-xl p-3 items-center',
                     isSelected
-                      ? 'bg-white border-2 border-[#1A5E63]'
+                      ? 'bg-surface border-2 border-primary'
                       : isUnavailable
                         ? 'bg-gray-100 border border-gray-200'
-                        : 'bg-white border border-[#E8E5E0]',
+                        : 'bg-surface border border-stroke',
                   ]
                     .filter(Boolean)
                     .join(' ')}
@@ -112,16 +112,16 @@ export default function CourtPicker({
                     size={18}
                     color={
                       isSelected
-                        ? '#1A5E63'
+                        ? '#3F6F6A'
                         : isUnavailable
                           ? '#CCCCCC'
-                          : '#2D2D2D'
+                          : '#111827'
                     }
                   />
                   <Text
                     className={[
                       'text-xs font-bold mt-1.5',
-                      isSelected ? 'text-[#1A5E63]' : isUnavailable ? 'text-gray-300' : 'text-[#2D2D2D]',
+                      isSelected ? 'text-primary' : isUnavailable ? 'text-gray-300' : 'text-text',
                     ].join(' ')}
                     numberOfLines={1}
                   >
@@ -130,7 +130,7 @@ export default function CourtPicker({
                   <Text
                     className={[
                       'text-[10px] mt-0.5',
-                      isSelected ? 'text-[#1A5E63]/70' : isUnavailable ? 'text-gray-300' : 'text-[#2D2D2D]/50',
+                      isSelected ? 'text-primary/70' : isUnavailable ? 'text-gray-300' : 'text-text/50',
                     ].join(' ')}
                     numberOfLines={1}
                   >

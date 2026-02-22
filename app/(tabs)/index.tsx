@@ -221,7 +221,7 @@ export default function FeedScreen() {
               />
             ))
           ) : (
-            <View className="bg-white rounded-2xl px-4 py-5 mb-2.5 items-center shadow-sm shadow-black/5">
+            <View className="bg-surface rounded-2xl px-4 py-5 mb-2.5 items-center shadow-sm shadow-black/5">
               <Text className="text-sm text-charcoal/40 font-medium">
                 No courts active right now
               </Text>

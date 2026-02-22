@@ -5,11 +5,39 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sand: { DEFAULT: '#D4A574', light: '#E8C9A4', dark: '#B8874E' },
-        teal: { DEFAULT: '#1A5E63', light: '#2A8E95', dark: '#134549' },
+        // New semantic tokens
+        bg: '#F6F1EA',
+        surface: '#FBF7F2',
+        text: '#111827',
+        muted: '#6B7280',
+        stroke: 'rgba(17,24,39,0.08)',
+        primary: { DEFAULT: '#3F6F6A', pressed: '#2F5B57' },
+        accent: '#D6B07A',
+        success: '#3F6F6A',
+        warning: '#D6B07A',
+        error: '#FF6B6B',
+
+        // Legacy aliases (remapped to new values)
+        sand: { DEFAULT: '#D6B07A', light: '#E8D4B0', dark: '#B8974E' },
+        teal: { DEFAULT: '#3F6F6A', light: '#5A8F8A', dark: '#2F5B57' },
         coral: '#FF6B6B',
-        charcoal: '#2D2D2D',
-        offwhite: '#FAFAF8',
+        charcoal: '#111827',
+        offwhite: '#F6F1EA',
+      },
+      borderRadius: {
+        card: '20px',
+        button: '16px',
+        input: '14px',
+      },
+      boxShadow: {
+        card: '0 8px 30px rgba(17,24,39,0.08)',
+        subtle: '0 2px 10px rgba(17,24,39,0.06)',
+      },
+      fontSize: {
+        h1: ['28px', { lineHeight: '34px', fontWeight: '800' }],
+        h2: ['20px', { lineHeight: '26px', fontWeight: '700' }],
+        body: ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        caption: ['12px', { lineHeight: '16px', fontWeight: '400' }],
       },
     },
   },

@@ -77,16 +77,16 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         enablePanDownToClose
         keyboardBehavior="interactive"
         keyboardBlurBehavior="restore"
-        backgroundStyle={{ backgroundColor: '#FFFFFF', borderRadius: 24 }}
-        handleIndicatorStyle={{ backgroundColor: '#D4D4D4', width: 40 }}
+        backgroundStyle={{ backgroundColor: '#FBF7F2', borderRadius: 24 }}
+        handleIndicatorStyle={{ backgroundColor: 'rgba(17,24,39,0.12)', width: 40 }}
       >
         <BottomSheetView className="flex-1 px-4 pb-4">
           {title && (
             <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-lg font-bold text-[#2D2D2D]">{title}</Text>
+              <Text className="text-lg font-bold text-text">{title}</Text>
               <Pressable
                 onPress={onClose}
-                className="w-8 h-8 rounded-full bg-gray-100 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-bg items-center justify-center"
               >
                 <Text className="text-base text-gray-500">✕</Text>
               </Pressable>

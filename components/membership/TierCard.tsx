@@ -28,8 +28,8 @@ export default function TierCard({
     <Card
       className={[
         'mb-4',
-        isActive && 'border-2 border-[#1A5E63]',
-        isRecommended && !isActive && 'border-2 border-[#D4A574]',
+        isActive && 'border-2 border-primary',
+        isRecommended && !isActive && 'border-2 border-accent',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -37,7 +37,7 @@ export default function TierCard({
       {/* Header Row */}
       <View className="flex-row items-center justify-between mb-3">
         <View className="flex-row items-center gap-2">
-          <Text className="text-lg font-bold text-charcoal">{tier.name}</Text>
+          <Text className="text-lg font-bold text-text">{tier.name}</Text>
           {isActive && <Badge label="Current" variant="info" size="sm" />}
         </View>
         {isRecommended && !isActive && (
@@ -47,13 +47,13 @@ export default function TierCard({
 
       {/* Price */}
       <View className="flex-row items-baseline mb-1">
-        <Text className="text-3xl font-bold text-charcoal">{priceDisplay}</Text>
-        <Text className="text-sm text-charcoal/50 ml-1">/month</Text>
+        <Text className="text-3xl font-bold text-text">{priceDisplay}</Text>
+        <Text className="text-sm text-muted ml-1">/month</Text>
       </View>
 
       {/* Discount Highlight */}
-      <View className="bg-[#1A5E63]/10 rounded-lg px-3 py-1.5 self-start mb-4">
-        <Text className="text-sm font-semibold text-[#1A5E63]">
+      <View className="bg-primary/10 rounded-lg px-3 py-1.5 self-start mb-4">
+        <Text className="text-sm font-semibold text-primary">
           {tier.discount_percent}% off all bookings
         </Text>
       </View>

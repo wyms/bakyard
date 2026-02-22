@@ -217,7 +217,7 @@ export default function PaymentScreen() {
   // Loading state
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <ScrollView className="flex-1 px-5 pt-4">
           <Skeleton width="70%" height={28} className="mb-3" />
           <Skeleton width="100%" height={120} className="mb-4" />
@@ -231,10 +231,10 @@ export default function PaymentScreen() {
   // Session not found
   if (!session || !product) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
-          <Text className="text-lg font-semibold text-[#2D2D2D] mt-4 text-center">
+          <Text className="text-lg font-semibold text-text mt-4 text-center">
             Session not found
           </Text>
           <Button
@@ -252,53 +252,53 @@ export default function PaymentScreen() {
   // Success state
   if (paymentState === 'success') {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Animated.View entering={ZoomIn.duration(500)}>
-            <View className="w-24 h-24 rounded-full bg-[#4CAF50]/10 items-center justify-center mb-6">
-              <Ionicons name="checkmark-circle" size={64} color="#4CAF50" />
+            <View className="w-24 h-24 rounded-full bg-primary/10 items-center justify-center mb-6">
+              <Ionicons name="checkmark-circle" size={64} color="#3F6F6A" />
             </View>
           </Animated.View>
           <Animated.View entering={FadeInDown.delay(300).duration(400)}>
-            <Text className="text-2xl font-bold text-[#2D2D2D] text-center">
+            <Text className="text-2xl font-bold text-text text-center">
               You're in!
             </Text>
-            <Text className="text-base text-[#2D2D2D]/60 text-center mt-2">
+            <Text className="text-base text-text/60 text-center mt-2">
               Your booking has been confirmed
             </Text>
           </Animated.View>
 
           <Animated.View
             entering={FadeInDown.delay(500).duration(400)}
-            className="bg-white rounded-2xl p-5 mt-8 w-full border border-[#E8E5E0]"
+            className="bg-surface rounded-2xl p-5 mt-8 w-full border border-stroke"
           >
-            <Text className="text-base font-bold text-[#2D2D2D]">
+            <Text className="text-base font-bold text-text">
               {product.title}
             </Text>
             <View className="flex-row items-center mt-2">
-              <Ionicons name="calendar-outline" size={16} color="#1A5E63" />
-              <Text className="text-sm text-[#2D2D2D]/70 ml-2">
+              <Ionicons name="calendar-outline" size={16} color="#3F6F6A" />
+              <Text className="text-sm text-text/70 ml-2">
                 {format(parseISO(session.starts_at), 'EEE, MMM d')}
               </Text>
             </View>
             <View className="flex-row items-center mt-1">
-              <Ionicons name="time-outline" size={16} color="#1A5E63" />
-              <Text className="text-sm text-[#2D2D2D]/70 ml-2">
+              <Ionicons name="time-outline" size={16} color="#3F6F6A" />
+              <Text className="text-sm text-text/70 ml-2">
                 {format(parseISO(session.starts_at), 'h:mm a')} -{' '}
                 {format(parseISO(session.ends_at), 'h:mm a')}
               </Text>
             </View>
             {session.court && (
               <View className="flex-row items-center mt-1">
-                <Ionicons name="location-outline" size={16} color="#1A5E63" />
-                <Text className="text-sm text-[#2D2D2D]/70 ml-2">
+                <Ionicons name="location-outline" size={16} color="#3F6F6A" />
+                <Text className="text-sm text-text/70 ml-2">
                   {session.court.name}
                 </Text>
               </View>
             )}
             <View className="flex-row items-center mt-1">
-              <Ionicons name="cash-outline" size={16} color="#1A5E63" />
-              <Text className="text-sm text-[#2D2D2D]/70 ml-2">
+              <Ionicons name="cash-outline" size={16} color="#3F6F6A" />
+              <Text className="text-sm text-text/70 ml-2">
                 {formatPrice(totalCents)} paid
               </Text>
             </View>
@@ -325,7 +325,7 @@ export default function PaymentScreen() {
   const endDate = parseISO(session.ends_at);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 130 }}
@@ -336,10 +336,10 @@ export default function PaymentScreen() {
           entering={FadeInDown.delay(50).duration(300)}
           className="px-5 pt-4"
         >
-          <Text className="text-xl font-bold text-[#2D2D2D]">
+          <Text className="text-xl font-bold text-text">
             Pay for {product.title}
           </Text>
-          <Text className="text-sm text-[#2D2D2D]/50 mt-1">
+          <Text className="text-sm text-text/50 mt-1">
             {format(startDate, 'EEE, MMM d')} / {format(startDate, 'h:mm')} -{' '}
             {format(endDate, 'h:mm a')}
           </Text>
@@ -368,11 +368,11 @@ export default function PaymentScreen() {
           entering={FadeInDown.delay(200).duration(300)}
           className="mx-5 mt-4"
         >
-          <View className="bg-[#1A5E63]/10 rounded-2xl p-4 flex-row items-center justify-between">
-            <Text className="text-base font-semibold text-[#1A5E63]">
+          <View className="bg-primary/10 rounded-2xl p-4 flex-row items-center justify-between">
+            <Text className="text-base font-semibold text-primary">
               You're in for:
             </Text>
-            <Text className="text-2xl font-bold text-[#1A5E63]">
+            <Text className="text-2xl font-bold text-primary">
               {formatPrice(totalCents)}
             </Text>
           </View>
@@ -383,7 +383,7 @@ export default function PaymentScreen() {
           entering={FadeInDown.delay(300).duration(300)}
           className="px-5 mt-6"
         >
-          <Text className="text-base font-semibold text-[#2D2D2D] mb-3">
+          <Text className="text-base font-semibold text-text mb-3">
             Payment Method
           </Text>
 
@@ -393,8 +393,8 @@ export default function PaymentScreen() {
             className={[
               'flex-row items-center rounded-2xl p-4 mb-2 border',
               selectedMethod === 'apple_pay'
-                ? 'border-[#1A5E63] bg-[#1A5E63]/5'
-                : 'border-[#E8E5E0] bg-white',
+                ? 'border-primary bg-primary/5'
+                : 'border-stroke bg-surface',
             ].join(' ')}
             style={({ pressed }: { pressed: boolean }): ViewStyle => ({
               opacity: pressed ? 0.85 : 1,
@@ -403,19 +403,19 @@ export default function PaymentScreen() {
             <View className="w-10 h-10 rounded-xl bg-black items-center justify-center">
               <Ionicons name="logo-apple" size={22} color="#FFFFFF" />
             </View>
-            <Text className="text-base font-medium text-[#2D2D2D] ml-3 flex-1">
+            <Text className="text-base font-medium text-text ml-3 flex-1">
               Apple Pay
             </Text>
             <View
               className={[
                 'w-6 h-6 rounded-full border-2 items-center justify-center',
                 selectedMethod === 'apple_pay'
-                  ? 'border-[#1A5E63]'
-                  : 'border-[#E8E5E0]',
+                  ? 'border-primary'
+                  : 'border-stroke',
               ].join(' ')}
             >
               {selectedMethod === 'apple_pay' && (
-                <View className="w-3.5 h-3.5 rounded-full bg-[#1A5E63]" />
+                <View className="w-3.5 h-3.5 rounded-full bg-primary" />
               )}
             </View>
           </Pressable>
@@ -426,29 +426,29 @@ export default function PaymentScreen() {
             className={[
               'flex-row items-center rounded-2xl p-4 mb-2 border',
               selectedMethod === 'card'
-                ? 'border-[#1A5E63] bg-[#1A5E63]/5'
-                : 'border-[#E8E5E0] bg-white',
+                ? 'border-primary bg-primary/5'
+                : 'border-stroke bg-surface',
             ].join(' ')}
             style={({ pressed }: { pressed: boolean }): ViewStyle => ({
               opacity: pressed ? 0.85 : 1,
             })}
           >
-            <View className="w-10 h-10 rounded-xl bg-[#D4A574]/10 items-center justify-center">
-              <Ionicons name="card-outline" size={22} color="#D4A574" />
+            <View className="w-10 h-10 rounded-xl bg-accent/10 items-center justify-center">
+              <Ionicons name="card-outline" size={22} color="#D6B07A" />
             </View>
-            <Text className="text-base font-medium text-[#2D2D2D] ml-3 flex-1">
+            <Text className="text-base font-medium text-text ml-3 flex-1">
               Card
             </Text>
             <View
               className={[
                 'w-6 h-6 rounded-full border-2 items-center justify-center',
                 selectedMethod === 'card'
-                  ? 'border-[#1A5E63]'
-                  : 'border-[#E8E5E0]',
+                  ? 'border-primary'
+                  : 'border-stroke',
               ].join(' ')}
             >
               {selectedMethod === 'card' && (
-                <View className="w-3.5 h-3.5 rounded-full bg-[#1A5E63]" />
+                <View className="w-3.5 h-3.5 rounded-full bg-primary" />
               )}
             </View>
           </Pressable>
@@ -459,21 +459,21 @@ export default function PaymentScreen() {
             className={[
               'flex-row items-center rounded-2xl p-4 border',
               selectedMethod === 'simulate'
-                ? 'border-[#4CAF50] bg-[#4CAF50]/5'
-                : 'border-dashed border-[#E8E5E0] bg-white',
+                ? 'border-primary bg-primary/5'
+                : 'border-dashed border-stroke bg-surface',
             ].join(' ')}
             style={({ pressed }: { pressed: boolean }): ViewStyle => ({
               opacity: pressed ? 0.85 : 1,
             })}
           >
-            <View className="w-10 h-10 rounded-xl bg-[#4CAF50]/10 items-center justify-center">
-              <Ionicons name="bug-outline" size={22} color="#4CAF50" />
+            <View className="w-10 h-10 rounded-xl bg-primary/10 items-center justify-center">
+              <Ionicons name="bug-outline" size={22} color="#3F6F6A" />
             </View>
             <View className="ml-3 flex-1">
-              <Text className="text-base font-medium text-[#2D2D2D]">
+              <Text className="text-base font-medium text-text">
                 Simulate Payment
               </Text>
-              <Text className="text-xs text-[#2D2D2D]/40 mt-0.5">
+              <Text className="text-xs text-text/40 mt-0.5">
                 For development testing only
               </Text>
             </View>
@@ -481,12 +481,12 @@ export default function PaymentScreen() {
               className={[
                 'w-6 h-6 rounded-full border-2 items-center justify-center',
                 selectedMethod === 'simulate'
-                  ? 'border-[#4CAF50]'
-                  : 'border-[#E8E5E0]',
+                  ? 'border-primary'
+                  : 'border-stroke',
               ].join(' ')}
             >
               {selectedMethod === 'simulate' && (
-                <View className="w-3.5 h-3.5 rounded-full bg-[#4CAF50]" />
+                <View className="w-3.5 h-3.5 rounded-full bg-primary" />
               )}
             </View>
           </Pressable>
@@ -509,7 +509,7 @@ export default function PaymentScreen() {
                   opacity: pressed ? 0.7 : 1,
                 })}
               >
-                <Text className="text-sm font-semibold text-[#1A5E63]">
+                <Text className="text-sm font-semibold text-primary">
                   Retry
                 </Text>
               </Pressable>
@@ -521,13 +521,13 @@ export default function PaymentScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(400).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         {paymentState === 'processing' ? (
           <View className="flex-row items-center justify-center py-4">
-            <ActivityIndicator size="small" color="#1A5E63" />
-            <Text className="text-base font-semibold text-[#1A5E63] ml-3">
+            <ActivityIndicator size="small" color="#3F6F6A" />
+            <Text className="text-base font-semibold text-primary ml-3">
               Processing payment...
             </Text>
           </View>

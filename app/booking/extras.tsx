@@ -79,26 +79,26 @@ function ExtraCard({
     <Animated.View
       entering={FadeInDown.delay(index * 80).duration(300)}
     >
-      <View className="bg-white rounded-2xl p-4 border border-[#E8E5E0] flex-row items-center">
+      <View className="bg-surface rounded-2xl p-4 border border-stroke flex-row items-center">
         {/* Icon */}
-        <View className="w-12 h-12 rounded-xl bg-[#D4A574]/10 items-center justify-center">
-          <Ionicons name={item.icon} size={22} color="#D4A574" />
+        <View className="w-12 h-12 rounded-xl bg-accent/10 items-center justify-center">
+          <Ionicons name={item.icon} size={22} color="#D6B07A" />
         </View>
 
         {/* Info */}
         <View className="flex-1 ml-3">
-          <Text className="text-sm font-semibold text-[#2D2D2D]">
+          <Text className="text-sm font-semibold text-text">
             {item.name}
           </Text>
           {item.description ? (
             <Text
-              className="text-xs text-[#2D2D2D]/50 mt-0.5"
+              className="text-xs text-text/50 mt-0.5"
               numberOfLines={1}
             >
               {item.description}
             </Text>
           ) : null}
-          <Text className="text-sm font-bold text-[#1A5E63] mt-1">
+          <Text className="text-sm font-bold text-primary mt-1">
             {formatPrice(item.price_cents)}
           </Text>
         </View>
@@ -114,9 +114,9 @@ function ExtraCard({
                   opacity: pressed ? 0.7 : 1,
                 })}
               >
-                <Ionicons name="remove" size={16} color="#2D2D2D" />
+                <Ionicons name="remove" size={16} color="#111827" />
               </Pressable>
-              <Text className="text-base font-bold text-[#2D2D2D] min-w-[20px] text-center">
+              <Text className="text-base font-bold text-text min-w-[20px] text-center">
                 {quantity}
               </Text>
             </>
@@ -125,7 +125,7 @@ function ExtraCard({
             onPress={onIncrement}
             className={[
               'w-8 h-8 rounded-full items-center justify-center',
-              quantity > 0 ? 'bg-[#1A5E63]/10' : 'bg-[#1A5E63]',
+              quantity > 0 ? 'bg-primary/10' : 'bg-primary',
             ].join(' ')}
             style={({ pressed }: { pressed: boolean }): ViewStyle => ({
               opacity: pressed ? 0.7 : 1,
@@ -134,7 +134,7 @@ function ExtraCard({
             <Ionicons
               name="add"
               size={16}
-              color={quantity > 0 ? '#1A5E63' : '#FFFFFF'}
+              color={quantity > 0 ? '#3F6F6A' : '#FFFFFF'}
             />
           </Pressable>
         </View>
@@ -240,7 +240,7 @@ export default function ExtrasScreen() {
   }, [router, productId, sessionId]);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 130 }}
@@ -251,10 +251,10 @@ export default function ExtrasScreen() {
           entering={FadeInDown.delay(50).duration(300)}
           className="px-5 pt-4"
         >
-          <Text className="text-xl font-bold text-[#2D2D2D]">
+          <Text className="text-xl font-bold text-text">
             Add Extras
           </Text>
-          <Text className="text-sm text-[#2D2D2D]/50 mt-1">
+          <Text className="text-sm text-text/50 mt-1">
             Grab some food, drinks, or gear for your session
           </Text>
         </Animated.View>
@@ -282,9 +282,9 @@ export default function ExtrasScreen() {
             <Animated.View
               entering={FadeInDown.delay(100).duration(300)}
             >
-              <View className="bg-white rounded-2xl p-6 items-center border border-[#E8E5E0]">
-                <Ionicons name="restaurant-outline" size={36} color="#E8E5E0" />
-                <Text className="text-sm text-[#2D2D2D]/40 mt-3 text-center">
+              <View className="bg-surface rounded-2xl p-6 items-center border border-stroke">
+                <Ionicons name="restaurant-outline" size={36} color="#6B7280" />
+                <Text className="text-sm text-text/40 mt-3 text-center">
                   No extras available right now
                 </Text>
               </View>
@@ -298,14 +298,14 @@ export default function ExtrasScreen() {
             entering={FadeInDown.delay(100).duration(250)}
             className="mx-5 mt-5"
           >
-            <View className="bg-[#1A5E63]/5 rounded-2xl p-4 flex-row items-center justify-between">
+            <View className="bg-primary/5 rounded-2xl p-4 flex-row items-center justify-between">
               <View className="flex-row items-center">
-                <Ionicons name="cart-outline" size={20} color="#1A5E63" />
-                <Text className="text-sm font-medium text-[#1A5E63] ml-2">
+                <Ionicons name="cart-outline" size={20} color="#3F6F6A" />
+                <Text className="text-sm font-medium text-primary ml-2">
                   {itemCount} {itemCount === 1 ? 'item' : 'items'} added
                 </Text>
               </View>
-              <Text className="text-base font-bold text-[#1A5E63]">
+              <Text className="text-base font-bold text-primary">
                 +{formatPrice(runningTotal)}
               </Text>
             </View>
@@ -316,7 +316,7 @@ export default function ExtrasScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(400).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         <Button
@@ -332,7 +332,7 @@ export default function ExtrasScreen() {
         />
         {itemCount === 0 && (
           <Pressable onPress={handleSkip} className="mt-2 py-2">
-            <Text className="text-center text-sm text-[#2D2D2D]/40 font-medium">
+            <Text className="text-center text-sm text-text/40 font-medium">
               Skip extras
             </Text>
           </Pressable>

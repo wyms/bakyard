@@ -25,8 +25,8 @@ describe('Badge', () => {
     const { UNSAFE_getAllByType } = render(<Badge label="Default" />);
     const views = UNSAFE_getAllByType(View);
     const container = views[0];
-    // default variant container: 'bg-[#D4A574]/20'
-    expect(container.props.className).toContain('bg-[#D4A574]/20');
+    // default variant container: 'bg-accent/20'
+    expect(container.props.className).toContain('bg-accent/20');
     // md size container: 'px-3 py-1'
     expect(container.props.className).toContain('px-3');
     expect(container.props.className).toContain('py-1');
@@ -40,7 +40,7 @@ describe('Badge', () => {
         <Badge label="Test" variant="default" />,
       );
       const container = UNSAFE_getAllByType(View)[0];
-      expect(container.props.className).toContain('bg-[#D4A574]/20');
+      expect(container.props.className).toContain('bg-accent/20');
     });
 
     it('renders with success variant', () => {
@@ -48,7 +48,7 @@ describe('Badge', () => {
         <Badge label="Test" variant="success" />,
       );
       const container = UNSAFE_getAllByType(View)[0];
-      expect(container.props.className).toContain('bg-[#4CAF50]/20');
+      expect(container.props.className).toContain('bg-primary/20');
     });
 
     it('renders with warning variant', () => {
@@ -56,7 +56,7 @@ describe('Badge', () => {
         <Badge label="Test" variant="warning" />,
       );
       const container = UNSAFE_getAllByType(View)[0];
-      expect(container.props.className).toContain('bg-[#FF9800]/20');
+      expect(container.props.className).toContain('bg-accent/20');
     });
 
     it('renders with info variant', () => {
@@ -64,7 +64,7 @@ describe('Badge', () => {
         <Badge label="Test" variant="info" />,
       );
       const container = UNSAFE_getAllByType(View)[0];
-      expect(container.props.className).toContain('bg-[#1A5E63]/20');
+      expect(container.props.className).toContain('bg-primary/20');
     });
 
     it('renders with accent variant', () => {
@@ -72,7 +72,7 @@ describe('Badge', () => {
         <Badge label="Test" variant="accent" />,
       );
       const container = UNSAFE_getAllByType(View)[0];
-      expect(container.props.className).toContain('bg-[#FF6B6B]/20');
+      expect(container.props.className).toContain('bg-error/20');
     });
   });
 
@@ -104,31 +104,31 @@ describe('Badge', () => {
     it('applies correct text class for default variant', () => {
       render(<Badge label="Default" variant="default" />);
       const text = screen.getByText('Default');
-      expect(text.props.className).toContain('text-[#D4A574]');
+      expect(text.props.className).toContain('text-accent');
     });
 
     it('applies correct text class for success variant', () => {
       render(<Badge label="Success" variant="success" />);
       const text = screen.getByText('Success');
-      expect(text.props.className).toContain('text-[#4CAF50]');
+      expect(text.props.className).toContain('text-primary');
     });
 
     it('applies correct text class for warning variant', () => {
       render(<Badge label="Warning" variant="warning" />);
       const text = screen.getByText('Warning');
-      expect(text.props.className).toContain('text-[#FF9800]');
+      expect(text.props.className).toContain('text-accent');
     });
 
     it('applies correct text class for info variant', () => {
       render(<Badge label="Info" variant="info" />);
       const text = screen.getByText('Info');
-      expect(text.props.className).toContain('text-[#1A5E63]');
+      expect(text.props.className).toContain('text-primary');
     });
 
     it('applies correct text class for accent variant', () => {
       render(<Badge label="Accent" variant="accent" />);
       const text = screen.getByText('Accent');
-      expect(text.props.className).toContain('text-[#FF6B6B]');
+      expect(text.props.className).toContain('text-error');
     });
   });
 

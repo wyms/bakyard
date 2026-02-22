@@ -48,7 +48,7 @@ export default function InviteLink({
           <Ionicons
             name="share-outline"
             size={18}
-            color={isFull ? '#9E9E9E' : '#D4A574'}
+            color={isFull ? '#9E9E9E' : '#D6B07A'}
           />
         }
       />

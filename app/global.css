@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #F6F1EA;
+    --color-surface: #FBF7F2;
+    --color-text: #111827;
+    --color-muted: #6B7280;
+    --color-stroke: rgba(17, 24, 39, 0.08);
+    --color-primary: #3F6F6A;
+    --color-primary-pressed: #2F5B57;
+    --color-accent: #D6B07A;
+    --color-error: #FF6B6B;
+    --shadow-card: 0 8px 30px rgba(17, 24, 39, 0.08);
+    --shadow-subtle: 0 2px 10px rgba(17, 24, 39, 0.06);
+  }
+}

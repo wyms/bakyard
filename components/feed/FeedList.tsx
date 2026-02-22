@@ -39,7 +39,7 @@ function FeedFooter({
   if (isFetchingNextPage) {
     return (
       <View className="py-6 items-center">
-        <ActivityIndicator size="small" color="#1A5E63" />
+        <ActivityIndicator size="small" color="#3F6F6A" />
       </View>
     );
   }
@@ -123,8 +123,8 @@ export default function FeedList({
         <RefreshControl
           refreshing={isRefreshing}
           onRefresh={onRefresh}
-          tintColor="#1A5E63"
-          colors={['#1A5E63']}
+          tintColor="#3F6F6A"
+          colors={['#3F6F6A']}
         />
       }
       onEndReached={onEndReached}

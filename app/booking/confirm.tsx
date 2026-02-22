@@ -114,7 +114,7 @@ export default function ConfirmBookingScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <ScrollView className="flex-1 px-5 pt-4">
           <Skeleton width="70%" height={28} className="mb-3" />
           <Skeleton width="100%" height={80} className="mb-4" />
@@ -127,10 +127,10 @@ export default function ConfirmBookingScreen() {
 
   if (!session || !product) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
-          <Text className="text-lg font-semibold text-[#2D2D2D] mt-4 text-center">
+          <Text className="text-lg font-semibold text-text mt-4 text-center">
             Session not found
           </Text>
           <Button
@@ -149,7 +149,7 @@ export default function ConfirmBookingScreen() {
   const endDate = parseISO(session.ends_at);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 120 }}
@@ -160,10 +160,10 @@ export default function ConfirmBookingScreen() {
           entering={FadeInDown.delay(50).duration(300)}
           className="mx-5 mt-4"
         >
-          <View className="bg-white rounded-2xl p-5 border border-[#E8E5E0]">
+          <View className="bg-surface rounded-2xl p-5 border border-stroke">
             <View className="flex-row items-start justify-between">
               <View className="flex-1">
-                <Text className="text-xl font-bold text-[#2D2D2D]">
+                <Text className="text-xl font-bold text-text">
                   {product.title}
                 </Text>
                 <View className="mt-1">
@@ -174,34 +174,34 @@ export default function ConfirmBookingScreen() {
                   />
                 </View>
               </View>
-              <View className="bg-[#1A5E63]/10 rounded-xl px-3 py-2 items-center">
-                <Text className="text-lg font-bold text-[#1A5E63]">
+              <View className="bg-primary/10 rounded-xl px-3 py-2 items-center">
+                <Text className="text-lg font-bold text-primary">
                   {formatPrice(session.price_cents)}
                 </Text>
-                <Text className="text-[10px] text-[#1A5E63]/70 font-medium">
+                <Text className="text-[10px] text-primary/70 font-medium">
                   per person
                 </Text>
               </View>
             </View>
 
             {/* Time details */}
-            <View className="mt-4 pt-4 border-t border-[#E8E5E0]">
+            <View className="mt-4 pt-4 border-t border-stroke">
               <View className="flex-row items-center mb-2">
-                <Ionicons name="calendar-outline" size={18} color="#1A5E63" />
-                <Text className="text-sm font-medium text-[#2D2D2D] ml-2">
+                <Ionicons name="calendar-outline" size={18} color="#3F6F6A" />
+                <Text className="text-sm font-medium text-text ml-2">
                   {format(startDate, 'EEEE, MMMM d, yyyy')}
                 </Text>
               </View>
               <View className="flex-row items-center mb-2">
-                <Ionicons name="time-outline" size={18} color="#1A5E63" />
-                <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                <Ionicons name="time-outline" size={18} color="#3F6F6A" />
+                <Text className="text-sm text-text/80 ml-2">
                   {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
                 </Text>
               </View>
               {session.court && (
                 <View className="flex-row items-center">
-                  <Ionicons name="location-outline" size={18} color="#1A5E63" />
-                  <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                  <Ionicons name="location-outline" size={18} color="#3F6F6A" />
+                  <Text className="text-sm text-text/80 ml-2">
                     {session.court.name}
                   </Text>
                 </View>
@@ -215,7 +215,7 @@ export default function ConfirmBookingScreen() {
           entering={FadeInDown.delay(150).duration(300)}
           className="mx-5 mt-4"
         >
-          <View className="bg-white rounded-2xl p-4 border border-[#E8E5E0]">
+          <View className="bg-surface rounded-2xl p-4 border border-stroke">
             <CapacityIndicator
               total={session.spots_total}
               remaining={session.spots_remaining}
@@ -229,16 +229,16 @@ export default function ConfirmBookingScreen() {
           entering={FadeInDown.delay(250).duration(300)}
           className="mx-5 mt-4"
         >
-          <View className="bg-white rounded-2xl p-4 border border-[#E8E5E0]">
-            <Text className="text-base font-semibold text-[#2D2D2D] mb-3">
+          <View className="bg-surface rounded-2xl p-4 border border-stroke">
+            <Text className="text-base font-semibold text-text mb-3">
               How many people?
             </Text>
             <View className="flex-row items-center justify-between">
               <View>
-                <Text className="text-sm text-[#2D2D2D]/70">
+                <Text className="text-sm text-text/70">
                   You + {guests} {guests === 1 ? 'guest' : 'guests'}
                 </Text>
-                <Text className="text-xs text-[#2D2D2D]/40 mt-0.5">
+                <Text className="text-xs text-text/40 mt-0.5">
                   {session.spots_remaining} spots available
                 </Text>
               </View>
@@ -250,7 +250,7 @@ export default function ConfirmBookingScreen() {
                     'w-10 h-10 rounded-full items-center justify-center',
                     guests === 0
                       ? 'bg-gray-100'
-                      : 'bg-[#1A5E63]/10',
+                      : 'bg-primary/10',
                   ].join(' ')}
                   style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                     opacity: pressed ? 0.7 : guests === 0 ? 0.4 : 1,
@@ -259,20 +259,20 @@ export default function ConfirmBookingScreen() {
                   <Ionicons
                     name="remove"
                     size={20}
-                    color={guests === 0 ? '#CCC' : '#1A5E63'}
+                    color={guests === 0 ? '#CCC' : '#3F6F6A'}
                   />
                 </Pressable>
-                <Text className="text-xl font-bold text-[#2D2D2D] min-w-[24px] text-center">
+                <Text className="text-xl font-bold text-text min-w-[24px] text-center">
                   {1 + guests}
                 </Text>
                 <Pressable
                   onPress={handleGuestIncrement}
-                  className="w-10 h-10 rounded-full items-center justify-center bg-[#1A5E63]/10"
+                  className="w-10 h-10 rounded-full items-center justify-center bg-primary/10"
                   style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                     opacity: pressed ? 0.7 : 1,
                   })}
                 >
-                  <Ionicons name="add" size={20} color="#1A5E63" />
+                  <Ionicons name="add" size={20} color="#3F6F6A" />
                 </Pressable>
               </View>
             </View>
@@ -305,25 +305,25 @@ export default function ConfirmBookingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={handleInviteFriends}
-              className="flex-1 bg-white rounded-2xl p-4 border border-[#E8E5E0] flex-row items-center justify-center"
+              className="flex-1 bg-surface rounded-2xl p-4 border border-stroke flex-row items-center justify-center"
               style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                 opacity: pressed ? 0.8 : 1,
               })}
             >
-              <Ionicons name="person-add-outline" size={18} color="#1A5E63" />
-              <Text className="text-sm font-medium text-[#1A5E63] ml-2">
+              <Ionicons name="person-add-outline" size={18} color="#3F6F6A" />
+              <Text className="text-sm font-medium text-primary ml-2">
                 Invite Friends
               </Text>
             </Pressable>
             <Pressable
               onPress={handleAddExtras}
-              className="flex-1 bg-white rounded-2xl p-4 border border-[#E8E5E0] flex-row items-center justify-center"
+              className="flex-1 bg-surface rounded-2xl p-4 border border-stroke flex-row items-center justify-center"
               style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                 opacity: pressed ? 0.8 : 1,
               })}
             >
-              <Ionicons name="fast-food-outline" size={18} color="#D4A574" />
-              <Text className="text-sm font-medium text-[#D4A574] ml-2">
+              <Ionicons name="fast-food-outline" size={18} color="#D6B07A" />
+              <Text className="text-sm font-medium text-accent ml-2">
                 Add Extras
               </Text>
             </Pressable>
@@ -338,21 +338,21 @@ export default function ConfirmBookingScreen() {
           >
             <Pressable
               onPress={() => router.push('/(tabs)/membership')}
-              className="bg-[#D4A574]/10 rounded-2xl p-4 border border-[#D4A574]/30 flex-row items-center"
+              className="bg-accent/10 rounded-2xl p-4 border border-accent/30 flex-row items-center"
               style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                 opacity: pressed ? 0.85 : 1,
               })}
             >
-              <Ionicons name="star" size={24} color="#D4A574" />
+              <Ionicons name="star" size={24} color="#D6B07A" />
               <View className="ml-3 flex-1">
-                <Text className="text-sm font-semibold text-[#2D2D2D]">
+                <Text className="text-sm font-semibold text-text">
                   Save up to 30% with a membership
                 </Text>
-                <Text className="text-xs text-[#2D2D2D]/50 mt-0.5">
+                <Text className="text-xs text-text/50 mt-0.5">
                   Members get discounts on every booking
                 </Text>
               </View>
-              <Ionicons name="chevron-forward" size={18} color="#D4A574" />
+              <Ionicons name="chevron-forward" size={18} color="#D6B07A" />
             </Pressable>
           </Animated.View>
         )}
@@ -361,7 +361,7 @@ export default function ConfirmBookingScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(600).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         <Button

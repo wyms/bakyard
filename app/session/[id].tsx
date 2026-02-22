@@ -81,7 +81,7 @@ export default function SessionHubScreen() {
   // Loading state
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <ScrollView
           className="flex-1"
           contentContainerClassName="px-5 py-6"
@@ -110,7 +110,7 @@ export default function SessionHubScreen() {
   // Error state
   if (isError || !session) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
           <Text className="text-lg font-semibold text-charcoal mt-4 mb-2">
@@ -144,7 +144,7 @@ export default function SessionHubScreen() {
   const isPaid = currentUserBooking?.status === 'confirmed';
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerClassName="pb-28"
@@ -153,7 +153,7 @@ export default function SessionHubScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor="#1A5E63"
+            tintColor="#3F6F6A"
           />
         }
       >
@@ -215,10 +215,10 @@ export default function SessionHubScreen() {
         {/* Chat preview button */}
         <Pressable
           onPress={() => setChatOpen(true)}
-          className="mx-5 mb-4 flex-row items-center justify-between bg-white rounded-2xl px-4 py-3.5 border border-[#E8E5E0]"
+          className="mx-5 mb-4 flex-row items-center justify-between bg-surface rounded-2xl px-4 py-3.5 border border-stroke"
         >
           <View className="flex-row items-center">
-            <Ionicons name="chatbubbles-outline" size={20} color="#1A5E63" />
+            <Ionicons name="chatbubbles-outline" size={20} color="#3F6F6A" />
             <Text className="text-sm font-semibold text-charcoal ml-2">
               Session Chat
             </Text>
@@ -229,7 +229,7 @@ export default function SessionHubScreen() {
 
       {/* Bottom action bar */}
       <View
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 pt-3 pb-2"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 pt-3 pb-2"
         style={{ paddingBottom: 12 }}
       >
         <View className="flex-row items-center justify-between gap-3">
@@ -250,7 +250,7 @@ export default function SessionHubScreen() {
                 <Ionicons
                   name={isPaid ? 'checkmark-circle' : 'card-outline'}
                   size={18}
-                  color={isPaid ? '#4CAF50' : '#FFFFFF'}
+                  color={isPaid ? '#3F6F6A' : '#FFFFFF'}
                 />
               }
             />
@@ -262,7 +262,7 @@ export default function SessionHubScreen() {
               variant="outline"
               size="md"
               icon={
-                <Ionicons name="time-outline" size={18} color="#D4A574" />
+                <Ionicons name="time-outline" size={18} color="#D6B07A" />
               }
             />
           </View>
@@ -297,7 +297,7 @@ function CourtRow({ name, timeLabel, status, spotsRemaining }: CourtRowProps) {
   const badgeLabel = isOpen ? 'Open' : status === 'full' ? 'Full' : '';
 
   return (
-    <View className="flex-row items-center justify-between bg-white rounded-2xl px-4 py-3.5 mb-2.5 border border-[#E8E5E0]">
+    <View className="flex-row items-center justify-between bg-surface rounded-2xl px-4 py-3.5 mb-2.5 border border-stroke">
       <View className="flex-1 mr-3">
         <Text className="text-base font-semibold text-charcoal">{name}</Text>
         <Text className="text-sm text-charcoal/50 mt-0.5">{timeLabel}</Text>

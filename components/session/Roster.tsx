@@ -32,28 +32,28 @@ function getPaymentLabel(
 ): { label: string; color: string } {
   switch (status) {
     case 'confirmed':
-      return { label: 'Paid', color: '#4CAF50' };
+      return { label: 'Paid', color: '#3F6F6A' };
     case 'reserved':
-      return { label: 'Pending', color: '#FF9800' };
+      return { label: 'Pending', color: '#D6B07A' };
     case 'cancelled':
       return { label: 'Cancelled', color: '#9E9E9E' };
     case 'no_show':
       return { label: 'No Show', color: '#FF6B6B' };
     default:
-      return { label: 'Pending', color: '#FF9800' };
+      return { label: 'Pending', color: '#D6B07A' };
   }
 }
 
 function getBorderColor(status: Booking['status']): string {
   switch (status) {
     case 'confirmed':
-      return '#1A5E63'; // Teal for confirmed
+      return '#3F6F6A'; // Teal for confirmed
     case 'reserved':
       return '#FF6B6B'; // Coral for pending
     case 'cancelled':
       return '#9E9E9E';
     default:
-      return '#E8E5E0';
+      return 'rgba(17,24,39,0.08)';
   }
 }
 

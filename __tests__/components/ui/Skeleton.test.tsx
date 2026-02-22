@@ -65,10 +65,10 @@ describe('Skeleton', () => {
 
   // --- Background color ---
 
-  it('uses #E0E0E0 as the background color', () => {
+  it('uses rgba(17,24,39,0.08) as the background color', () => {
     const { toJSON } = render(<Skeleton width={100} height={20} />);
     const json = JSON.stringify(toJSON());
-    expect(json).toContain('#E0E0E0');
+    expect(json).toContain('rgba(17,24,39,0.08)');
   });
 
   // --- className prop ---

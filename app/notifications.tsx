@@ -20,10 +20,10 @@ const NOTIFICATION_ICONS: Record<
   NotificationType,
   { name: keyof typeof Ionicons.glyphMap; color: string }
 > = {
-  booking_confirm: { name: 'checkmark-circle', color: '#4CAF50' },
-  payment_reminder: { name: 'card', color: '#FF9800' },
-  session_update: { name: 'calendar', color: '#1A5E63' },
-  membership: { name: 'star', color: '#D4A574' },
+  booking_confirm: { name: 'checkmark-circle', color: '#3F6F6A' },
+  payment_reminder: { name: 'card', color: '#D6B07A' },
+  session_update: { name: 'calendar', color: '#3F6F6A' },
+  membership: { name: 'star', color: '#D6B07A' },
   promo: { name: 'megaphone', color: '#FF6B6B' },
 };
 
@@ -111,7 +111,7 @@ export default function NotificationsScreen() {
           <Card
             className={[
               'flex-row items-start gap-3',
-              !item.is_read && 'border-l-4 border-l-[#1A5E63]',
+              !item.is_read && 'border-l-4 border-l-primary',
             ]
               .filter(Boolean)
               .join(' ')}
@@ -142,7 +142,7 @@ export default function NotificationsScreen() {
                   {item.title}
                 </Text>
                 {!item.is_read && (
-                  <View className="w-2.5 h-2.5 rounded-full bg-[#1A5E63] mt-1.5" />
+                  <View className="w-2.5 h-2.5 rounded-full bg-primary mt-1.5" />
                 )}
               </View>
               <Text
@@ -165,8 +165,8 @@ export default function NotificationsScreen() {
 
     return (
       <View className="flex-1 items-center justify-center pt-24 px-8">
-        <View className="w-16 h-16 rounded-full bg-[#1A5E63]/10 items-center justify-center mb-4">
-          <Ionicons name="notifications-off-outline" size={28} color="#1A5E63" />
+        <View className="w-16 h-16 rounded-full bg-primary/10 items-center justify-center mb-4">
+          <Ionicons name="notifications-off-outline" size={28} color="#3F6F6A" />
         </View>
         <Text className="text-lg font-semibold text-charcoal text-center">
           No notifications yet
@@ -203,7 +203,7 @@ export default function NotificationsScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor="#1A5E63"
+            tintColor="#3F6F6A"
           />
         }
       />

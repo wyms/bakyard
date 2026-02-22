@@ -12,24 +12,24 @@ interface BadgeProps {
 
 const variantClasses: Record<BadgeVariant, { container: string; text: string }> = {
   default: {
-    container: 'bg-[#D4A574]/20',
-    text: 'text-[#D4A574]',
+    container: 'bg-accent/20',
+    text: 'text-accent',
   },
   success: {
-    container: 'bg-[#4CAF50]/20',
-    text: 'text-[#4CAF50]',
+    container: 'bg-primary/20',
+    text: 'text-primary',
   },
   warning: {
-    container: 'bg-[#FF9800]/20',
-    text: 'text-[#FF9800]',
+    container: 'bg-accent/20',
+    text: 'text-accent',
   },
   info: {
-    container: 'bg-[#1A5E63]/20',
-    text: 'text-[#1A5E63]',
+    container: 'bg-primary/20',
+    text: 'text-primary',
   },
   accent: {
-    container: 'bg-[#FF6B6B]/20',
-    text: 'text-[#FF6B6B]',
+    container: 'bg-error/20',
+    text: 'text-error',
   },
 };
 

@@ -12,6 +12,9 @@ web-build/
 .env
 *.local
 
+# Firebase
+.firebase/
+
 # Supabase CLI local state
 supabase/.temp/
 

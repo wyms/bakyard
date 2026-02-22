@@ -11,10 +11,10 @@ export default function BenefitsList({ benefits }: BenefitsListProps) {
     <View className="gap-2.5">
       {benefits.map((benefit, index) => (
         <View key={index} className="flex-row items-start gap-2.5">
-          <View className="w-5 h-5 rounded-full bg-[#4CAF50]/15 items-center justify-center mt-0.5">
-            <Ionicons name="checkmark" size={12} color="#4CAF50" />
+          <View className="w-5 h-5 rounded-full bg-primary/15 items-center justify-center mt-0.5">
+            <Ionicons name="checkmark" size={12} color="#3F6F6A" />
           </View>
-          <Text className="flex-1 text-sm text-charcoal/80 leading-5">
+          <Text className="flex-1 text-sm text-text/80 leading-5">
             {benefit}
           </Text>
         </View>

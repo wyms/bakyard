@@ -24,10 +24,10 @@ function getWeatherIcon(condition: string): WeatherIconName {
 
 function getWeatherColor(condition: string): string {
   const lower = condition.toLowerCase();
-  if (lower.includes('clear') || lower.includes('sunny')) return '#FF9800';
+  if (lower.includes('clear') || lower.includes('sunny')) return '#D6B07A';
   if (lower.includes('rain') || lower.includes('storm')) return '#5C6BC0';
   if (lower.includes('cloud')) return '#78909C';
-  return '#FF9800';
+  return '#D6B07A';
 }
 
 export default function WeatherBadge({ weatherSnapshot }: WeatherBadgeProps) {
@@ -61,7 +61,7 @@ export default function WeatherBadge({ weatherSnapshot }: WeatherBadgeProps) {
   const description = parts.join(', ');
 
   return (
-    <View className="flex-row items-center bg-white rounded-full px-3.5 py-2 border border-[#E8E5E0]">
+    <View className="flex-row items-center bg-surface rounded-full px-3.5 py-2 border border-stroke">
       <Ionicons name={iconName} size={18} color={iconColor} />
       {displayTemp ? (
         <Text className="text-sm font-semibold text-charcoal ml-1.5">

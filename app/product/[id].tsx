@@ -123,7 +123,7 @@ export default function ProductDetailScreen() {
   // Loading state
   if (productLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <ScrollView className="flex-1">
           <Skeleton width="100%" height={250} borderRadius={0} />
           <View className="px-5 pt-4">
@@ -140,13 +140,13 @@ export default function ProductDetailScreen() {
   // Error state
   if (productError || !product) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
-          <Text className="text-lg font-semibold text-[#2D2D2D] mt-4 text-center">
+          <Text className="text-lg font-semibold text-text mt-4 text-center">
             Could not load product
           </Text>
-          <Text className="text-sm text-[#2D2D2D]/50 mt-2 text-center">
+          <Text className="text-sm text-text/50 mt-2 text-center">
             {productError?.message ?? 'Product not found'}
           </Text>
           <Button
@@ -164,7 +164,7 @@ export default function ProductDetailScreen() {
   const imageUri = product.image_url || PLACEHOLDER_IMAGE;
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 120 }}
@@ -196,7 +196,7 @@ export default function ProductDetailScreen() {
             {/* Price badge */}
             {priceDisplay && (
               <View className="absolute bottom-4 right-4 bg-white/90 rounded-full px-4 py-2 shadow-sm">
-                <Text className="text-base font-bold text-[#2D2D2D]">
+                <Text className="text-base font-bold text-text">
                   {priceDisplay}
                 </Text>
               </View>
@@ -208,7 +208,7 @@ export default function ProductDetailScreen() {
         <View className="px-5 pt-5">
           {/* Title */}
           <Animated.View entering={FadeInDown.delay(100).duration(350)}>
-            <Text className="text-2xl font-bold text-[#2D2D2D]">
+            <Text className="text-2xl font-bold text-text">
               {product.title}
             </Text>
           </Animated.View>
@@ -220,16 +220,16 @@ export default function ProductDetailScreen() {
           >
             {product.duration_minutes && (
               <View className="flex-row items-center">
-                <Ionicons name="time-outline" size={16} color="#7A7A7A" />
-                <Text className="text-sm text-[#2D2D2D]/60 ml-1">
+                <Ionicons name="time-outline" size={16} color="#6B7280" />
+                <Text className="text-sm text-text/60 ml-1">
                   {product.duration_minutes} min
                 </Text>
               </View>
             )}
             {product.capacity && (
               <View className="flex-row items-center">
-                <Ionicons name="people-outline" size={16} color="#7A7A7A" />
-                <Text className="text-sm text-[#2D2D2D]/60 ml-1">
+                <Ionicons name="people-outline" size={16} color="#6B7280" />
+                <Text className="text-sm text-text/60 ml-1">
                   Up to {product.capacity} players
                 </Text>
               </View>
@@ -239,7 +239,7 @@ export default function ProductDetailScreen() {
           {/* Description */}
           {product.description && (
             <Animated.View entering={FadeInDown.delay(200).duration(350)}>
-              <Text className="text-sm text-[#2D2D2D]/70 mt-4 leading-5">
+              <Text className="text-sm text-text/70 mt-4 leading-5">
                 {product.description}
               </Text>
             </Animated.View>
@@ -254,7 +254,7 @@ export default function ProductDetailScreen() {
               {product.tags.map((tag) => (
                 <View
                   key={tag}
-                  className="bg-[#D4A574]/10 rounded-full px-3 py-1"
+                  className="bg-accent/10 rounded-full px-3 py-1"
                 >
                   <Text className="text-xs text-[#B8874E] font-medium">
                     {tag}
@@ -274,23 +274,23 @@ export default function ProductDetailScreen() {
                     params: { id: product.coach_id! },
                   })
                 }
-                className="mt-5 bg-white rounded-2xl p-4 flex-row items-center border border-[#E8E5E0]"
+                className="mt-5 bg-surface rounded-2xl p-4 flex-row items-center border border-stroke"
                 style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                   opacity: pressed ? 0.85 : 1,
                 })}
               >
-                <View className="w-12 h-12 rounded-full bg-[#1A5E63] items-center justify-center">
+                <View className="w-12 h-12 rounded-full bg-primary items-center justify-center">
                   <Ionicons name="person" size={20} color="#FFFFFF" />
                 </View>
                 <View className="ml-3 flex-1">
-                  <Text className="text-sm font-semibold text-[#2D2D2D]">
+                  <Text className="text-sm font-semibold text-text">
                     View Coach Profile
                   </Text>
-                  <Text className="text-xs text-[#2D2D2D]/50 mt-0.5">
+                  <Text className="text-xs text-text/50 mt-0.5">
                     Tap to see bio, certifications & ratings
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color="#2D2D2D" />
+                <Ionicons name="chevron-forward" size={18} color="#111827" />
               </Pressable>
             </Animated.View>
           )}
@@ -300,7 +300,7 @@ export default function ProductDetailScreen() {
             entering={FadeInDown.delay(350).duration(350)}
             className="mt-6"
           >
-            <Text className="text-lg font-bold text-[#2D2D2D] mb-4">
+            <Text className="text-lg font-bold text-text mb-4">
               Available Sessions
             </Text>
 
@@ -316,9 +316,9 @@ export default function ProductDetailScreen() {
                 onSelect={handleSessionSelect}
               />
             ) : (
-              <View className="bg-white rounded-2xl p-6 items-center border border-[#E8E5E0]">
-                <Ionicons name="calendar-outline" size={32} color="#E8E5E0" />
-                <Text className="text-sm text-[#2D2D2D]/40 mt-2">
+              <View className="bg-surface rounded-2xl p-6 items-center border border-stroke">
+                <Ionicons name="calendar-outline" size={32} color="rgba(17,24,39,0.08)" />
+                <Text className="text-sm text-text/40 mt-2">
                   No upcoming sessions available
                 </Text>
               </View>
@@ -330,7 +330,7 @@ export default function ProductDetailScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(500).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         <Button

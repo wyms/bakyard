@@ -28,7 +28,7 @@ function LineItem({ label, amount, isDiscount, isBold, delay = 0 }: LineItemProp
       <Text
         className={[
           isBold ? 'text-base font-bold' : 'text-sm font-normal',
-          isDiscount ? 'text-[#4CAF50]' : 'text-[#2D2D2D]',
+          isDiscount ? 'text-primary' : 'text-text',
         ].join(' ')}
       >
         {label}
@@ -36,7 +36,7 @@ function LineItem({ label, amount, isDiscount, isBold, delay = 0 }: LineItemProp
       <Text
         className={[
           isBold ? 'text-base font-bold' : 'text-sm font-normal',
-          isDiscount ? 'text-[#4CAF50]' : 'text-[#2D2D2D]',
+          isDiscount ? 'text-primary' : 'text-text',
         ].join(' ')}
       >
         {amount}
@@ -65,12 +65,12 @@ export default function PriceSummary({
   let itemIndex = 0;
 
   return (
-    <View className="bg-white rounded-2xl p-4">
-      <Text className="text-base font-semibold text-[#2D2D2D] mb-2">
+    <View className="bg-surface rounded-2xl p-4">
+      <Text className="text-base font-semibold text-text mb-2">
         Price Summary
       </Text>
 
-      <View className="border-t border-[#E8E5E0] pt-2">
+      <View className="border-t border-stroke pt-2">
         {/* Base price */}
         <LineItem
           label={totalPeople > 1 ? `${totalPeople} x ${formatPrice(priceCents)}` : 'Session'}
@@ -99,7 +99,7 @@ export default function PriceSummary({
         )}
 
         {/* Divider */}
-        <View className="border-t border-[#E8E5E0] mt-2 pt-2">
+        <View className="border-t border-stroke mt-2 pt-2">
           <LineItem
             label="Total"
             amount={formatPrice(finalCents)}

@@ -68,7 +68,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
           params: { id: product.id },
         })
       }
-      className="bg-white rounded-2xl mb-4 shadow-sm shadow-black/10 overflow-hidden"
+      className="bg-surface rounded-2xl mb-4 shadow-sm shadow-black/10 overflow-hidden"
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
         transform: [{ scale: pressed ? 0.98 : 1 }],
         opacity: pressed ? 0.95 : 1,
@@ -115,7 +115,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
         <View className="flex-row items-center mt-2.5 flex-wrap">
           {nextTime && nextTime !== 'past' && (
             <View className="flex-row items-center mr-4">
-              <Ionicons name="time-outline" size={14} color="#7A7A7A" />
+              <Ionicons name="time-outline" size={14} color="#6B7280" />
               <Text className="text-xs text-charcoal/50 ml-1">
                 {nextTime}
               </Text>
@@ -124,7 +124,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
 
           {spotsRemaining != null && spotsTotal != null && (
             <View className="flex-row items-center mr-4">
-              <Ionicons name="people-outline" size={14} color="#7A7A7A" />
+              <Ionicons name="people-outline" size={14} color="#6B7280" />
               <Text
                 className={`text-xs ml-1 ${
                   spotsRemaining <= 2
@@ -141,7 +141,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
 
           {product.duration_minutes && (
             <View className="flex-row items-center">
-              <Ionicons name="hourglass-outline" size={14} color="#7A7A7A" />
+              <Ionicons name="hourglass-outline" size={14} color="#6B7280" />
               <Text className="text-xs text-charcoal/50 ml-1">
                 {product.duration_minutes}min
               </Text>

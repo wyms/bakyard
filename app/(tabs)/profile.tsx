@@ -137,7 +137,7 @@ export default function ProfileScreen() {
               size="lg"
             />
             <Pressable
-              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#1A5E63] items-center justify-center border-2 border-white"
+              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary items-center justify-center border-2 border-white"
               onPress={() => {
                 Alert.alert('Edit Photo', 'Photo upload coming soon.');
               }}
@@ -168,25 +168,25 @@ export default function ProfileScreen() {
         <Card className="mb-4">
           <View className="flex-row">
             <View className="flex-1 items-center py-2">
-              <Text className="text-2xl font-bold text-[#1A5E63]">
+              <Text className="text-2xl font-bold text-primary">
                 {totalSessions}
               </Text>
               <Text className="text-xs text-charcoal/50 mt-0.5">
                 Total Sessions
               </Text>
             </View>
-            <View className="w-px bg-[#E8E5E0]" />
+            <View className="w-px bg-stroke" />
             <View className="flex-1 items-center py-2">
-              <Text className="text-2xl font-bold text-[#1A5E63]">
+              <Text className="text-2xl font-bold text-primary">
                 {bookingCount}
               </Text>
               <Text className="text-xs text-charcoal/50 mt-0.5">
                 This Month
               </Text>
             </View>
-            <View className="w-px bg-[#E8E5E0]" />
+            <View className="w-px bg-stroke" />
             <View className="flex-1 items-center py-2">
-              <Text className="text-2xl font-bold text-[#1A5E63]">
+              <Text className="text-2xl font-bold text-primary">
                 {membership ? `${membership.discount_percent}%` : '--'}
               </Text>
               <Text className="text-xs text-charcoal/50 mt-0.5">
@@ -254,12 +254,12 @@ function SettingsRow({ icon, label, onPress, showBorder = false }: SettingsRowPr
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-row items-center px-4 py-3.5 ${showBorder ? 'border-b border-[#E8E5E0]' : ''}`}
+      className={`flex-row items-center px-4 py-3.5 ${showBorder ? 'border-b border-stroke' : ''}`}
       style={({ pressed }) => ({
-        backgroundColor: pressed ? '#FAFAF8' : 'transparent',
+        backgroundColor: pressed ? '#F6F1EA' : 'transparent',
       })}
     >
-      <Ionicons name={icon} size={20} color="#1A5E63" />
+      <Ionicons name={icon} size={20} color="#3F6F6A" />
       <Text className="flex-1 text-base text-charcoal ml-3">{label}</Text>
       <Ionicons name="chevron-forward" size={18} color="#999" />
     </Pressable>

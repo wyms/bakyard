@@ -2,41 +2,45 @@ import { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Alert,
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from 'react-native';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/lib/hooks/useAuth';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
 
 export default function LoginScreen() {
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSignIn = async () => {
+    setError('');
+
     if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email address.');
+      setError('Please enter your email address.');
       return;
     }
     if (!password) {
-      Alert.alert('Error', 'Please enter your password.');
+      setError('Please enter your password.');
       return;
     }
 
     setIsLoading(true);
     try {
       await signIn(email, password);
+      // useProtectedRoute in _layout.tsx will redirect to (tabs)
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'An unexpected error occurred.';
-      Alert.alert('Sign In Failed', message);
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -54,42 +58,35 @@ export default function LoginScreen() {
         >
           {/* Logo / Title */}
           <View className="items-center mb-12">
-            <Text className="text-5xl font-bold text-sand tracking-tight">
-              Bakyard
-            </Text>
-            <Text className="text-base text-charcoal/60 mt-2">
-              Beach sports, elevated.
-            </Text>
+            <Text className="text-sm font-medium text-muted tracking-widest uppercase">Bakyard</Text>
+            <Text className="text-h1 text-text">Welcome back</Text>
           </View>
+
+          {/* Error message */}
+          {error ? (
+            <View className="bg-coral/10 border border-coral/30 rounded-input px-4 py-3 mb-4">
+              <Text className="text-sm text-coral text-center">{error}</Text>
+            </View>
+          ) : null}
 
           {/* Form */}
           <View className="space-y-4">
-            <View>
-              <Text className="text-sm font-medium text-charcoal mb-1.5">
-                Email
-              </Text>
-              <TextInput
-                className="w-full h-12 px-4 bg-white rounded-xl border border-charcoal/10 text-charcoal text-base"
-                placeholder="you@example.com"
-                placeholderTextColor="#999"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                autoComplete="email"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                editable={!isLoading}
-              />
-            </View>
+            <Input
+              label="Email"
+              placeholder="you@example.com"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              editable={!isLoading}
+            />
 
             <View className="mt-4">
-              <Text className="text-sm font-medium text-charcoal mb-1.5">
-                Password
-              </Text>
-              <TextInput
-                className="w-full h-12 px-4 bg-white rounded-xl border border-charcoal/10 text-charcoal text-base"
+              <Input
+                label="Password"
                 placeholder="Enter your password"
-                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -101,29 +98,39 @@ export default function LoginScreen() {
             </View>
 
             {/* Sign In Button */}
-            <TouchableOpacity
-              className={`w-full h-14 rounded-2xl items-center justify-center mt-6 ${
-                isLoading ? 'bg-sand/70' : 'bg-sand'
-              }`}
+            <Button
+              title="Sign In"
               onPress={handleSignIn}
+              loading={isLoading}
               disabled={isLoading}
-              activeOpacity={0.8}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text className="text-white text-base font-semibold">
-                  Sign In
-                </Text>
-              )}
-            </TouchableOpacity>
+              size="lg"
+              className="w-full mt-6"
+            />
           </View>
+
+          {/* Divider */}
+          <View className="flex-row items-center my-6">
+            <View className="flex-1 h-px bg-muted/30" />
+            <Text className="mx-4 text-sm text-muted">or</Text>
+            <View className="flex-1 h-px bg-muted/30" />
+          </View>
+
+          {/* Google Sign In */}
+          <Button
+            title="Continue with Google"
+            onPress={signInWithGoogle}
+            variant="outline"
+            size="lg"
+            disabled={isLoading}
+            icon={<Ionicons name="logo-google" size={20} color="#FF6B6B" />}
+            className="w-full"
+          />
 
           {/* Links */}
           <View className="items-center mt-8 space-y-3">
             <Link href="/(auth)/forgot-password" asChild>
               <TouchableOpacity>
-                <Text className="text-sm text-charcoal/50">
+                <Text className="text-sm text-muted">
                   Forgot password?
                 </Text>
               </TouchableOpacity>
@@ -131,9 +138,9 @@ export default function LoginScreen() {
 
             <Link href="/(auth)/register" asChild>
               <TouchableOpacity className="mt-3">
-                <Text className="text-sm text-charcoal/70">
+                <Text className="text-sm text-muted">
                   Don't have an account?{' '}
-                  <Text className="text-teal font-semibold">Register</Text>
+                  <Text className="text-primary font-semibold">Register</Text>
                 </Text>
               </TouchableOpacity>
             </Link>

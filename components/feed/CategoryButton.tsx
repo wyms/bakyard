@@ -15,13 +15,13 @@ const CATEGORIES: CategoryConfig[] = [
   {
     label: 'Grab Court',
     icon: 'tennisball-outline',
-    iconColor: '#D4A574',
+    iconColor: '#D6B07A',
     productTypes: ['court_rental'],
   },
   {
     label: 'Jump In',
     icon: 'walk-outline',
-    iconColor: '#1A5E63',
+    iconColor: '#3F6F6A',
     productTypes: ['open_play'],
   },
   {
@@ -33,7 +33,7 @@ const CATEGORIES: CategoryConfig[] = [
   {
     label: 'Open Play',
     icon: 'flame-outline',
-    iconColor: '#FF9800',
+    iconColor: '#D6B07A',
     productTypes: ['open_play'],
   },
 ];
@@ -47,7 +47,7 @@ function CategoryButton({ category, onPress }: CategoryButtonProps) {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center bg-white rounded-2xl px-5 py-4 mb-2.5 shadow-sm shadow-black/8"
+      className="flex-row items-center bg-surface rounded-2xl px-5 py-4 mb-2.5 shadow-sm shadow-black/8"
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
         transform: [{ scale: pressed ? 0.97 : 1 }],
         opacity: pressed ? 0.9 : 1,

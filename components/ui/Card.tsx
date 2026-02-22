@@ -15,8 +15,8 @@ export default function Card({
   shadow = true,
 }: CardProps) {
   const baseClassName = [
-    'bg-white rounded-2xl p-4',
-    shadow && 'shadow-sm shadow-black/10',
+    'bg-surface rounded-[20px] p-4',
+    shadow && 'shadow-card',
     className,
   ]
     .filter(Boolean)

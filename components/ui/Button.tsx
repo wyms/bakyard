@@ -23,34 +23,34 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
 
 const variantClasses: Record<ButtonVariant, { container: string; text: string }> = {
   primary: {
-    container: 'bg-[#D4A574] shadow-sm shadow-[#D4A574]/30',
+    container: 'bg-accent shadow-subtle',
     text: 'text-white',
   },
   secondary: {
-    container: 'bg-[#1A5E63] shadow-sm shadow-[#1A5E63]/30',
+    container: 'bg-primary shadow-subtle',
     text: 'text-white',
   },
   outline: {
-    container: 'bg-transparent border-2 border-[#D4A574]',
-    text: 'text-[#D4A574]',
+    container: 'bg-transparent border-2 border-accent',
+    text: 'text-accent',
   },
   ghost: {
     container: 'bg-transparent',
-    text: 'text-[#1A5E63]',
+    text: 'text-primary',
   },
 };
 
 const sizeClasses: Record<ButtonSize, { container: string; text: string }> = {
   sm: {
-    container: 'px-4 py-2 rounded-lg',
+    container: 'px-4 py-2 rounded-button',
     text: 'text-sm',
   },
   md: {
-    container: 'px-6 py-3 rounded-xl',
+    container: 'px-6 py-3 rounded-button',
     text: 'text-base',
   },
   lg: {
-    container: 'px-8 py-4 rounded-xl',
+    container: 'px-8 py-4 rounded-button',
     text: 'text-lg',
   },
 };
@@ -103,7 +103,7 @@ export default function Button({
   ]
     .join(' ');
 
-  const spinnerColor = variant === 'outline' || variant === 'ghost' ? '#D4A574' : '#FFFFFF';
+  const spinnerColor = variant === 'outline' || variant === 'ghost' ? '#D6B07A' : '#FFFFFF';
 
   return (
     <Pressable

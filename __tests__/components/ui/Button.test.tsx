@@ -160,7 +160,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#D4A574');
+    expect(spinner.props.color).toBe('#D6B07A');
   });
 
   it('uses accent spinner colour for ghost variant', () => {
@@ -169,7 +169,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#D4A574');
+    expect(spinner.props.color).toBe('#D6B07A');
   });
 
   // --- Custom className ---
@@ -190,7 +190,7 @@ describe('Button', () => {
       <Button {...defaultProps} variant="primary" />,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('bg-[#D4A574]');
+    expect(root!.props.className).toContain('bg-accent');
   });
 
   it('applies secondary variant classes to container', () => {
@@ -198,7 +198,7 @@ describe('Button', () => {
       <Button {...defaultProps} variant="secondary" />,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('bg-[#1A5E63]');
+    expect(root!.props.className).toContain('bg-primary');
   });
 
   it('applies outline variant classes to container', () => {
@@ -207,7 +207,7 @@ describe('Button', () => {
     );
     const root = toJSON();
     expect(root!.props.className).toContain('border-2');
-    expect(root!.props.className).toContain('border-[#D4A574]');
+    expect(root!.props.className).toContain('border-accent');
   });
 
   it('applies ghost variant classes to container', () => {
@@ -227,7 +227,7 @@ describe('Button', () => {
     const root = toJSON();
     expect(root!.props.className).toContain('px-4');
     expect(root!.props.className).toContain('py-2');
-    expect(root!.props.className).toContain('rounded-lg');
+    expect(root!.props.className).toContain('rounded-button');
   });
 
   it('applies md size classes to container', () => {
@@ -237,7 +237,7 @@ describe('Button', () => {
     const root = toJSON();
     expect(root!.props.className).toContain('px-6');
     expect(root!.props.className).toContain('py-3');
-    expect(root!.props.className).toContain('rounded-xl');
+    expect(root!.props.className).toContain('rounded-button');
   });
 
   it('applies lg size classes to container', () => {
@@ -247,7 +247,7 @@ describe('Button', () => {
     const root = toJSON();
     expect(root!.props.className).toContain('px-8');
     expect(root!.props.className).toContain('py-4');
-    expect(root!.props.className).toContain('rounded-xl');
+    expect(root!.props.className).toContain('rounded-button');
   });
 
   // --- Text variant classes ---
@@ -261,13 +261,13 @@ describe('Button', () => {
   it('applies outline text classes', () => {
     render(<Button {...defaultProps} variant="outline" />);
     const text = screen.getByText('Press Me');
-    expect(text.props.className).toContain('text-[#D4A574]');
+    expect(text.props.className).toContain('text-accent');
   });
 
   it('applies ghost text classes', () => {
     render(<Button {...defaultProps} variant="ghost" />);
     const text = screen.getByText('Press Me');
-    expect(text.props.className).toContain('text-[#1A5E63]');
+    expect(text.props.className).toContain('text-primary');
   });
 
   // --- Icon spacing ---

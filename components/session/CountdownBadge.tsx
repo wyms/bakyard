@@ -45,7 +45,7 @@ function getCountdownState(
   if (status === 'in_progress' || (now >= start && now <= end)) {
     return {
       label: 'In Progress',
-      bgColor: '#1A5E63',
+      bgColor: '#3F6F6A',
       textColor: '#FFFFFF',
       iconName: 'play-circle',
     };
@@ -70,7 +70,7 @@ function getCountdownState(
 
   return {
     label,
-    bgColor: '#4CAF50',
+    bgColor: '#3F6F6A',
     textColor: '#FFFFFF',
     iconName: 'time-outline',
   };

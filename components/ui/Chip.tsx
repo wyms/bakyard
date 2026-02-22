@@ -16,12 +16,12 @@ export default function Chip({
 }: ChipProps) {
   const containerClassName = [
     'flex-row items-center rounded-full px-4 py-2',
-    selected ? 'bg-[#1A5E63]' : 'bg-gray-100',
+    selected ? 'bg-primary' : 'bg-surface',
   ].join(' ');
 
   const textClassName = [
     'text-sm font-medium',
-    selected ? 'text-white' : 'text-[#2D2D2D]',
+    selected ? 'text-white' : 'text-text',
   ].join(' ');
 
   return (

@@ -31,11 +31,11 @@ const Input = forwardRef<TextInput, InputProps>(function Input(
   const borderClassName = error
     ? 'border-red-500'
     : isFocused
-      ? 'border-[#1A5E63]'
-      : 'border-gray-200';
+      ? 'border-primary'
+      : 'border-stroke';
 
   const containerClassName = [
-    'flex-row items-center rounded-xl border px-4 py-3 bg-white',
+    'flex-row items-center rounded-input border px-4 py-3 bg-surface',
     borderClassName,
     className,
   ]
@@ -45,15 +45,15 @@ const Input = forwardRef<TextInput, InputProps>(function Input(
   return (
     <View className="w-full">
       {label && (
-        <Text className="text-sm font-medium text-[#2D2D2D] mb-1.5">{label}</Text>
+        <Text className="text-sm font-medium text-text mb-1.5">{label}</Text>
       )}
       <View className={containerClassName}>
         {icon && <View className="mr-2">{icon}</View>}
         <TextInput
           ref={ref}
-          className="flex-1 text-base text-[#2D2D2D]"
+          className="flex-1 text-base text-text"
           placeholder={placeholder}
-          placeholderTextColor="#9CA3AF"
+          placeholderTextColor="#6B7280"
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}

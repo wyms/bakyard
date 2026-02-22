@@ -110,7 +110,7 @@ export default function SelectTimeScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <ScrollView className="flex-1 px-5 pt-4">
           <Skeleton width="60%" height={28} className="mb-2" />
           <Skeleton width="40%" height={20} className="mb-6" />
@@ -124,7 +124,7 @@ export default function SelectTimeScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 120 }}
@@ -136,11 +136,11 @@ export default function SelectTimeScreen() {
             entering={FadeInDown.delay(50).duration(300)}
             className="px-5 pt-4 pb-2"
           >
-            <Text className="text-xl font-bold text-[#2D2D2D]">
+            <Text className="text-xl font-bold text-text">
               Book {product.title}
             </Text>
             {product.base_price_cents != null && (
-              <Text className="text-sm text-[#2D2D2D]/60 mt-1">
+              <Text className="text-sm text-text/60 mt-1">
                 Starting at {formatPrice(product.base_price_cents)}
               </Text>
             )}
@@ -180,13 +180,13 @@ export default function SelectTimeScreen() {
             entering={FadeInDown.delay(100).duration(300)}
             className="px-5 mt-6"
           >
-            <View className="bg-white rounded-2xl p-4 border border-[#E8E5E0]">
-              <Text className="text-sm font-semibold text-[#2D2D2D] mb-2">
+            <View className="bg-surface rounded-2xl p-4 border border-stroke">
+              <Text className="text-sm font-semibold text-text mb-2">
                 Your Selection
               </Text>
               <View className="flex-row items-center">
-                <Ionicons name="time-outline" size={16} color="#1A5E63" />
-                <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                <Ionicons name="time-outline" size={16} color="#3F6F6A" />
+                <Text className="text-sm text-text/80 ml-2">
                   {new Date(selectedSession.starts_at).toLocaleDateString(
                     'en-US',
                     { weekday: 'short', month: 'short', day: 'numeric' }
@@ -194,22 +194,22 @@ export default function SelectTimeScreen() {
                 </Text>
               </View>
               <View className="flex-row items-center mt-1.5">
-                <Ionicons name="cash-outline" size={16} color="#1A5E63" />
-                <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                <Ionicons name="cash-outline" size={16} color="#3F6F6A" />
+                <Text className="text-sm text-text/80 ml-2">
                   {formatPrice(selectedSession.price_cents)} per person
                 </Text>
               </View>
               {selectedSession.court && (
                 <View className="flex-row items-center mt-1.5">
-                  <Ionicons name="location-outline" size={16} color="#1A5E63" />
-                  <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                  <Ionicons name="location-outline" size={16} color="#3F6F6A" />
+                  <Text className="text-sm text-text/80 ml-2">
                     {selectedSession.court.name}
                   </Text>
                 </View>
               )}
               <View className="flex-row items-center mt-1.5">
-                <Ionicons name="people-outline" size={16} color="#1A5E63" />
-                <Text className="text-sm text-[#2D2D2D]/80 ml-2">
+                <Ionicons name="people-outline" size={16} color="#3F6F6A" />
+                <Text className="text-sm text-text/80 ml-2">
                   {selectedSession.spots_remaining} of{' '}
                   {selectedSession.spots_total} spots remaining
                 </Text>
@@ -230,7 +230,7 @@ export default function SelectTimeScreen() {
                 variant="outline"
                 size="sm"
                 onPress={() => {}}
-                icon={<Ionicons name="person-add-outline" size={16} color="#D4A574" />}
+                icon={<Ionicons name="person-add-outline" size={16} color="#D6B07A" />}
                 className="flex-1"
               />
               <Button
@@ -238,7 +238,7 @@ export default function SelectTimeScreen() {
                 variant="outline"
                 size="sm"
                 onPress={handleContinue}
-                icon={<Ionicons name="card-outline" size={16} color="#D4A574" />}
+                icon={<Ionicons name="card-outline" size={16} color="#D6B07A" />}
                 className="flex-1"
               />
               <Button
@@ -246,7 +246,7 @@ export default function SelectTimeScreen() {
                 variant="outline"
                 size="sm"
                 onPress={() => {}}
-                icon={<Ionicons name="add-circle-outline" size={16} color="#D4A574" />}
+                icon={<Ionicons name="add-circle-outline" size={16} color="#D6B07A" />}
                 className="flex-1"
               />
             </View>
@@ -257,7 +257,7 @@ export default function SelectTimeScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(400).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         <Button
@@ -269,7 +269,7 @@ export default function SelectTimeScreen() {
           className="w-full"
         />
         {selectedSession && (
-          <Text className="text-center text-xs text-[#2D2D2D]/40 mt-2">
+          <Text className="text-center text-xs text-text/40 mt-2">
             Keep going
           </Text>
         )}

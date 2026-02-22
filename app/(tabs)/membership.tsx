@@ -76,7 +76,7 @@ export default function MembershipScreen() {
     return (
       <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-charcoal">Membership</Text>
+          <Text className="text-3xl font-bold text-text">Memberships</Text>
         </View>
         <View className="px-6 pt-4 gap-4">
           <Skeleton width="100%" height={200} borderRadius={16} />
@@ -90,7 +90,7 @@ export default function MembershipScreen() {
   return (
     <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
       <View className="px-6 pt-4 pb-2">
-        <Text className="text-3xl font-bold text-charcoal">Membership</Text>
+        <Text className="text-3xl font-bold text-text">Memberships</Text>
       </View>
 
       <ScrollView
@@ -101,7 +101,7 @@ export default function MembershipScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor="#1A5E63"
+            tintColor="#3F6F6A"
           />
         }
       >
@@ -118,10 +118,10 @@ export default function MembershipScreen() {
 
         {/* Section Header */}
         <View className="mt-4 mb-3">
-          <Text className="text-xl font-bold text-charcoal">
+          <Text className="text-xl font-bold text-text">
             {membership ? 'Upgrade Your Plan' : 'Choose Your Plan'}
           </Text>
-          <Text className="text-sm text-charcoal/50 mt-1">
+          <Text className="text-sm text-muted mt-1">
             {membership
               ? 'Unlock more benefits with a higher tier'
               : 'Join the Bakyard community and save on every booking'}

@@ -154,7 +154,7 @@ export default function ChatThread({
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center py-8">
-        <ActivityIndicator size="small" color="#1A5E63" />
+        <ActivityIndicator size="small" color="#3F6F6A" />
         <Text className="text-xs text-charcoal/40 mt-2">Loading chat...</Text>
       </View>
     );
@@ -198,7 +198,7 @@ export default function ChatThread({
                 <View
                   className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 ${
                     isOwn
-                      ? 'bg-[#1A5E63] rounded-br-sm'
+                      ? 'bg-primary rounded-br-sm'
                       : 'bg-gray-100 rounded-bl-sm'
                   }`}
                 >
@@ -229,7 +229,7 @@ export default function ChatThread({
       </ScrollView>
 
       {/* Input area */}
-      <View className="flex-row items-end px-2 py-2 border-t border-[#E8E5E0] bg-white">
+      <View className="flex-row items-end px-2 py-2 border-t border-stroke bg-surface">
         <TextInput
           className="flex-1 bg-gray-50 rounded-2xl px-4 py-2.5 text-sm text-charcoal mr-2 max-h-24"
           placeholder="Type a message..."
@@ -244,7 +244,7 @@ export default function ChatThread({
         <Pressable
           onPress={handleSend}
           disabled={!input.trim() || sending}
-          className="w-10 h-10 rounded-full bg-[#1A5E63] items-center justify-center"
+          className="w-10 h-10 rounded-full bg-primary items-center justify-center"
           style={{ opacity: !input.trim() || sending ? 0.5 : 1 }}
         >
           {sending ? (

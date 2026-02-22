@@ -69,12 +69,12 @@ export default function SplitPaymentSheet({
     >
       <View className="flex-1">
         {/* Split / Solo Toggle */}
-        <View className="flex-row bg-[#E8E5E0]/50 rounded-full p-1 mb-5">
+        <View className="flex-row bg-stroke/50 rounded-full p-1 mb-5">
           <Pressable
             onPress={() => setMode('split')}
             className={[
               'flex-1 py-2.5 rounded-full items-center',
-              mode === 'split' ? 'bg-[#1A5E63]' : 'bg-transparent',
+              mode === 'split' ? 'bg-primary' : 'bg-transparent',
             ].join(' ')}
           >
             <Text
@@ -117,14 +117,14 @@ export default function SplitPaymentSheet({
           )}
 
           {discountCents > 0 && (
-            <Text className="text-sm text-[#1A5E63] mt-1">
+            <Text className="text-sm text-primary mt-1">
               Member hookup: -{formatPrice(perPersonDiscount)}
             </Text>
           )}
         </View>
 
         {/* Total Highlight Box */}
-        <View className="bg-[#FAFAF8] rounded-xl px-4 py-3 mb-5 border border-[#E8E5E0]">
+        <View className="bg-bg rounded-xl px-4 py-3 mb-5 border border-stroke">
           <Text className="text-sm text-charcoal/60">
             {mode === 'split' ? "You're in for:" : 'Total:'}
           </Text>
@@ -145,7 +145,7 @@ export default function SplitPaymentSheet({
                     size="md"
                   />
                   {participant.paid && (
-                    <View className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#4CAF50] items-center justify-center border-2 border-white">
+                    <View className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-primary items-center justify-center border-2 border-white">
                       <Ionicons name="checkmark" size={10} color="#FFFFFF" />
                     </View>
                   )}
@@ -179,7 +179,7 @@ export default function SplitPaymentSheet({
                 onPress={() => handlePay('card')}
                 variant="outline"
                 icon={
-                  <Ionicons name="card-outline" size={18} color="#D4A574" />
+                  <Ionicons name="card-outline" size={18} color="#D6B07A" />
                 }
               />
             </View>
@@ -189,7 +189,7 @@ export default function SplitPaymentSheet({
                 onPress={() => handlePay('venmo')}
                 variant="outline"
                 icon={
-                  <Ionicons name="logo-venmo" size={18} color="#D4A574" />
+                  <Ionicons name="logo-venmo" size={18} color="#D6B07A" />
                 }
               />
             </View>

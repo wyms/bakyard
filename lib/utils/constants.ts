@@ -3,15 +3,18 @@ import type { MembershipTier } from '@/lib/types/database';
 // ----- Color Palette -----
 
 export const COLORS = {
-  PRIMARY: '#D4A574',
-  SECONDARY: '#1A5E63',
-  BACKGROUND: '#FAFAF8',
-  TEXT: '#2D2D2D',
-  SUCCESS: '#4CAF50',
-  ACCENT: '#FF6B6B',
+  PRIMARY: '#3F6F6A',
+  SECONDARY: '#D6B07A',
+  BACKGROUND: '#F6F1EA',
+  SURFACE: '#FBF7F2',
+  TEXT: '#111827',
+  SUCCESS: '#3F6F6A',
+  ACCENT: '#D6B07A',
+  ERROR: '#FF6B6B',
   WHITE: '#FFFFFF',
-  BORDER: '#E8E5E0',
-  TEXT_SECONDARY: '#7A7A7A',
+  BORDER: 'rgba(17,24,39,0.08)',
+  TEXT_SECONDARY: '#6B7280',
+  MUTED: '#6B7280',
 } as const;
 
 // ----- Membership Tiers -----

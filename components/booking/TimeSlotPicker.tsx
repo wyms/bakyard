@@ -95,7 +95,7 @@ export default function TimeSlotPicker({
   return (
     <View>
       {/* Section: Pick a day */}
-      <Text className="text-base font-semibold text-[#2D2D2D] mb-3">
+      <Text className="text-base font-semibold text-text mb-3">
         Pick a day
       </Text>
       <ScrollView
@@ -114,7 +114,7 @@ export default function TimeSlotPicker({
               onPress={() => handleDayPress(index)}
               className={[
                 'items-center justify-center rounded-2xl px-4 py-2.5 mr-2',
-                isActive ? 'bg-[#1A5E63]' : 'bg-white',
+                isActive ? 'bg-primary' : 'bg-surface',
                 !hasSessions && !isActive ? 'opacity-40' : '',
               ]
                 .filter(Boolean)
@@ -126,7 +126,7 @@ export default function TimeSlotPicker({
               <Text
                 className={[
                   'text-xs font-medium',
-                  isActive ? 'text-white' : 'text-[#2D2D2D]',
+                  isActive ? 'text-white' : 'text-text',
                 ].join(' ')}
               >
                 {group.label}
@@ -134,7 +134,7 @@ export default function TimeSlotPicker({
               <Text
                 className={[
                   'text-xs mt-0.5',
-                  isActive ? 'text-white/80' : 'text-[#2D2D2D]/50',
+                  isActive ? 'text-white/80' : 'text-text/50',
                 ].join(' ')}
               >
                 {group.sublabel}
@@ -145,13 +145,13 @@ export default function TimeSlotPicker({
       </ScrollView>
 
       {/* Section: Pick a time */}
-      <Text className="text-base font-semibold text-[#2D2D2D] mb-3">
+      <Text className="text-base font-semibold text-text mb-3">
         Pick a time
       </Text>
 
       {activeSessions.length === 0 ? (
-        <View className="bg-white rounded-2xl p-6 items-center">
-          <Text className="text-sm text-[#2D2D2D]/40">
+        <View className="bg-surface rounded-2xl p-6 items-center">
+          <Text className="text-sm text-text/40">
             No sessions available this day
           </Text>
         </View>
@@ -174,13 +174,13 @@ export default function TimeSlotPicker({
                   className={[
                     'rounded-2xl px-4 py-3 min-w-[140px]',
                     isSelected
-                      ? 'bg-[#1A5E63]'
+                      ? 'bg-primary'
                       : isFull
                         ? 'bg-gray-100'
-                        : 'bg-white',
+                        : 'bg-surface',
                     isSelected
                       ? ''
-                      : 'border border-[#E8E5E0]',
+                      : 'border border-stroke',
                   ]
                     .filter(Boolean)
                     .join(' ')}
@@ -191,7 +191,7 @@ export default function TimeSlotPicker({
                   <Text
                     className={[
                       'text-sm font-semibold',
-                      isSelected ? 'text-white' : isFull ? 'text-gray-400' : 'text-[#2D2D2D]',
+                      isSelected ? 'text-white' : isFull ? 'text-gray-400' : 'text-text',
                     ].join(' ')}
                   >
                     {timeRange}
@@ -199,7 +199,7 @@ export default function TimeSlotPicker({
                   <Text
                     className={[
                       'text-xs mt-1',
-                      isSelected ? 'text-white/80' : isFull ? 'text-gray-300' : 'text-[#2D2D2D]/60',
+                      isSelected ? 'text-white/80' : isFull ? 'text-gray-300' : 'text-text/60',
                     ].join(' ')}
                   >
                     {isFull ? 'Full' : `${price} Each`}
@@ -208,7 +208,7 @@ export default function TimeSlotPicker({
                     <Text
                       className={[
                         'text-[10px] mt-1 font-medium',
-                        isSelected ? 'text-[#4CAF50]' : 'text-[#4CAF50]',
+                        isSelected ? 'text-primary' : 'text-primary',
                       ].join(' ')}
                     >
                       Members save {memberDiscountPercent}%

@@ -122,8 +122,7 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('shadow-sm');
-    expect(root!.props.className).toContain('shadow-black/10');
+    expect(root!.props.className).toContain('shadow-card');
   });
 
   it('excludes shadow classes when shadow=false', () => {
@@ -133,8 +132,7 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).not.toContain('shadow-sm');
-    expect(root!.props.className).not.toContain('shadow-black/10');
+    expect(root!.props.className).not.toContain('shadow-card');
   });
 
   it('includes shadow classes on pressable card by default', () => {
@@ -145,7 +143,7 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('shadow-sm');
+    expect(root!.props.className).toContain('shadow-card');
   });
 
   it('excludes shadow classes on pressable card when shadow=false', () => {
@@ -156,7 +154,7 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).not.toContain('shadow-sm');
+    expect(root!.props.className).not.toContain('shadow-card');
   });
 
   // --- Base classes ---
@@ -168,8 +166,8 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('bg-white');
-    expect(root!.props.className).toContain('rounded-2xl');
+    expect(root!.props.className).toContain('bg-surface');
+    expect(root!.props.className).toContain('rounded-[20px]');
     expect(root!.props.className).toContain('p-4');
   });
 
@@ -181,8 +179,8 @@ describe('Card', () => {
       </Card>,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('bg-white');
-    expect(root!.props.className).toContain('rounded-2xl');
+    expect(root!.props.className).toContain('bg-surface');
+    expect(root!.props.className).toContain('rounded-[20px]');
     expect(root!.props.className).toContain('p-4');
   });
 });

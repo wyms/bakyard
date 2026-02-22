@@ -2,17 +2,18 @@ import { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Alert,
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/lib/hooks/useAuth';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import Chip from '@/components/ui/Chip';
 
 const SKILL_LEVELS = [
   { key: 'beginner', label: 'Beginner' },
@@ -22,25 +23,27 @@ const SKILL_LEVELS = [
 ] as const;
 
 export default function RegisterScreen() {
-  const { signUp } = useAuth();
-  const router = useRouter();
+  const { signUp, signInWithGoogle } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [skillLevel, setSkillLevel] = useState('beginner');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSignUp = async () => {
+    setError('');
+
     if (!fullName.trim()) {
-      Alert.alert('Error', 'Please enter your full name.');
+      setError('Please enter your full name.');
       return;
     }
     if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email address.');
+      setError('Please enter your email address.');
       return;
     }
     if (password.length < 8) {
-      Alert.alert('Error', 'Password must be at least 8 characters long.');
+      setError('Password must be at least 8 characters.');
       return;
     }
 
@@ -49,15 +52,12 @@ export default function RegisterScreen() {
       await signUp(email, password, fullName.trim(), {
         skill_level: skillLevel,
       });
-      Alert.alert(
-        'Account Created',
-        'Please check your email to verify your account, then sign in.',
-        [{ text: 'OK', onPress: () => router.replace('/(auth)/login') }]
-      );
+      // With email confirmation disabled, signUp auto-signs in.
+      // useProtectedRoute in _layout.tsx will redirect to (tabs).
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'An unexpected error occurred.';
-      Alert.alert('Registration Failed', message);
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -75,41 +75,34 @@ export default function RegisterScreen() {
         >
           {/* Header */}
           <View className="items-center mb-10">
-            <Text className="text-4xl font-bold text-sand tracking-tight">
-              Join Bakyard
-            </Text>
-            <Text className="text-base text-charcoal/60 mt-2">
-              Create your account to get started.
-            </Text>
+            <Text className="text-sm font-medium text-muted tracking-widest uppercase">Bakyard</Text>
+            <Text className="text-h1 text-text">Create your account</Text>
           </View>
+
+          {/* Error message */}
+          {error ? (
+            <View className="bg-coral/10 border border-coral/30 rounded-input px-4 py-3 mb-4">
+              <Text className="text-sm text-coral text-center">{error}</Text>
+            </View>
+          ) : null}
 
           {/* Form */}
           <View className="space-y-4">
-            <View>
-              <Text className="text-sm font-medium text-charcoal mb-1.5">
-                Full Name
-              </Text>
-              <TextInput
-                className="w-full h-12 px-4 bg-white rounded-xl border border-charcoal/10 text-charcoal text-base"
-                placeholder="Your full name"
-                placeholderTextColor="#999"
-                value={fullName}
-                onChangeText={setFullName}
-                autoCapitalize="words"
-                autoComplete="name"
-                textContentType="name"
-                editable={!isLoading}
-              />
-            </View>
+            <Input
+              label="Full Name"
+              placeholder="Your full name"
+              value={fullName}
+              onChangeText={setFullName}
+              autoCapitalize="words"
+              autoComplete="name"
+              textContentType="name"
+              editable={!isLoading}
+            />
 
             <View className="mt-4">
-              <Text className="text-sm font-medium text-charcoal mb-1.5">
-                Email
-              </Text>
-              <TextInput
-                className="w-full h-12 px-4 bg-white rounded-xl border border-charcoal/10 text-charcoal text-base"
+              <Input
+                label="Email"
                 placeholder="you@example.com"
-                placeholderTextColor="#999"
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
@@ -121,13 +114,9 @@ export default function RegisterScreen() {
             </View>
 
             <View className="mt-4">
-              <Text className="text-sm font-medium text-charcoal mb-1.5">
-                Password
-              </Text>
-              <TextInput
-                className="w-full h-12 px-4 bg-white rounded-xl border border-charcoal/10 text-charcoal text-base"
+              <Input
+                label="Password"
                 placeholder="Minimum 8 characters"
-                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -140,60 +129,57 @@ export default function RegisterScreen() {
 
             {/* Skill Level Picker */}
             <View className="mt-4">
-              <Text className="text-sm font-medium text-charcoal mb-2">
+              <Text className="text-sm font-medium text-text mb-2">
                 Skill Level
               </Text>
               <View className="flex-row flex-wrap gap-2">
                 {SKILL_LEVELS.map(({ key, label }) => (
-                  <TouchableOpacity
+                  <Chip
                     key={key}
+                    label={label}
+                    selected={skillLevel === key}
                     onPress={() => setSkillLevel(key)}
-                    disabled={isLoading}
-                    className={`px-4 py-2.5 rounded-full border ${
-                      skillLevel === key
-                        ? 'bg-teal border-teal'
-                        : 'bg-white border-charcoal/10'
-                    }`}
-                    activeOpacity={0.7}
-                  >
-                    <Text
-                      className={`text-sm font-medium ${
-                        skillLevel === key ? 'text-white' : 'text-charcoal/70'
-                      }`}
-                    >
-                      {label}
-                    </Text>
-                  </TouchableOpacity>
+                  />
                 ))}
               </View>
             </View>
 
             {/* Create Account Button */}
-            <TouchableOpacity
-              className={`w-full h-14 rounded-2xl items-center justify-center mt-6 ${
-                isLoading ? 'bg-sand/70' : 'bg-sand'
-              }`}
+            <Button
+              title="Create Account"
               onPress={handleSignUp}
+              loading={isLoading}
               disabled={isLoading}
-              activeOpacity={0.8}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text className="text-white text-base font-semibold">
-                  Create Account
-                </Text>
-              )}
-            </TouchableOpacity>
+              size="lg"
+              className="w-full mt-6"
+            />
           </View>
+
+          {/* Divider */}
+          <View className="flex-row items-center my-6">
+            <View className="flex-1 h-px bg-muted/30" />
+            <Text className="mx-4 text-sm text-muted">or</Text>
+            <View className="flex-1 h-px bg-muted/30" />
+          </View>
+
+          {/* Google Sign In */}
+          <Button
+            title="Continue with Google"
+            onPress={signInWithGoogle}
+            variant="outline"
+            size="lg"
+            disabled={isLoading}
+            icon={<Ionicons name="logo-google" size={20} color="#FF6B6B" />}
+            className="w-full"
+          />
 
           {/* Link */}
           <View className="items-center mt-8">
             <Link href="/(auth)/login" asChild>
               <TouchableOpacity>
-                <Text className="text-sm text-charcoal/70">
+                <Text className="text-sm text-muted">
                   Already have an account?{' '}
-                  <Text className="text-teal font-semibold">Sign in</Text>
+                  <Text className="text-primary font-semibold">Sign in</Text>
                 </Text>
               </TouchableOpacity>
             </Link>

@@ -10,12 +10,15 @@ describe('constants', () => {
       'PRIMARY',
       'SECONDARY',
       'BACKGROUND',
+      'SURFACE',
       'TEXT',
       'SUCCESS',
       'ACCENT',
+      'ERROR',
       'WHITE',
       'BORDER',
       'TEXT_SECONDARY',
+      'MUTED',
     ];
 
     it('has all expected color keys', () => {
@@ -28,19 +31,19 @@ describe('constants', () => {
       expect(Object.keys(COLORS)).toHaveLength(expectedKeys.length);
     });
 
-    it('has valid hex color strings for every value', () => {
-      const hexColorRegex = /^#[0-9A-Fa-f]{6}$/;
+    it('has valid color strings for every value', () => {
+      const colorRegex = /^(#[0-9A-Fa-f]{6}|rgba?\(.+\))$/;
       for (const key of Object.keys(COLORS)) {
-        expect(COLORS[key as keyof typeof COLORS]).toMatch(hexColorRegex);
+        expect(COLORS[key as keyof typeof COLORS]).toMatch(colorRegex);
       }
     });
 
     it('has the correct primary color', () => {
-      expect(COLORS.PRIMARY).toBe('#D4A574');
+      expect(COLORS.PRIMARY).toBe('#3F6F6A');
     });
 
     it('has the correct secondary color', () => {
-      expect(COLORS.SECONDARY).toBe('#1A5E63');
+      expect(COLORS.SECONDARY).toBe('#D6B07A');
     });
 
     it('has white as #FFFFFF', () => {

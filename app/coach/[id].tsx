@@ -33,11 +33,11 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <View className="flex-row items-center">
       {Array.from({ length: fullStars }).map((_, i) => (
-        <Ionicons key={`full-${i}`} name="star" size={18} color="#D4A574" />
+        <Ionicons key={`full-${i}`} name="star" size={18} color="#D6B07A" />
       ))}
-      {hasHalf && <Ionicons name="star-half" size={18} color="#D4A574" />}
+      {hasHalf && <Ionicons name="star-half" size={18} color="#D6B07A" />}
       {Array.from({ length: emptyStars }).map((_, i) => (
-        <Ionicons key={`empty-${i}`} name="star-outline" size={18} color="#D4A574" />
+        <Ionicons key={`empty-${i}`} name="star-outline" size={18} color="#D6B07A" />
       ))}
     </View>
   );
@@ -61,28 +61,28 @@ function SessionCard({ session, onPress }: SessionCardProps) {
     <Card onPress={onPress} className="mb-3">
       <View className="flex-row items-start justify-between">
         <View className="flex-1 mr-3">
-          <Text className="text-base font-semibold text-[#2D2D2D]">
+          <Text className="text-base font-semibold text-text">
             {session.product?.title ?? 'Session'}
           </Text>
           <View className="flex-row items-center mt-1.5">
-            <Ionicons name="calendar-outline" size={14} color="#7A7A7A" />
-            <Text className="text-sm text-[#2D2D2D]/60 ml-1">{dateLabel}</Text>
+            <Ionicons name="calendar-outline" size={14} color="#6B7280" />
+            <Text className="text-sm text-text/60 ml-1">{dateLabel}</Text>
           </View>
           <View className="flex-row items-center mt-1">
-            <Ionicons name="time-outline" size={14} color="#7A7A7A" />
-            <Text className="text-sm text-[#2D2D2D]/60 ml-1">{timeLabel}</Text>
+            <Ionicons name="time-outline" size={14} color="#6B7280" />
+            <Text className="text-sm text-text/60 ml-1">{timeLabel}</Text>
           </View>
           {session.court && (
             <View className="flex-row items-center mt-1">
-              <Ionicons name="location-outline" size={14} color="#7A7A7A" />
-              <Text className="text-sm text-[#2D2D2D]/60 ml-1">
+              <Ionicons name="location-outline" size={14} color="#6B7280" />
+              <Text className="text-sm text-text/60 ml-1">
                 {session.court.name}
               </Text>
             </View>
           )}
         </View>
         <View className="items-end">
-          <Text className="text-base font-bold text-[#2D2D2D]">
+          <Text className="text-base font-bold text-text">
             {formatPrice(session.price_cents)}
           </Text>
           <Badge
@@ -170,7 +170,7 @@ export default function CoachProfileScreen() {
   // ---- Loading state ----
   if (coachLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         {/* Header skeleton */}
         <View className="flex-row items-center px-5 py-3">
           <Skeleton width={36} height={36} borderRadius={18} />
@@ -216,21 +216,21 @@ export default function CoachProfileScreen() {
   // ---- Error state ----
   if (coachError || !coach) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-row items-center px-5 py-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-9 h-9 rounded-full bg-white items-center justify-center border border-[#E8E5E0]"
+            className="w-9 h-9 rounded-full bg-white items-center justify-center border border-stroke"
           >
-            <Ionicons name="chevron-back" size={20} color="#2D2D2D" />
+            <Ionicons name="chevron-back" size={20} color="#111827" />
           </Pressable>
         </View>
         <View className="flex-1 items-center justify-center px-8">
           <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
-          <Text className="text-lg font-semibold text-[#2D2D2D] mt-4 text-center">
+          <Text className="text-lg font-semibold text-text mt-4 text-center">
             Could not load coach profile
           </Text>
-          <Text className="text-sm text-[#2D2D2D]/50 mt-2 text-center">
+          <Text className="text-sm text-text/50 mt-2 text-center">
             {coachErrorObj?.message ?? 'Coach not found or no longer active.'}
           </Text>
           <Button
@@ -253,7 +253,7 @@ export default function CoachProfileScreen() {
   const hasAvailableSessions = upcomingSessions.some((s) => s.spots_remaining > 0);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
       {/* Header */}
       <Animated.View
         entering={FadeIn.duration(300)}
@@ -261,14 +261,14 @@ export default function CoachProfileScreen() {
       >
         <Pressable
           onPress={() => router.back()}
-          className="w-9 h-9 rounded-full bg-white items-center justify-center border border-[#E8E5E0]"
+          className="w-9 h-9 rounded-full bg-white items-center justify-center border border-stroke"
           style={({ pressed }: { pressed: boolean }): ViewStyle => ({
             opacity: pressed ? 0.7 : 1,
           })}
         >
-          <Ionicons name="chevron-back" size={20} color="#2D2D2D" />
+          <Ionicons name="chevron-back" size={20} color="#111827" />
         </Pressable>
-        <Text className="text-lg font-bold text-[#2D2D2D] ml-3">
+        <Text className="text-lg font-bold text-text ml-3">
           Coach Profile
         </Text>
       </Animated.View>
@@ -294,7 +294,7 @@ export default function CoachProfileScreen() {
           </View>
 
           {/* Name */}
-          <Text className="text-2xl font-bold text-[#2D2D2D] mt-4">
+          <Text className="text-2xl font-bold text-text mt-4">
             {coachName}
           </Text>
 
@@ -302,7 +302,7 @@ export default function CoachProfileScreen() {
           {coach.rating != null && (
             <View className="flex-row items-center mt-2">
               <StarRating rating={coach.rating} />
-              <Text className="text-sm text-[#2D2D2D]/60 ml-2">
+              <Text className="text-sm text-text/60 ml-2">
                 {coach.rating.toFixed(1)}
               </Text>
             </View>
@@ -327,7 +327,7 @@ export default function CoachProfileScreen() {
             entering={FadeInDown.delay(200).duration(350)}
             className="px-5 mt-5"
           >
-            <Text className="text-sm text-[#2D2D2D]/70 leading-5 text-center">
+            <Text className="text-sm text-text/70 leading-5 text-center">
               {coach.bio}
             </Text>
           </Animated.View>
@@ -336,41 +336,41 @@ export default function CoachProfileScreen() {
         {/* Stats Row */}
         <Animated.View
           entering={FadeInDown.delay(250).duration(350)}
-          className="flex-row justify-around mx-5 mt-6 bg-white rounded-2xl py-4 px-2 border border-[#E8E5E0]"
+          className="flex-row justify-around mx-5 mt-6 bg-surface rounded-2xl py-4 px-2 border border-stroke"
         >
           {/* Hourly Rate */}
           <View className="items-center flex-1">
-            <Ionicons name="cash-outline" size={20} color="#1A5E63" />
-            <Text className="text-lg font-bold text-[#2D2D2D] mt-1">
+            <Ionicons name="cash-outline" size={20} color="#3F6F6A" />
+            <Text className="text-lg font-bold text-text mt-1">
               {coach.hourly_rate_cents
                 ? formatPrice(coach.hourly_rate_cents).replace('.00', '')
                 : '--'}
             </Text>
-            <Text className="text-xs text-[#2D2D2D]/50">per hour</Text>
+            <Text className="text-xs text-text/50">per hour</Text>
           </View>
 
           {/* Divider */}
-          <View className="w-px bg-[#E8E5E0]" />
+          <View className="w-px bg-stroke" />
 
           {/* Upcoming Sessions */}
           <View className="items-center flex-1">
-            <Ionicons name="calendar-outline" size={20} color="#1A5E63" />
-            <Text className="text-lg font-bold text-[#2D2D2D] mt-1">
+            <Ionicons name="calendar-outline" size={20} color="#3F6F6A" />
+            <Text className="text-lg font-bold text-text mt-1">
               {sessionsLoading ? '--' : upcomingCount}
             </Text>
-            <Text className="text-xs text-[#2D2D2D]/50">upcoming</Text>
+            <Text className="text-xs text-text/50">upcoming</Text>
           </View>
 
           {/* Divider */}
-          <View className="w-px bg-[#E8E5E0]" />
+          <View className="w-px bg-stroke" />
 
           {/* Rating */}
           <View className="items-center flex-1">
-            <Ionicons name="star" size={20} color="#D4A574" />
-            <Text className="text-lg font-bold text-[#2D2D2D] mt-1">
+            <Ionicons name="star" size={20} color="#D6B07A" />
+            <Text className="text-lg font-bold text-text mt-1">
               {coach.rating != null ? coach.rating.toFixed(1) : '--'}
             </Text>
-            <Text className="text-xs text-[#2D2D2D]/50">rating</Text>
+            <Text className="text-xs text-text/50">rating</Text>
           </View>
         </Animated.View>
 
@@ -380,7 +380,7 @@ export default function CoachProfileScreen() {
           className="mt-6 px-5"
         >
           <View ref={sessionsRef}>
-            <Text className="text-lg font-bold text-[#2D2D2D] mb-4">
+            <Text className="text-lg font-bold text-text mb-4">
               Upcoming Sessions
             </Text>
           </View>
@@ -399,9 +399,9 @@ export default function CoachProfileScreen() {
               />
             ))
           ) : (
-            <View className="bg-white rounded-2xl p-6 items-center border border-[#E8E5E0]">
-              <Ionicons name="calendar-outline" size={32} color="#E8E5E0" />
-              <Text className="text-sm text-[#2D2D2D]/40 mt-2 text-center">
+            <View className="bg-surface rounded-2xl p-6 items-center border border-stroke">
+              <Ionicons name="calendar-outline" size={32} color="rgba(17,24,39,0.08)" />
+              <Text className="text-sm text-text/40 mt-2 text-center">
                 No upcoming sessions scheduled
               </Text>
             </View>
@@ -412,7 +412,7 @@ export default function CoachProfileScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(500).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E8E5E0] px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
         style={{ paddingBottom: 34 }}
       >
         <Button

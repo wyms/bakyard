@@ -143,7 +143,7 @@ export default function SessionsScreen() {
 
   const renderSectionHeader = useCallback(
     ({ section }: { section: SessionSection }) => (
-      <View className="px-5 pt-4 pb-2 bg-[#FAFAF8]">
+      <View className="px-5 pt-4 pb-2 bg-bg">
         <Text className="text-lg font-bold text-charcoal">
           {section.title}
         </Text>
@@ -160,7 +160,7 @@ export default function SessionsScreen() {
   // Loading state
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['top']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
           <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
         </View>
@@ -176,7 +176,7 @@ export default function SessionsScreen() {
   // Error state
   if (isError) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['top']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
           <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
         </View>
@@ -193,12 +193,12 @@ export default function SessionsScreen() {
   // Empty state
   if (sections.length === 0) {
     return (
-      <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['top']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
           <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
         </View>
         <View className="flex-1 items-center justify-center px-8">
-          <View className="w-20 h-20 rounded-full bg-[#E8E5E0] items-center justify-center mb-5">
+          <View className="w-20 h-20 rounded-full bg-stroke items-center justify-center mb-5">
             <Ionicons name="calendar-outline" size={36} color="#B8874E" />
           </View>
           <Text className="text-lg font-semibold text-charcoal mb-2">
@@ -213,7 +213,7 @@ export default function SessionsScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAFAF8]" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
       <View className="px-6 pt-4 pb-2">
         <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
       </View>
@@ -230,7 +230,7 @@ export default function SessionsScreen() {
           <RefreshControl
             refreshing={isRefetching}
             onRefresh={refetch}
-            tintColor="#1A5E63"
+            tintColor="#3F6F6A"
           />
         }
       />
@@ -315,9 +315,9 @@ function SessionCard({ booking, isUpcoming, onPress }: SessionCardProps) {
 
       {/* Booking status if reserved (not yet paid) */}
       {booking.status === 'reserved' && isUpcoming && (
-        <View className="flex-row items-center mt-2 bg-[#FF9800]/10 rounded-lg px-3 py-1.5">
-          <Ionicons name="alert-circle" size={14} color="#FF9800" />
-          <Text className="text-xs font-medium text-[#FF9800] ml-1.5">
+        <View className="flex-row items-center mt-2 bg-accent/10 rounded-lg px-3 py-1.5">
+          <Ionicons name="alert-circle" size={14} color="#D6B07A" />
+          <Text className="text-xs font-medium text-accent ml-1.5">
             Payment pending - confirm to secure your spot
           </Text>
         </View>

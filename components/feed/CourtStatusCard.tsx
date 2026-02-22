@@ -30,7 +30,7 @@ export default function CourtStatusCard({ session, court }: CourtStatusCardProps
           params: { id: session.id },
         })
       }
-      className="flex-row items-center justify-between bg-white rounded-2xl px-4 py-3.5 mb-2.5 shadow-sm shadow-black/8"
+      className="flex-row items-center justify-between bg-surface rounded-2xl px-4 py-3.5 mb-2.5 shadow-sm shadow-black/8"
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
         transform: [{ scale: pressed ? 0.98 : 1 }],
         opacity: pressed ? 0.9 : 1,
