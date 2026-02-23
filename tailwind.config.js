@@ -5,33 +5,46 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // New semantic tokens
-        bg: '#F6F1EA',
-        surface: '#FBF7F2',
-        text: '#111827',
-        muted: '#6B7280',
-        stroke: 'rgba(17,24,39,0.08)',
-        primary: { DEFAULT: '#3F6F6A', pressed: '#2F5B57' },
-        accent: '#D6B07A',
-        success: '#3F6F6A',
-        warning: '#D6B07A',
-        error: '#FF6B6B',
+        // Core dark-theme tokens
+        bg: '#0D0F14',
+        surface: '#131720',
+        text: '#F0EDE6',
+        muted: '#8A8FA0',
+        stroke: 'rgba(255,255,255,0.06)',
+        primary: { DEFAULT: '#E8C97A', pressed: '#C8A84B' },
+        accent: '#E8C97A',
+        success: '#4CAF72',
+        warning: '#E8C97A',
+        error: '#D95F2B',
 
-        // Legacy aliases (remapped to new values)
-        sand: { DEFAULT: '#D6B07A', light: '#E8D4B0', dark: '#B8974E' },
-        teal: { DEFAULT: '#3F6F6A', light: '#5A8F8A', dark: '#2F5B57' },
-        coral: '#FF6B6B',
-        charcoal: '#111827',
-        offwhite: '#F6F1EA',
+        // New PRD tokens
+        ember: '#D95F2B',
+        mid: '#8A8FA0',
+        blue: '#7BC4E2',
+        dune: '#C8A84B',
+        night: '#0D0F14',
+        deep: '#131720',
+
+        // Legacy aliases (remapped to dark theme)
+        sand: { DEFAULT: '#E8C97A', light: '#F0DFA0', dark: '#C8A84B' },
+        teal: { DEFAULT: '#E8C97A', light: '#F0DFA0', dark: '#C8A84B' },
+        coral: '#D95F2B',
+        charcoal: '#F0EDE6',
+        offwhite: '#F0EDE6',
+      },
+      fontFamily: {
+        display: ['BebasNeue_400Regular'],
+        label: ['BarlowCondensed_600SemiBold', 'BarlowCondensed_700Bold'],
+        body: ['Barlow_300Light', 'Barlow_400Regular'],
       },
       borderRadius: {
         card: '20px',
-        button: '16px',
+        button: '14px',
         input: '14px',
       },
       boxShadow: {
-        card: '0 8px 30px rgba(17,24,39,0.08)',
-        subtle: '0 2px 10px rgba(17,24,39,0.06)',
+        card: '0 8px 30px rgba(0,0,0,0.40)',
+        subtle: '0 2px 10px rgba(0,0,0,0.30)',
       },
       fontSize: {
         h1: ['28px', { lineHeight: '34px', fontWeight: '800' }],

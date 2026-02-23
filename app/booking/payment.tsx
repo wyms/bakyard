@@ -233,7 +233,7 @@ export default function PaymentScreen() {
     return (
       <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
+          <Ionicons name="alert-circle-outline" size={48} color="#D95F2B" />
           <Text className="text-lg font-semibold text-text mt-4 text-center">
             Session not found
           </Text>
@@ -255,16 +255,20 @@ export default function PaymentScreen() {
       <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
           <Animated.View entering={ZoomIn.duration(500)}>
-            <View className="w-24 h-24 rounded-full bg-primary/10 items-center justify-center mb-6">
-              <Ionicons name="checkmark-circle" size={64} color="#3F6F6A" />
+            <View className="w-24 h-24 rounded-full bg-success/10 items-center justify-center mb-6">
+              <Ionicons name="checkmark-circle" size={64} color="#4CAF72" />
             </View>
           </Animated.View>
           <Animated.View entering={FadeInDown.delay(300).duration(400)}>
-            <Text className="text-2xl font-bold text-text text-center">
-              You're in!
+            <Text className="text-xs font-semibold text-mid text-center uppercase tracking-wider mb-2">
+              You're In · Spot Secured
             </Text>
-            <Text className="text-base text-text/60 text-center mt-2">
-              Your booking has been confirmed
+            <Text className="font-display text-4xl text-offwhite text-center">
+              SEE YOU ON THE{' '}
+              <Text className="text-sand">SAND.</Text>
+            </Text>
+            <Text className="text-base text-mid text-center mt-2">
+              Your booking has been confirmed.
             </Text>
           </Animated.View>
 
@@ -272,33 +276,31 @@ export default function PaymentScreen() {
             entering={FadeInDown.delay(500).duration(400)}
             className="bg-surface rounded-2xl p-5 mt-8 w-full border border-stroke"
           >
-            <Text className="text-base font-bold text-text">
-              {product.title}
+            <Text className="font-display text-xl text-offwhite mb-3">
+              {product.title.toUpperCase()}
             </Text>
-            <View className="flex-row items-center mt-2">
-              <Ionicons name="calendar-outline" size={16} color="#3F6F6A" />
-              <Text className="text-sm text-text/70 ml-2">
+            <View className="flex-row items-center mb-2">
+              <Ionicons name="calendar-outline" size={16} color="#E8C97A" />
+              <Text className="text-sm text-mid ml-2">
                 {format(parseISO(session.starts_at), 'EEE, MMM d')}
               </Text>
             </View>
-            <View className="flex-row items-center mt-1">
-              <Ionicons name="time-outline" size={16} color="#3F6F6A" />
-              <Text className="text-sm text-text/70 ml-2">
-                {format(parseISO(session.starts_at), 'h:mm a')} -{' '}
+            <View className="flex-row items-center mb-2">
+              <Ionicons name="time-outline" size={16} color="#E8C97A" />
+              <Text className="text-sm text-mid ml-2">
+                {format(parseISO(session.starts_at), 'h:mm a')} –{' '}
                 {format(parseISO(session.ends_at), 'h:mm a')}
               </Text>
             </View>
             {session.court && (
-              <View className="flex-row items-center mt-1">
-                <Ionicons name="location-outline" size={16} color="#3F6F6A" />
-                <Text className="text-sm text-text/70 ml-2">
-                  {session.court.name}
-                </Text>
+              <View className="flex-row items-center mb-2">
+                <Ionicons name="location-outline" size={16} color="#E8C97A" />
+                <Text className="text-sm text-mid ml-2">{session.court.name}</Text>
               </View>
             )}
-            <View className="flex-row items-center mt-1">
-              <Ionicons name="cash-outline" size={16} color="#3F6F6A" />
-              <Text className="text-sm text-text/70 ml-2">
+            <View className="flex-row items-center">
+              <Ionicons name="cash-outline" size={16} color="#E8C97A" />
+              <Text className="text-sm font-bold text-sand ml-2">
                 {formatPrice(totalCents)} paid
               </Text>
             </View>
@@ -306,11 +308,21 @@ export default function PaymentScreen() {
 
           <Animated.View
             entering={FadeInDown.delay(700).duration(400)}
-            className="w-full mt-8"
+            className="w-full mt-6 gap-3"
           >
             <Button
-              title="View Session"
-              variant="secondary"
+              title="Back to Home"
+              variant="primary"
+              size="lg"
+              onPress={() => {
+                resetBookingStore();
+                router.replace('/(tabs)');
+              }}
+              className="w-full"
+            />
+            <Button
+              title="Book Another Session"
+              variant="ghost"
               size="lg"
               onPress={handleGoToSession}
               className="w-full"
@@ -467,7 +479,7 @@ export default function PaymentScreen() {
             })}
           >
             <View className="w-10 h-10 rounded-xl bg-primary/10 items-center justify-center">
-              <Ionicons name="bug-outline" size={22} color="#3F6F6A" />
+              <Ionicons name="bug-outline" size={22} color="#E8C97A" />
             </View>
             <View className="ml-3 flex-1">
               <Text className="text-base font-medium text-text">
@@ -498,9 +510,9 @@ export default function PaymentScreen() {
             entering={FadeIn.duration(300)}
             className="mx-5 mt-4"
           >
-            <View className="bg-[#FF6B6B]/10 rounded-2xl p-4 flex-row items-center">
-              <Ionicons name="warning-outline" size={20} color="#FF6B6B" />
-              <Text className="text-sm text-[#FF6B6B] ml-2 flex-1">
+            <View className="bg-[#D95F2B]/10 rounded-2xl p-4 flex-row items-center">
+              <Ionicons name="warning-outline" size={20} color="#D95F2B" />
+              <Text className="text-sm text-[#D95F2B] ml-2 flex-1">
                 {errorMessage}
               </Text>
               <Pressable
@@ -526,25 +538,25 @@ export default function PaymentScreen() {
       >
         {paymentState === 'processing' ? (
           <View className="flex-row items-center justify-center py-4">
-            <ActivityIndicator size="small" color="#3F6F6A" />
+            <ActivityIndicator size="small" color="#E8C97A" />
             <Text className="text-base font-semibold text-primary ml-3">
               Processing payment...
             </Text>
           </View>
         ) : (
           <Button
-            title={`Pay ${formatPrice(totalCents)}`}
-            variant="secondary"
+            title={`Pay Now ${formatPrice(totalCents)}`}
+            variant="primary"
             size="lg"
             onPress={handlePayment}
             loading={false}
             icon={
               selectedMethod === 'apple_pay' ? (
-                <Ionicons name="logo-apple" size={20} color="#FFFFFF" />
+                <Ionicons name="logo-apple" size={20} color="#0D0F14" />
               ) : selectedMethod === 'simulate' ? (
-                <Ionicons name="bug-outline" size={20} color="#FFFFFF" />
+                <Ionicons name="bug-outline" size={20} color="#0D0F14" />
               ) : (
-                <Ionicons name="card-outline" size={20} color="#FFFFFF" />
+                <Ionicons name="card-outline" size={20} color="#0D0F14" />
               )
             }
             className="w-full"

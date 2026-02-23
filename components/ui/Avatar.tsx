@@ -23,7 +23,7 @@ function getInitials(name: string): string {
 }
 
 function getColorFromName(name: string): string {
-  const colors = ['#D6B07A', '#3F6F6A', '#FF6B6B', '#6B7280', '#2F5B57', '#111827'];
+  const colors = ['#E8C97A', '#4CAF72', '#D95F2B', '#8A8FA0', '#7BC4E2', '#C8A84B'];
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash);

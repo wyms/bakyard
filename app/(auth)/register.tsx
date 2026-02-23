@@ -64,7 +64,7 @@ export default function RegisterScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-offwhite">
+    <SafeAreaView className="flex-1 bg-bg">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
@@ -75,14 +75,28 @@ export default function RegisterScreen() {
         >
           {/* Header */}
           <View className="items-center mb-10">
-            <Text className="text-sm font-medium text-muted tracking-widest uppercase">Bakyard</Text>
-            <Text className="text-h1 text-text">Create your account</Text>
+            <Text className="text-xs font-medium text-mid tracking-widest uppercase mb-2">
+              Built on Deep Sand · Plano, TX
+            </Text>
+            <Text className="font-display text-5xl text-offwhite text-center leading-none mb-3">
+              BOOK IN SECONDS.{'\n'}PLAY TODAY.
+            </Text>
+            <Text className="text-sm text-mid text-center">
+              Private lessons, open play, clinics — all in one place.
+            </Text>
+            {/* Progress dots */}
+            <View className="flex-row items-center mt-4 gap-1.5">
+              <View className="w-2 h-2 rounded-full bg-sand" />
+              <View className="w-2 h-2 rounded-full bg-mid/40" />
+              <View className="w-2 h-2 rounded-full bg-mid/40" />
+              <View className="w-2 h-2 rounded-full bg-mid/40" />
+            </View>
           </View>
 
           {/* Error message */}
           {error ? (
-            <View className="bg-coral/10 border border-coral/30 rounded-input px-4 py-3 mb-4">
-              <Text className="text-sm text-coral text-center">{error}</Text>
+            <View className="bg-ember/10 border border-ember/30 rounded-input px-4 py-3 mb-4">
+              <Text className="text-sm text-ember text-center">{error}</Text>
             </View>
           ) : null}
 
@@ -177,9 +191,8 @@ export default function RegisterScreen() {
           <View className="items-center mt-8">
             <Link href="/(auth)/login" asChild>
               <TouchableOpacity>
-                <Text className="text-sm text-muted">
-                  Already have an account?{' '}
-                  <Text className="text-primary font-semibold">Sign in</Text>
+                <Text className="text-sm text-mid">
+                  I Already Have an Account
                 </Text>
               </TouchableOpacity>
             </Link>

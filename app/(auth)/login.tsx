@@ -47,7 +47,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-offwhite">
+    <SafeAreaView className="flex-1 bg-bg">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
@@ -58,14 +58,14 @@ export default function LoginScreen() {
         >
           {/* Logo / Title */}
           <View className="items-center mb-12">
-            <Text className="text-sm font-medium text-muted tracking-widest uppercase">Bakyard</Text>
-            <Text className="text-h1 text-text">Welcome back</Text>
+            <Text className="font-display text-6xl text-offwhite tracking-widest">BAKYARD</Text>
+            <Text className="text-sm text-mid mt-2">Welcome back</Text>
           </View>
 
           {/* Error message */}
           {error ? (
-            <View className="bg-coral/10 border border-coral/30 rounded-input px-4 py-3 mb-4">
-              <Text className="text-sm text-coral text-center">{error}</Text>
+            <View className="bg-ember/10 border border-ember/30 rounded-input px-4 py-3 mb-4">
+              <Text className="text-sm text-ember text-center">{error}</Text>
             </View>
           ) : null}
 

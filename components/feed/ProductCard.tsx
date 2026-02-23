@@ -88,8 +88,8 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
         </View>
         {/* Price badge overlaid on image */}
         {priceDisplay && (
-          <View className="absolute bottom-3 right-3 bg-white/90 rounded-full px-3 py-1">
-            <Text className="text-sm font-bold text-charcoal">
+          <View className="absolute bottom-3 right-3 bg-surface/90 rounded-full px-3 py-1">
+            <Text className="text-sm font-bold text-sand">
               {priceDisplay}
             </Text>
           </View>
@@ -98,13 +98,13 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
 
       {/* Content */}
       <View className="px-4 py-3.5">
-        <Text className="text-lg font-bold text-charcoal" numberOfLines={2}>
+        <Text className="text-lg font-bold text-offwhite" numberOfLines={2}>
           {product.title}
         </Text>
 
         {product.description && (
           <Text
-            className="text-sm text-charcoal/60 mt-1"
+            className="text-sm text-offwhite/60 mt-1"
             numberOfLines={2}
           >
             {product.description}
@@ -116,7 +116,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
           {nextTime && nextTime !== 'past' && (
             <View className="flex-row items-center mr-4">
               <Ionicons name="time-outline" size={14} color="#6B7280" />
-              <Text className="text-xs text-charcoal/50 ml-1">
+              <Text className="text-xs text-offwhite/50 ml-1">
                 {nextTime}
               </Text>
             </View>
@@ -128,8 +128,8 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
               <Text
                 className={`text-xs ml-1 ${
                   spotsRemaining <= 2
-                    ? 'text-coral font-semibold'
-                    : 'text-charcoal/50'
+                    ? 'text-ember font-semibold'
+                    : 'text-offwhite/50'
                 }`}
               >
                 {spotsRemaining === 0
@@ -142,7 +142,7 @@ export default function ProductCard({ product, nextSession }: ProductCardProps) 
           {product.duration_minutes && (
             <View className="flex-row items-center">
               <Ionicons name="hourglass-outline" size={14} color="#6B7280" />
-              <Text className="text-xs text-charcoal/50 ml-1">
+              <Text className="text-xs text-offwhite/50 ml-1">
                 {product.duration_minutes}min
               </Text>
             </View>

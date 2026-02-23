@@ -28,7 +28,7 @@ export default function TierCard({
     <Card
       className={[
         'mb-4',
-        isActive && 'border-2 border-primary',
+        isActive && 'border-2 border-sand',
         isRecommended && !isActive && 'border-2 border-accent',
       ]
         .filter(Boolean)
@@ -52,8 +52,8 @@ export default function TierCard({
       </View>
 
       {/* Discount Highlight */}
-      <View className="bg-primary/10 rounded-lg px-3 py-1.5 self-start mb-4">
-        <Text className="text-sm font-semibold text-primary">
+      <View className="bg-accent/10 rounded-lg px-3 py-1.5 self-start mb-4">
+        <Text className="text-sm font-semibold text-accent">
           {tier.discount_percent}% off all bookings
         </Text>
       </View>

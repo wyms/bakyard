@@ -102,9 +102,9 @@ export default function ProfileScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
+      <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-charcoal">Profile</Text>
+          <Text className="text-3xl font-bold text-offwhite">Profile</Text>
         </View>
         <View className="px-6 pt-6 items-center gap-4">
           <Skeleton width={96} height={96} borderRadius={48} />
@@ -118,9 +118,9 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
       <View className="px-6 pt-4 pb-2">
-        <Text className="text-3xl font-bold text-charcoal">Profile</Text>
+        <Text className="text-3xl font-bold text-offwhite">Profile</Text>
       </View>
 
       <ScrollView
@@ -146,11 +146,11 @@ export default function ProfileScreen() {
             </Pressable>
           </View>
 
-          <Text className="text-xl font-bold text-charcoal mt-3">
+          <Text className="text-xl font-bold text-offwhite mt-3">
             {displayName}
           </Text>
           {email ? (
-            <Text className="text-sm text-charcoal/50 mt-0.5">{email}</Text>
+            <Text className="text-sm text-offwhite/50 mt-0.5">{email}</Text>
           ) : null}
 
           {/* Badges */}
@@ -171,7 +171,7 @@ export default function ProfileScreen() {
               <Text className="text-2xl font-bold text-primary">
                 {totalSessions}
               </Text>
-              <Text className="text-xs text-charcoal/50 mt-0.5">
+              <Text className="text-xs text-offwhite/50 mt-0.5">
                 Total Sessions
               </Text>
             </View>
@@ -180,25 +180,44 @@ export default function ProfileScreen() {
               <Text className="text-2xl font-bold text-primary">
                 {bookingCount}
               </Text>
-              <Text className="text-xs text-charcoal/50 mt-0.5">
+              <Text className="text-xs text-offwhite/50 mt-0.5">
                 This Month
               </Text>
             </View>
             <View className="w-px bg-stroke" />
             <View className="flex-1 items-center py-2">
               <Text className="text-2xl font-bold text-primary">
-                {membership ? `${membership.discount_percent}%` : '--'}
+                {totalSessions > 0 ? `${(totalSessions * 1.5).toFixed(0)}h` : '--'}
               </Text>
-              <Text className="text-xs text-charcoal/50 mt-0.5">
-                Discount
+              <Text className="text-xs text-offwhite/50 mt-0.5">
+                Hours on Sand
               </Text>
             </View>
           </View>
         </Card>
 
+        {/* Plan card */}
+        <Pressable
+          onPress={() => router.push('/(tabs)/membership' as never)}
+          className="bg-surface rounded-2xl p-4 mb-4 border border-accent/40"
+        >
+          <View className="flex-row items-center justify-between">
+            <View>
+              <Text className="text-xs text-mid uppercase tracking-wide mb-0.5">Your Plan</Text>
+              <Text className="text-base font-bold text-offwhite">
+                {tierConfig?.name ?? 'No Plan'}
+              </Text>
+            </View>
+            <View className="flex-row items-center">
+              <Text className="text-sm text-sand mr-1">Upgrade</Text>
+              <Ionicons name="chevron-forward" size={16} color="#E8C97A" />
+            </View>
+          </View>
+        </Pressable>
+
         {/* Settings Sections */}
         <View className="mt-2">
-          <Text className="text-base font-semibold text-charcoal mb-3">
+          <Text className="text-base font-semibold text-offwhite mb-3">
             Settings
           </Text>
 
@@ -221,6 +240,15 @@ export default function ProfileScreen() {
               showBorder
             />
             <SettingsRow
+              icon="gift-outline"
+              label="Refer a Friend"
+              sublabel="Earn a free open play session"
+              onPress={() => {
+                Alert.alert('Refer a Friend', 'Referral program coming soon!');
+              }}
+              showBorder
+            />
+            <SettingsRow
               icon="help-circle-outline"
               label="Help & Support"
               onPress={() => {
@@ -235,8 +263,8 @@ export default function ProfileScreen() {
           title="Sign Out"
           onPress={handleSignOut}
           variant="outline"
-          className="mt-2 border-[#FF6B6B] border-2"
-          icon={<Ionicons name="log-out-outline" size={18} color="#FF6B6B" />}
+          className="mt-2 border-[#D95F2B] border-2"
+          icon={<Ionicons name="log-out-outline" size={18} color="#D95F2B" />}
         />
       </ScrollView>
     </SafeAreaView>
@@ -246,22 +274,26 @@ export default function ProfileScreen() {
 interface SettingsRowProps {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
+  sublabel?: string;
   onPress: () => void;
   showBorder?: boolean;
 }
 
-function SettingsRow({ icon, label, onPress, showBorder = false }: SettingsRowProps) {
+function SettingsRow({ icon, label, sublabel, onPress, showBorder = false }: SettingsRowProps) {
   return (
     <Pressable
       onPress={onPress}
       className={`flex-row items-center px-4 py-3.5 ${showBorder ? 'border-b border-stroke' : ''}`}
       style={({ pressed }) => ({
-        backgroundColor: pressed ? '#F6F1EA' : 'transparent',
+        backgroundColor: pressed ? '#1A1C24' : 'transparent',
       })}
     >
-      <Ionicons name={icon} size={20} color="#3F6F6A" />
-      <Text className="flex-1 text-base text-charcoal ml-3">{label}</Text>
-      <Ionicons name="chevron-forward" size={18} color="#999" />
+      <Ionicons name={icon} size={20} color="#E8C97A" />
+      <View className="flex-1 ml-3">
+        <Text className="text-base text-offwhite">{label}</Text>
+        {sublabel ? <Text className="text-xs text-mid mt-0.5">{sublabel}</Text> : null}
+      </View>
+      <Ionicons name="chevron-forward" size={18} color="#8A8FA0" />
     </Pressable>
   );
 }

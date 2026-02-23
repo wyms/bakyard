@@ -21,7 +21,7 @@ export default function Chip({
 
   const textClassName = [
     'text-sm font-medium',
-    selected ? 'text-white' : 'text-text',
+    selected ? 'text-[#0D0F14]' : 'text-text',
   ].join(' ');
 
   return (

@@ -142,7 +142,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#FFFFFF');
+    expect(spinner.props.color).toBe('#0D0F14');
   });
 
   it('uses white spinner colour for secondary variant', () => {
@@ -151,7 +151,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#FFFFFF');
+    expect(spinner.props.color).toBe('#F0EDE6');
   });
 
   it('uses accent spinner colour for outline variant', () => {
@@ -160,7 +160,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#D6B07A');
+    expect(spinner.props.color).toBe('#E8C97A');
   });
 
   it('uses accent spinner colour for ghost variant', () => {
@@ -169,7 +169,7 @@ describe('Button', () => {
     );
     const { ActivityIndicator } = require('react-native');
     const spinner = UNSAFE_getByType(ActivityIndicator);
-    expect(spinner.props.color).toBe('#D6B07A');
+    expect(spinner.props.color).toBe('#E8C97A');
   });
 
   // --- Custom className ---
@@ -198,7 +198,7 @@ describe('Button', () => {
       <Button {...defaultProps} variant="secondary" />,
     );
     const root = toJSON();
-    expect(root!.props.className).toContain('bg-primary');
+    expect(root!.props.className).toContain('bg-surface');
   });
 
   it('applies outline variant classes to container', () => {
@@ -255,7 +255,7 @@ describe('Button', () => {
   it('applies primary text classes', () => {
     render(<Button {...defaultProps} variant="primary" />);
     const text = screen.getByText('Press Me');
-    expect(text.props.className).toContain('text-white');
+    expect(text.props.className).toContain('text-[#0D0F14]');
   });
 
   it('applies outline text classes', () => {

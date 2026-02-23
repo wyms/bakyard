@@ -24,11 +24,11 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
 const variantClasses: Record<ButtonVariant, { container: string; text: string }> = {
   primary: {
     container: 'bg-accent shadow-subtle',
-    text: 'text-white',
+    text: 'text-[#0D0F14]',
   },
   secondary: {
-    container: 'bg-primary shadow-subtle',
-    text: 'text-white',
+    container: 'bg-surface shadow-subtle',
+    text: 'text-offwhite',
   },
   outline: {
     container: 'bg-transparent border-2 border-accent',
@@ -103,7 +103,12 @@ export default function Button({
   ]
     .join(' ');
 
-  const spinnerColor = variant === 'outline' || variant === 'ghost' ? '#D6B07A' : '#FFFFFF';
+  const spinnerColor =
+    variant === 'outline' || variant === 'ghost'
+      ? '#E8C97A'
+      : variant === 'secondary'
+        ? '#F0EDE6'
+        : '#0D0F14';
 
   return (
     <Pressable
@@ -112,7 +117,7 @@ export default function Button({
       className={containerClassName}
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
         opacity: pressed ? 0.85 : 1,
-        transform: [{ scale: pressed ? 0.97 : 1 }],
+        transform: [{ scale: pressed ? 0.98 : 1 }],
       })}
       {...rest}
     >

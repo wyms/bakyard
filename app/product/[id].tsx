@@ -23,6 +23,7 @@ import Badge from '@/components/ui/Badge';
 import Skeleton from '@/components/ui/Skeleton';
 import Button from '@/components/ui/Button';
 import TimeSlotPicker from '@/components/booking/TimeSlotPicker';
+import AvailabilityBar from '@/components/ui/AvailabilityBar';
 
 const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   court_rental: 'Court Rental',
@@ -36,12 +37,12 @@ const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
 
 const PRODUCT_TYPE_VARIANTS: Record<
   ProductType,
-  'default' | 'success' | 'warning' | 'info' | 'accent'
+  'default' | 'success' | 'warning' | 'info' | 'accent' | 'private' | 'open-play' | 'clinic'
 > = {
-  court_rental: 'default',
-  open_play: 'info',
-  coaching: 'accent',
-  clinic: 'warning',
+  court_rental: 'private',
+  open_play: 'open-play',
+  coaching: 'clinic',
+  clinic: 'clinic',
   tournament: 'accent',
   community_day: 'success',
   food_addon: 'default',
@@ -142,7 +143,7 @@ export default function ProductDetailScreen() {
     return (
       <SafeAreaView className="flex-1 bg-bg" edges={['bottom']}>
         <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
+          <Ionicons name="alert-circle-outline" size={48} color="#D95F2B" />
           <Text className="text-lg font-semibold text-text mt-4 text-center">
             Could not load product
           </Text>
@@ -195,8 +196,8 @@ export default function ProductDetailScreen() {
             </View>
             {/* Price badge */}
             {priceDisplay && (
-              <View className="absolute bottom-4 right-4 bg-white/90 rounded-full px-4 py-2 shadow-sm">
-                <Text className="text-base font-bold text-text">
+              <View className="absolute bottom-4 right-4 bg-surface/90 rounded-full px-4 py-2 shadow-sm">
+                <Text className="text-base font-bold text-sand">
                   {priceDisplay}
                 </Text>
               </View>
@@ -208,8 +209,8 @@ export default function ProductDetailScreen() {
         <View className="px-5 pt-5">
           {/* Title */}
           <Animated.View entering={FadeInDown.delay(100).duration(350)}>
-            <Text className="text-2xl font-bold text-text">
-              {product.title}
+            <Text className="font-display text-3xl text-offwhite">
+              {product.title.toUpperCase()}
             </Text>
           </Animated.View>
 
@@ -220,7 +221,7 @@ export default function ProductDetailScreen() {
           >
             {product.duration_minutes && (
               <View className="flex-row items-center">
-                <Ionicons name="time-outline" size={16} color="#6B7280" />
+                <Ionicons name="time-outline" size={16} color="#8A8FA0" />
                 <Text className="text-sm text-text/60 ml-1">
                   {product.duration_minutes} min
                 </Text>
@@ -228,7 +229,7 @@ export default function ProductDetailScreen() {
             )}
             {product.capacity && (
               <View className="flex-row items-center">
-                <Ionicons name="people-outline" size={16} color="#6B7280" />
+                <Ionicons name="people-outline" size={16} color="#8A8FA0" />
                 <Text className="text-sm text-text/60 ml-1">
                   Up to {product.capacity} players
                 </Text>
@@ -256,7 +257,7 @@ export default function ProductDetailScreen() {
                   key={tag}
                   className="bg-accent/10 rounded-full px-3 py-1"
                 >
-                  <Text className="text-xs text-[#B8874E] font-medium">
+                  <Text className="text-xs text-[#E8C97A] font-medium">
                     {tag}
                   </Text>
                 </View>
@@ -290,7 +291,7 @@ export default function ProductDetailScreen() {
                     Tap to see bio, certifications & ratings
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color="#111827" />
+                <Ionicons name="chevron-forward" size={18} color="#F0EDE6" />
               </Pressable>
             </Animated.View>
           )}
@@ -310,15 +311,25 @@ export default function ProductDetailScreen() {
                 <Skeleton width="100%" height={60} borderRadius={16} />
               </View>
             ) : sessions && sessions.length > 0 ? (
-              <TimeSlotPicker
-                sessions={sessions}
-                selectedSession={selectedSession}
-                onSelect={handleSessionSelect}
-              />
+              <>
+                <TimeSlotPicker
+                  sessions={sessions}
+                  selectedSession={selectedSession}
+                  onSelect={handleSessionSelect}
+                />
+                {selectedSession && (
+                  <View className="mt-4">
+                    <AvailabilityBar
+                      spotsRemaining={selectedSession.spots_remaining}
+                      spotsTotal={selectedSession.spots_total}
+                    />
+                  </View>
+                )}
+              </>
             ) : (
               <View className="bg-surface rounded-2xl p-6 items-center border border-stroke">
-                <Ionicons name="calendar-outline" size={32} color="rgba(17,24,39,0.08)" />
-                <Text className="text-sm text-text/40 mt-2">
+                <Ionicons name="calendar-outline" size={32} color="rgba(255,255,255,0.06)" />
+                <Text className="text-sm text-mid mt-2">
                   No upcoming sessions available
                 </Text>
               </View>
@@ -334,12 +345,12 @@ export default function ProductDetailScreen() {
         style={{ paddingBottom: 34 }}
       >
         <Button
-          title={selectedSession ? 'Book Now' : 'Select a Time to Book'}
-          variant="secondary"
+          title={selectedSession ? 'BOOK THIS SESSION' : 'Select a Time to Book'}
+          variant="primary"
           size="lg"
           onPress={handleBookNow}
           disabled={!selectedSession}
-          className="w-full"
+          className="w-full font-display"
         />
       </Animated.View>
     </SafeAreaView>

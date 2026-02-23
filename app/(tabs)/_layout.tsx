@@ -6,15 +6,20 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#3F6F6A',
-        tabBarInactiveTintColor: '#6B7280',
+        tabBarActiveTintColor: '#E8C97A',
+        tabBarInactiveTintColor: '#8A8FA0',
         tabBarStyle: {
-          backgroundColor: '#FBF7F2',
-          borderTopColor: 'rgba(17,24,39,0.08)',
+          backgroundColor: '#131720',
+          borderTopColor: 'rgba(255,255,255,0.06)',
+          borderTopWidth: 1,
+          height: 72,
         },
         tabBarLabelStyle: {
           fontSize: 11,
-          fontWeight: '600',
+          fontFamily: 'BarlowCondensed_600SemiBold',
+        },
+        tabBarItemStyle: {
+          paddingVertical: 4,
         },
       }}
     >
@@ -28,20 +33,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="sessions"
+        name="book"
         options={{
-          title: 'Sessions',
+          title: 'Book',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
+            <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="membership"
+        name="sessions"
         options={{
-          title: 'Plans',
+          title: 'My Sessions',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="star-outline" size={size} color={color} />
+            <Ionicons name="calendar-outline" size={size} color={color} />
           ),
         }}
       />
@@ -51,6 +56,16 @@ export default function TabLayout() {
           title: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="membership"
+        options={{
+          href: null,
+          title: 'Plans',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="star-outline" size={size} color={color} />
           ),
         }}
       />

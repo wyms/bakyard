@@ -39,11 +39,11 @@ describe('constants', () => {
     });
 
     it('has the correct primary color', () => {
-      expect(COLORS.PRIMARY).toBe('#3F6F6A');
+      expect(COLORS.PRIMARY).toBe('#E8C97A');
     });
 
     it('has the correct secondary color', () => {
-      expect(COLORS.SECONDARY).toBe('#D6B07A');
+      expect(COLORS.SECONDARY).toBe('#C8A84B');
     });
 
     it('has white as #FFFFFF', () => {

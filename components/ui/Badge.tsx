@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-type BadgeVariant = 'default' | 'success' | 'warning' | 'info' | 'accent';
+type BadgeVariant = 'default' | 'success' | 'warning' | 'info' | 'accent' | 'private' | 'open-play' | 'clinic' | 'done';
 type BadgeSize = 'sm' | 'md';
 
 interface BadgeProps {
@@ -30,6 +30,22 @@ const variantClasses: Record<BadgeVariant, { container: string; text: string }> 
   accent: {
     container: 'bg-error/20',
     text: 'text-error',
+  },
+  private: {
+    container: 'bg-sand/20',
+    text: 'text-sand',
+  },
+  'open-play': {
+    container: 'bg-ember/20',
+    text: 'text-ember',
+  },
+  clinic: {
+    container: 'bg-blue/20',
+    text: 'text-blue',
+  },
+  done: {
+    container: 'bg-success/20',
+    text: 'text-success',
   },
 };
 

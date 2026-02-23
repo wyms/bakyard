@@ -70,7 +70,7 @@ describe('Chip', () => {
     it('applies selected text style when selected', () => {
       render(<Chip {...defaultProps} selected={true} />);
       const text = screen.getByText('Filter');
-      expect(text.props.className).toContain('text-white');
+      expect(text.props.className).toContain('text-[#0D0F14]');
     });
   });
 

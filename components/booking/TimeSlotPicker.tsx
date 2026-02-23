@@ -114,7 +114,7 @@ export default function TimeSlotPicker({
               onPress={() => handleDayPress(index)}
               className={[
                 'items-center justify-center rounded-2xl px-4 py-2.5 mr-2',
-                isActive ? 'bg-primary' : 'bg-surface',
+                isActive ? 'bg-accent' : 'bg-surface',
                 !hasSessions && !isActive ? 'opacity-40' : '',
               ]
                 .filter(Boolean)
@@ -126,7 +126,7 @@ export default function TimeSlotPicker({
               <Text
                 className={[
                   'text-xs font-medium',
-                  isActive ? 'text-white' : 'text-text',
+                  isActive ? 'text-[#0D0F14]' : 'text-text',
                 ].join(' ')}
               >
                 {group.label}
@@ -134,7 +134,7 @@ export default function TimeSlotPicker({
               <Text
                 className={[
                   'text-xs mt-0.5',
-                  isActive ? 'text-white/80' : 'text-text/50',
+                  isActive ? 'text-[#0D0F14]/80' : 'text-text/50',
                 ].join(' ')}
               >
                 {group.sublabel}
@@ -174,9 +174,9 @@ export default function TimeSlotPicker({
                   className={[
                     'rounded-2xl px-4 py-3 min-w-[140px]',
                     isSelected
-                      ? 'bg-primary'
+                      ? 'bg-accent'
                       : isFull
-                        ? 'bg-gray-100'
+                        ? 'bg-surface/50'
                         : 'bg-surface',
                     isSelected
                       ? ''
@@ -191,7 +191,7 @@ export default function TimeSlotPicker({
                   <Text
                     className={[
                       'text-sm font-semibold',
-                      isSelected ? 'text-white' : isFull ? 'text-gray-400' : 'text-text',
+                      isSelected ? 'text-[#0D0F14]' : isFull ? 'text-mid' : 'text-text',
                     ].join(' ')}
                   >
                     {timeRange}
@@ -199,7 +199,7 @@ export default function TimeSlotPicker({
                   <Text
                     className={[
                       'text-xs mt-1',
-                      isSelected ? 'text-white/80' : isFull ? 'text-gray-300' : 'text-text/60',
+                      isSelected ? 'text-[#0D0F14]/80' : isFull ? 'text-mid' : 'text-text/60',
                     ].join(' ')}
                   >
                     {isFull ? 'Full' : `${price} Each`}

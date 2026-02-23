@@ -29,7 +29,7 @@ const Input = forwardRef<TextInput, InputProps>(function Input(
   const [isFocused, setIsFocused] = useState(false);
 
   const borderClassName = error
-    ? 'border-red-500'
+    ? 'border-ember'
     : isFocused
       ? 'border-primary'
       : 'border-stroke';
@@ -53,7 +53,7 @@ const Input = forwardRef<TextInput, InputProps>(function Input(
           ref={ref}
           className="flex-1 text-base text-text"
           placeholder={placeholder}
-          placeholderTextColor="#6B7280"
+          placeholderTextColor="#8A8FA0"
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
@@ -63,7 +63,7 @@ const Input = forwardRef<TextInput, InputProps>(function Input(
         />
       </View>
       {error && (
-        <Text className="text-xs text-red-500 mt-1">{error}</Text>
+        <Text className="text-xs text-ember mt-1">{error}</Text>
       )}
     </View>
   );

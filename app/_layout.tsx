@@ -1,5 +1,16 @@
 import { useEffect } from 'react';
-import { useFonts } from 'expo-font';
+import {
+  useFonts,
+  BebasNeue_400Regular,
+} from '@expo-google-fonts/bebas-neue';
+import {
+  BarlowCondensed_600SemiBold,
+  BarlowCondensed_700Bold,
+} from '@expo-google-fonts/barlow-condensed';
+import {
+  Barlow_300Light,
+  Barlow_400Regular,
+} from '@expo-google-fonts/barlow';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -50,7 +61,11 @@ export default function RootLayout() {
   const { setSession, setLoading } = useAuthStore();
 
   const [fontsLoaded, fontError] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    BebasNeue_400Regular,
+    BarlowCondensed_600SemiBold,
+    BarlowCondensed_700Bold,
+    Barlow_300Light,
+    Barlow_400Regular,
   });
 
   useEffect(() => {
@@ -88,7 +103,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <RootLayoutNav />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </SafeAreaProvider>
     </QueryClientProvider>
   );

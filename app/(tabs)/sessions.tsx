@@ -48,8 +48,8 @@ function getSessionStatusLabel(session: Session): string {
 
 function getSessionStatusVariant(
   session: Session,
-): 'success' | 'info' | 'accent' | 'default' | 'warning' {
-  if (session.status === 'completed') return 'default';
+): 'success' | 'info' | 'accent' | 'default' | 'warning' | 'done' {
+  if (session.status === 'completed') return 'done';
   if (session.status === 'in_progress') return 'info';
   if (session.status === 'cancelled') return 'accent';
   if (session.spots_remaining > 0) return 'success';
@@ -144,7 +144,7 @@ export default function SessionsScreen() {
   const renderSectionHeader = useCallback(
     ({ section }: { section: SessionSection }) => (
       <View className="px-5 pt-4 pb-2 bg-bg">
-        <Text className="text-lg font-bold text-charcoal">
+        <Text className="text-lg font-bold text-offwhite">
           {section.title}
         </Text>
       </View>
@@ -162,7 +162,7 @@ export default function SessionsScreen() {
     return (
       <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
+          <Text className="text-3xl font-bold text-offwhite">My Sessions</Text>
         </View>
         <View className="px-5 pt-4">
           <Skeleton width="100%" height={120} borderRadius={16} className="mb-3" />
@@ -178,11 +178,11 @@ export default function SessionsScreen() {
     return (
       <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
+          <Text className="text-3xl font-bold text-offwhite">My Sessions</Text>
         </View>
         <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
-          <Text className="text-base text-charcoal/50 text-center mt-3">
+          <Ionicons name="alert-circle-outline" size={48} color="#D95F2B" />
+          <Text className="text-base text-offwhite/50 text-center mt-3">
             Unable to load your sessions.{'\n'}Pull down to try again.
           </Text>
         </View>
@@ -195,16 +195,16 @@ export default function SessionsScreen() {
     return (
       <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
         <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
+          <Text className="text-3xl font-bold text-offwhite">My Sessions</Text>
         </View>
         <View className="flex-1 items-center justify-center px-8">
           <View className="w-20 h-20 rounded-full bg-stroke items-center justify-center mb-5">
-            <Ionicons name="calendar-outline" size={36} color="#B8874E" />
+            <Ionicons name="calendar-outline" size={36} color="#E8C97A" />
           </View>
-          <Text className="text-lg font-semibold text-charcoal mb-2">
+          <Text className="text-lg font-semibold text-offwhite mb-2">
             No sessions yet
           </Text>
-          <Text className="text-sm text-charcoal/40 font-medium text-center leading-5">
+          <Text className="text-sm text-offwhite/40 font-medium text-center leading-5">
             Browse the feed to discover and book{'\n'}your first beach volleyball session!
           </Text>
         </View>
@@ -215,7 +215,7 @@ export default function SessionsScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
       <View className="px-6 pt-4 pb-2">
-        <Text className="text-3xl font-bold text-charcoal">My Sessions</Text>
+        <Text className="text-3xl font-bold text-offwhite">My Sessions</Text>
       </View>
 
       <SectionList
@@ -230,7 +230,7 @@ export default function SessionsScreen() {
           <RefreshControl
             refreshing={isRefetching}
             onRefresh={refetch}
-            tintColor="#3F6F6A"
+            tintColor="#E8C97A"
           />
         }
       />
@@ -265,7 +265,7 @@ function SessionCard({ booking, isUpcoming, onPress }: SessionCardProps) {
       {/* Top row: product name + status badge */}
       <View className="flex-row items-start justify-between mb-2">
         <Text
-          className="text-base font-bold text-charcoal flex-1 mr-2"
+          className="text-base font-bold text-offwhite flex-1 mr-2"
           numberOfLines={1}
         >
           {productName}
@@ -279,23 +279,23 @@ function SessionCard({ booking, isUpcoming, onPress }: SessionCardProps) {
 
       {/* Date/time */}
       <View className="flex-row items-center mb-2">
-        <Ionicons name="calendar-outline" size={14} color="#9E9E9E" />
-        <Text className="text-sm text-charcoal/60 ml-1.5">{dateTime}</Text>
+        <Ionicons name="calendar-outline" size={14} color="#8A8FA0" />
+        <Text className="text-sm text-offwhite/60 ml-1.5">{dateTime}</Text>
       </View>
 
       {/* Court name */}
       {courtName && (
         <View className="flex-row items-center mb-2">
-          <Ionicons name="location-outline" size={14} color="#9E9E9E" />
-          <Text className="text-sm text-charcoal/60 ml-1.5">{courtName}</Text>
+          <Ionicons name="location-outline" size={14} color="#8A8FA0" />
+          <Text className="text-sm text-offwhite/60 ml-1.5">{courtName}</Text>
         </View>
       )}
 
       {/* Bottom row: participants + countdown (upcoming) or price */}
       <View className="flex-row items-center justify-between mt-1">
         <View className="flex-row items-center">
-          <Ionicons name="people-outline" size={14} color="#9E9E9E" />
-          <Text className="text-xs text-charcoal/50 ml-1">
+          <Ionicons name="people-outline" size={14} color="#8A8FA0" />
+          <Text className="text-xs text-offwhite/50 ml-1">
             {participantCount}/{totalSpots} joined
           </Text>
         </View>
@@ -307,7 +307,7 @@ function SessionCard({ booking, isUpcoming, onPress }: SessionCardProps) {
             status={session.status}
           />
         ) : (
-          <Text className="text-sm font-semibold text-charcoal/60">
+          <Text className="text-sm font-semibold text-offwhite/60">
             {formatPrice(session.price_cents)}
           </Text>
         )}

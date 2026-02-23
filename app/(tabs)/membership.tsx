@@ -1,142 +1,189 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, RefreshControl, Alert } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, ScrollView, Pressable, Alert, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getMyMembership, getMembershipTiers } from '@/lib/api/memberships';
-import { createSubscription } from '@/lib/api/payments';
-import type { Membership } from '@/lib/types/database';
-import type { MembershipTierConfig } from '@/lib/utils/constants';
-import Skeleton from '@/components/ui/Skeleton';
-import ActiveMembershipCard from '@/components/membership/ActiveMembershipCard';
-import TierCard from '@/components/membership/TierCard';
+import { Ionicons } from '@expo/vector-icons';
+import { formatPrice } from '@/lib/utils/pricing';
+import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
 
-export default function MembershipScreen() {
-  const [membership, setMembership] = useState<Membership | null>(null);
-  const [tiers] = useState<MembershipTierConfig[]>(getMembershipTiers());
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-  const [subscribingTier, setSubscribingTier] = useState<string | null>(null);
+interface PlanConfig {
+  id: string;
+  name: string;
+  monthlyPrice: number;
+  description: string;
+  features: string[];
+  featured?: boolean;
+  ghost?: boolean;
+}
 
-  const fetchMembership = useCallback(async () => {
-    try {
-      const data = await getMyMembership();
-      setMembership(data);
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : 'Failed to load membership.';
-      Alert.alert('Error', message);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, []);
+const PRD_PLANS: PlanConfig[] = [
+  {
+    id: 'drop_in',
+    name: 'Drop-In',
+    monthlyPrice: 2000,
+    description: 'Pay as you go, no commitment',
+    features: [
+      'Book any open play session',
+      'No membership required',
+      'Standard booking window',
+    ],
+    ghost: true,
+  },
+  {
+    id: 'monthly',
+    name: 'Monthly Unlimited',
+    monthlyPrice: 14900,
+    description: 'Unlimited sessions, best value',
+    features: [
+      'Unlimited open play sessions',
+      '24-hour early booking window',
+      '1 free guest pass per month',
+      'Member badge on profile',
+    ],
+    featured: true,
+  },
+  {
+    id: 'elite',
+    name: 'Elite Training',
+    monthlyPrice: 29900,
+    description: 'Everything + private training',
+    features: [
+      'Everything in Monthly',
+      'Unlimited guest passes',
+      '48-hour early booking window',
+      'Priority customer support',
+      'Invite-only events access',
+    ],
+    ghost: true,
+  },
+];
 
-  useEffect(() => {
-    fetchMembership();
-  }, [fetchMembership]);
+const ANNUAL_MULTIPLIER = 9.6; // 12 months × 0.8 (20% savings)
 
-  const handleRefresh = useCallback(() => {
-    setRefreshing(true);
-    fetchMembership();
-  }, [fetchMembership]);
+interface PlanCardProps {
+  plan: PlanConfig;
+  isAnnual: boolean;
+  onPress: (plan: PlanConfig) => void;
+}
 
-  const handleSubscribe = useCallback(
-    async (tier: MembershipTierConfig) => {
-      try {
-        setSubscribingTier(tier.tier);
-        const response = await createSubscription(tier.tier);
-        Alert.alert(
-          'Subscription Started',
-          `Your ${tier.name} membership is being set up. Subscription ID: ${response.subscription_id}`,
-        );
-        await fetchMembership();
-      } catch (err: unknown) {
-        const message =
-          err instanceof Error ? err.message : 'Failed to create subscription.';
-        Alert.alert('Error', message);
-      } finally {
-        setSubscribingTier(null);
-      }
-    },
-    [fetchMembership],
-  );
-
-  const handleCancelled = useCallback(() => {
-    fetchMembership();
-  }, [fetchMembership]);
-
-  const activeTierConfig = membership
-    ? tiers.find((t) => t.tier === membership.tier)
-    : undefined;
-
-  const upgradeTiers = membership
-    ? tiers.filter((t) => t.tier !== membership.tier)
-    : tiers;
-
-  if (loading) {
-    return (
-      <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
-        <View className="px-6 pt-4 pb-2">
-          <Text className="text-3xl font-bold text-text">Memberships</Text>
-        </View>
-        <View className="px-6 pt-4 gap-4">
-          <Skeleton width="100%" height={200} borderRadius={16} />
-          <Skeleton width="100%" height={280} borderRadius={16} />
-          <Skeleton width="100%" height={280} borderRadius={16} />
-        </View>
-      </SafeAreaView>
-    );
-  }
+function PlanCard({ plan, isAnnual, onPress }: PlanCardProps) {
+  const price = isAnnual
+    ? Math.round((plan.monthlyPrice * ANNUAL_MULTIPLIER) / 12)
+    : plan.monthlyPrice;
 
   return (
-    <SafeAreaView className="flex-1 bg-offwhite" edges={['top']}>
-      <View className="px-6 pt-4 pb-2">
-        <Text className="text-3xl font-bold text-text">Memberships</Text>
+    <Pressable
+      onPress={() => onPress(plan)}
+      style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+        opacity: pressed ? 0.9 : 1,
+        transform: [{ scale: pressed ? 0.99 : 1 }],
+      })}
+      className={[
+        'rounded-2xl p-5 mb-4 border',
+        plan.featured
+          ? 'bg-[#1A1C24] border-sand'
+          : 'bg-surface border-stroke',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      {/* Header */}
+      <View className="flex-row items-center justify-between mb-3">
+        <Text className="font-display text-2xl text-offwhite">{plan.name.toUpperCase()}</Text>
+        {plan.featured && <Badge label="Most Popular" variant="default" size="sm" />}
+      </View>
+
+      {/* Price */}
+      <View className="flex-row items-baseline mb-1">
+        <Text className="text-3xl font-bold text-sand">{formatPrice(price)}</Text>
+        <Text className="text-sm text-mid ml-1">/mo</Text>
+        {plan.ghost && plan.id === 'drop_in' && (
+          <Text className="text-xs text-mid ml-2">per session</Text>
+        )}
+      </View>
+      {isAnnual && (
+        <Text className="text-xs text-success mb-2">
+          Save 20% · {formatPrice(plan.monthlyPrice * ANNUAL_MULTIPLIER)}/yr
+        </Text>
+      )}
+
+      <Text className="text-xs text-mid mb-4">{plan.description}</Text>
+
+      {/* Features */}
+      {plan.features.map((f) => (
+        <View key={f} className="flex-row items-center mb-2">
+          <Ionicons name="checkmark-circle" size={16} color="#4CAF72" />
+          <Text className="text-sm text-offwhite ml-2">{f}</Text>
+        </View>
+      ))}
+
+      {/* CTA */}
+      <View className="mt-4">
+        <Button
+          title={plan.featured ? 'GET STARTED' : 'Choose Plan'}
+          variant={plan.featured ? 'primary' : 'outline'}
+          onPress={() => onPress(plan)}
+        />
+      </View>
+    </Pressable>
+  );
+}
+
+export default function MembershipScreen() {
+  const [isAnnual, setIsAnnual] = useState(false);
+
+  const handlePlanPress = useCallback((plan: PlanConfig) => {
+    Alert.alert(plan.name, `Starting ${plan.name} subscription. Coming soon!`);
+  }, []);
+
+  return (
+    <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
+      {/* Header */}
+      <View className="px-5 pt-4 pb-2">
+        <Text className="font-display text-4xl text-offwhite">PLANS</Text>
+        <Text className="text-sm text-mid mt-1">
+          Join the Bakyard community and save on every session.
+        </Text>
+      </View>
+
+      {/* Monthly / Annual toggle */}
+      <View className="flex-row items-center mx-5 mt-3 mb-4 bg-surface rounded-xl p-1 border border-stroke">
+        <Pressable
+          onPress={() => setIsAnnual(false)}
+          className={[
+            'flex-1 items-center py-2 rounded-lg',
+            !isAnnual ? 'bg-accent' : '',
+          ].join(' ')}
+        >
+          <Text className={`text-sm font-semibold ${!isAnnual ? 'text-[#0D0F14]' : 'text-mid'}`}>
+            Monthly
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => setIsAnnual(true)}
+          className={[
+            'flex-1 items-center py-2 rounded-lg',
+            isAnnual ? 'bg-accent' : '',
+          ].join(' ')}
+        >
+          <Text className={`text-sm font-semibold ${isAnnual ? 'text-[#0D0F14]' : 'text-mid'}`}>
+            Annual{' '}
+            <Text className={isAnnual ? 'text-[#0D0F14]' : 'text-success'}>Save 20%</Text>
+          </Text>
+        </Pressable>
       </View>
 
       <ScrollView
         className="flex-1"
-        contentContainerClassName="px-6 pb-8"
+        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor="#3F6F6A"
-          />
-        }
       >
-        {/* Active Membership Card */}
-        {membership && activeTierConfig && (
-          <View className="mt-4">
-            <ActiveMembershipCard
-              membership={membership}
-              tierConfig={activeTierConfig}
-              onCancelled={handleCancelled}
-            />
-          </View>
-        )}
-
-        {/* Section Header */}
-        <View className="mt-4 mb-3">
-          <Text className="text-xl font-bold text-text">
-            {membership ? 'Upgrade Your Plan' : 'Choose Your Plan'}
-          </Text>
-          <Text className="text-sm text-muted mt-1">
-            {membership
-              ? 'Unlock more benefits with a higher tier'
-              : 'Join the Bakyard community and save on every booking'}
-          </Text>
-        </View>
-
-        {/* Tier Cards */}
-        {upgradeTiers.map((tier) => (
-          <TierCard
-            key={tier.tier}
-            tier={tier}
-            isActive={membership?.tier === tier.tier}
-            isRecommended={tier.tier === 'sand_regular'}
-            onSubscribe={handleSubscribe}
-            loading={subscribingTier === tier.tier}
+        {PRD_PLANS.map((plan) => (
+          <PlanCard
+            key={plan.id}
+            plan={plan}
+            isAnnual={isAnnual}
+            onPress={handlePlanPress}
           />
         ))}
       </ScrollView>
