@@ -24,9 +24,9 @@ const PRD_PLANS: PlanConfig[] = [
     monthlyPrice: 2000,
     description: 'Pay as you go, no commitment',
     features: [
-      'Book any open play session',
-      'No membership required',
-      'Standard booking window',
+      'Single open play session',
+      'No commitment',
+      'All skill levels welcome',
     ],
     ghost: true,
   },
@@ -37,9 +37,10 @@ const PRD_PLANS: PlanConfig[] = [
     description: 'Unlimited sessions, best value',
     features: [
       'Unlimited open play sessions',
-      '24-hour early booking window',
-      '1 free guest pass per month',
-      'Member badge on profile',
+      '2 clinics per month',
+      'Priority booking window',
+      '10% off private lessons',
+      'Cancel anytime',
     ],
     featured: true,
   },
@@ -49,11 +50,10 @@ const PRD_PLANS: PlanConfig[] = [
     monthlyPrice: 29900,
     description: 'Everything + private training',
     features: [
-      'Everything in Monthly',
-      'Unlimited guest passes',
-      '48-hour early booking window',
-      'Priority customer support',
-      'Invite-only events access',
+      'All Monthly Unlimited benefits',
+      '4 private lessons per month',
+      'Personalised training plan',
+      'Video analysis',
     ],
     ghost: true,
   },
@@ -135,8 +135,12 @@ export default function MembershipScreen() {
   const [isAnnual, setIsAnnual] = useState(false);
 
   const handlePlanPress = useCallback((plan: PlanConfig) => {
-    // Navigate to Book screen — user picks a session to checkout with selected plan
-    router.push('/(tabs)/book');
+    // Plan selection: navigate to booking with plan pre-filled once Stripe is configured
+    // For now, navigate to book screen with plan filter
+    router.push({
+      pathname: '/(tabs)/book',
+      params: { plan: plan.id },
+    } as never);
   }, [router]);
 
   return (

@@ -25,6 +25,7 @@ import Skeleton from '@/components/ui/Skeleton';
 import Button from '@/components/ui/Button';
 import TimeSlotPicker from '@/components/booking/TimeSlotPicker';
 import AvailabilityBar from '@/components/ui/AvailabilityBar';
+import CourtDiagram from '@/components/ui/CourtDiagram';
 
 const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   court_rental: 'Court Rental',
@@ -294,6 +295,19 @@ export default function ProductDetailScreen() {
             </Animated.View>
           )}
 
+          {/* Court diagram */}
+          <Animated.View entering={FadeInDown.delay(280).duration(350)} className="mt-5">
+            <CourtDiagram
+              type={
+                product.type === 'clinic'
+                  ? 'clinic'
+                  : product.type === 'court_rental'
+                  ? 'private'
+                  : 'open_play'
+              }
+            />
+          </Animated.View>
+
           {/* Coach info - if coaching product */}
           {product.type === 'coaching' && product.coach_id && (
             <Animated.View entering={FadeInDown.delay(300).duration(350)}>
@@ -304,23 +318,34 @@ export default function ProductDetailScreen() {
                     params: { id: product.coach_id! },
                   })
                 }
-                className="mt-5 bg-surface rounded-2xl p-4 flex-row items-center border border-stroke"
+                className="mt-5 bg-surface rounded-2xl p-4 border border-stroke"
                 style={({ pressed }: { pressed: boolean }): ViewStyle => ({
                   opacity: pressed ? 0.85 : 1,
                 })}
               >
-                <View className="w-12 h-12 rounded-full bg-primary items-center justify-center">
-                  <Ionicons name="person" size={20} color="#FFFFFF" />
+                <View className="flex-row items-center mb-3">
+                  <View className="w-12 h-12 rounded-full bg-primary items-center justify-center">
+                    <Ionicons name="person" size={20} color="#FFFFFF" />
+                  </View>
+                  <View className="ml-3 flex-1">
+                    <Text className="text-sm font-semibold text-text">
+                      Head Coach
+                    </Text>
+                    <Text className="text-xs text-text/50 mt-0.5">
+                      Bakyard · Plano, TX
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={18} color="#F0EDE6" />
                 </View>
-                <View className="ml-3 flex-1">
-                  <Text className="text-sm font-semibold text-text">
-                    View Coach Profile
-                  </Text>
-                  <Text className="text-xs text-text/50 mt-0.5">
-                    Tap to see bio, certifications & ratings
-                  </Text>
+                {/* Star rating */}
+                <View className="flex-row items-center">
+                  <Ionicons name="star" size={14} color="#E8C97A" />
+                  <Ionicons name="star" size={14} color="#E8C97A" />
+                  <Ionicons name="star" size={14} color="#E8C97A" />
+                  <Ionicons name="star" size={14} color="#E8C97A" />
+                  <Ionicons name="star-half" size={14} color="#E8C97A" />
+                  <Text className="text-xs text-mid ml-1.5">4.8 · Tap to see bio & certifications</Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color="#F0EDE6" />
               </Pressable>
             </Animated.View>
           )}

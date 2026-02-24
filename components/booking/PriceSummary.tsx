@@ -45,6 +45,8 @@ function LineItem({ label, amount, isDiscount, isBold, delay = 0 }: LineItemProp
   );
 }
 
+const PROCESSING_FEE_CENTS = 150; // $1.50 flat processing fee
+
 export default function PriceSummary({
   priceCents,
   discountCents = 0,
@@ -60,7 +62,7 @@ export default function PriceSummary({
   );
   const subtotalCents = baseTotalCents + extrasTotal;
   const totalDiscountCents = membershipActive ? discountCents * totalPeople : 0;
-  const finalCents = subtotalCents - totalDiscountCents;
+  const finalCents = subtotalCents - totalDiscountCents + PROCESSING_FEE_CENTS;
 
   let itemIndex = 0;
 
@@ -97,6 +99,13 @@ export default function PriceSummary({
             delay={(itemIndex++) * 60}
           />
         )}
+
+        {/* Processing fee */}
+        <LineItem
+          label="Processing fee"
+          amount={formatPrice(PROCESSING_FEE_CENTS)}
+          delay={(itemIndex++) * 60}
+        />
 
         {/* Divider */}
         <View className="border-t border-stroke mt-2 pt-2">

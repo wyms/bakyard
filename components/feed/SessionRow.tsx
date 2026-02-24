@@ -66,7 +66,7 @@ export default function SessionRow({ session, product, onPress }: SessionRowProp
           {sessionName}
         </Text>
         <Text className="text-xs text-mid mt-0.5">
-          {session.spots_remaining}/{session.spots_total} spots
+          {session.spots_remaining} spots left
         </Text>
       </View>
 

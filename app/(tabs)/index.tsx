@@ -4,14 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
-import { startOfDay, endOfDay, addDays } from 'date-fns';
+import { startOfDay, endOfDay, addDays, format, parseISO } from 'date-fns';
 
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/lib/stores/authStore';
-import type { Session, Product } from '@/lib/types/database';
+import type { Session, Product, ProductType } from '@/lib/types/database';
 import NextSessionCard from '@/components/home/NextSessionCard';
-import SessionRow from '@/components/feed/SessionRow';
 import Skeleton from '@/components/ui/Skeleton';
+import Badge from '@/components/ui/Badge';
+import { formatPrice } from '@/lib/utils/pricing';
 
 // ---------------------------------------------------------------------------
 // Greeting helper
@@ -62,6 +63,84 @@ async function fetchWeekSessions(): Promise<SessionWithProduct[]> {
 
   if (error) return [];
   return (data ?? []) as SessionWithProduct[];
+}
+
+// ---------------------------------------------------------------------------
+// Horizontal session card
+// ---------------------------------------------------------------------------
+const SESSION_CARD_BADGE: Record<ProductType, 'open-play' | 'clinic' | 'private' | 'default'> = {
+  open_play: 'open-play',
+  clinic: 'clinic',
+  court_rental: 'private',
+  coaching: 'clinic',
+  tournament: 'default',
+  community_day: 'default',
+  food_addon: 'default',
+};
+
+const SESSION_TYPE_LABELS: Record<ProductType, string> = {
+  open_play: 'Open Play',
+  clinic: 'Clinic',
+  court_rental: 'Private',
+  coaching: 'Training',
+  tournament: 'Tournament',
+  community_day: 'Community',
+  food_addon: 'Add-On',
+};
+
+interface SessionCardProps {
+  session: SessionWithProduct;
+  product: Product | null;
+  onPress: () => void;
+}
+
+function SessionCard({ session, product, onPress }: SessionCardProps) {
+  const start = parseISO(session.starts_at);
+  const timeStr = format(start, 'h:mm a');
+  const dayStr = format(start, 'EEE d');
+  const productType = product?.type ?? 'open_play';
+  const isUrgent = session.spots_remaining > 0 && session.spots_remaining < 3;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+        opacity: pressed ? 0.85 : 1,
+        transform: [{ scale: pressed ? 0.98 : 1 }],
+        width: 220,
+      })}
+      className="bg-surface rounded-2xl p-4 border border-stroke"
+    >
+      {/* Day + time */}
+      <View className="flex-row items-center justify-between mb-2">
+        <Text className="font-display text-xl text-offwhite">{dayStr.toUpperCase()}</Text>
+        <Text className="text-xs text-mid">{timeStr}</Text>
+      </View>
+
+      {/* Badge row */}
+      <View className="flex-row items-center gap-2 mb-2">
+        <Badge
+          label={SESSION_TYPE_LABELS[productType]}
+          variant={SESSION_CARD_BADGE[productType]}
+          size="sm"
+        />
+        {isUrgent && <Text className="text-xs">🔥</Text>}
+      </View>
+
+      {/* Session name */}
+      <Text className="text-sm font-semibold text-offwhite mb-2" numberOfLines={2}>
+        {product?.title ?? 'Session'}
+      </Text>
+
+      {/* Spots + price */}
+      <View className="flex-row items-center justify-between mt-auto">
+        <Text className="text-xs text-mid">{session.spots_remaining} spots left</Text>
+        <Text className="text-sm font-bold text-sand">
+          {formatPrice(session.price_cents)}
+        </Text>
+      </View>
+    </Pressable>
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -167,30 +246,41 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* This week */}
-        <View className="px-5 mb-3">
-          <Text className="font-display text-2xl text-offwhite mb-3">THIS WEEK</Text>
+        {/* This week — horizontal scroll */}
+        <View className="mb-3">
+          <Text className="font-display text-2xl text-offwhite mb-3 px-5">THIS WEEK</Text>
           {weekLoading ? (
-            <>
-              <Skeleton width="100%" height={72} borderRadius={16} className="mb-2.5" />
-              <Skeleton width="100%" height={72} borderRadius={16} className="mb-2.5" />
-            </>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, gap: 12 }}
+            >
+              <Skeleton width={220} height={110} borderRadius={16} />
+              <Skeleton width={220} height={110} borderRadius={16} />
+              <Skeleton width={220} height={110} borderRadius={16} />
+            </ScrollView>
           ) : weekSessions.length > 0 ? (
-            weekSessions.map((s) => (
-              <SessionRow
-                key={s.id}
-                session={s}
-                product={s.product}
-                onPress={() =>
-                  router.push({
-                    pathname: '/product/[id]',
-                    params: { id: s.product_id },
-                  })
-                }
-              />
-            ))
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, gap: 12 }}
+            >
+              {weekSessions.map((s) => (
+                <SessionCard
+                  key={s.id}
+                  session={s}
+                  product={s.product}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/product/[id]',
+                      params: { id: s.product_id },
+                    })
+                  }
+                />
+              ))}
+            </ScrollView>
           ) : (
-            <View className="bg-surface rounded-2xl p-5 items-center border border-stroke">
+            <View className="mx-5 bg-surface rounded-2xl p-5 items-center border border-stroke">
               <Text className="text-mid text-sm text-center">No sessions scheduled this week.</Text>
             </View>
           )}

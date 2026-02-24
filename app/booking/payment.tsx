@@ -77,6 +77,8 @@ export default function PaymentScreen() {
     return fullPrice - discountedPrice;
   }, [session, hasMembership, discountPercent]);
 
+  const PROCESSING_FEE_CENTS = 150; // $1.50 flat processing fee
+
   const totalCents = useMemo(() => {
     if (!session) return 0;
     const totalPeople = 1 + guests;
@@ -88,7 +90,7 @@ export default function PaymentScreen() {
     const totalDiscountCents = hasMembership
       ? discountCentsPerPerson * totalPeople
       : 0;
-    return baseTotalCents + extrasTotal - totalDiscountCents;
+    return baseTotalCents + extrasTotal - totalDiscountCents + PROCESSING_FEE_CENTS;
   }, [session, guests, extras, hasMembership, discountCentsPerPerson]);
 
   const handlePayWithStripe = useCallback(async () => {

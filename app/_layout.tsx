@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useFonts,
   BebasNeue_400Regular,
@@ -13,6 +13,7 @@ import {
 } from '@expo-google-fonts/barlow';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import * as SecureStore from 'expo-secure-store';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
@@ -39,26 +40,38 @@ const queryClient = new QueryClient({
   },
 });
 
-function useProtectedRoute() {
+function useProtectedRoute(onboardingComplete: boolean | null) {
   const { session, isLoading } = useAuthStore();
   const segments = useSegments();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || onboardingComplete === null) return;
 
     const inAuthGroup = segments[0] === '(auth)';
+    const onOnboarding = segments[1] === 'onboarding';
 
-    if (!session && !inAuthGroup) {
-      router.replace('/(auth)/login');
+    if (!session) {
+      if (!inAuthGroup) {
+        // Not in auth group — send to onboarding or login
+        if (!onboardingComplete) {
+          router.replace('/(auth)/onboarding');
+        } else {
+          router.replace('/(auth)/login');
+        }
+      } else if (!onboardingComplete && !onOnboarding) {
+        // In auth group but onboarding not done and not already on onboarding
+        router.replace('/(auth)/onboarding');
+      }
     } else if (session && inAuthGroup) {
       router.replace('/(tabs)');
     }
-  }, [session, isLoading, segments]);
+  }, [session, isLoading, segments, onboardingComplete]);
 }
 
 export default function RootLayout() {
   const { setSession, setLoading } = useAuthStore();
+  const [onboardingComplete, setOnboardingComplete] = useState<boolean | null>(null);
 
   const [fontsLoaded, fontError] = useFonts({
     BebasNeue_400Regular,
@@ -71,6 +84,13 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontError) throw fontError;
   }, [fontError]);
+
+  useEffect(() => {
+    // Load onboarding flag
+    SecureStore.getItemAsync('onboarding_complete')
+      .then((val) => setOnboardingComplete(val === 'true'))
+      .catch(() => setOnboardingComplete(false));
+  }, []);
 
   useEffect(() => {
     // Check initial session
@@ -102,15 +122,15 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <RootLayoutNav />
+        <RootLayoutNav onboardingComplete={onboardingComplete} />
         <StatusBar style="light" />
       </SafeAreaProvider>
     </QueryClientProvider>
   );
 }
 
-function RootLayoutNav() {
-  useProtectedRoute();
+function RootLayoutNav({ onboardingComplete }: { onboardingComplete: boolean | null }) {
+  useProtectedRoute(onboardingComplete);
 
   return (
     <Stack>
