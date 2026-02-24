@@ -26,6 +26,7 @@ import type { Session } from '@/lib/types/database';
 import Button from '@/components/ui/Button';
 import Skeleton from '@/components/ui/Skeleton';
 import PriceSummary from '@/components/booking/PriceSummary';
+import { useAuthStore } from '@/lib/stores/authStore';
 
 type PaymentMethod = 'card' | 'apple_pay' | 'simulate';
 type PaymentState = 'idle' | 'processing' | 'success' | 'error';
@@ -37,6 +38,7 @@ export default function PaymentScreen() {
   }>();
   const router = useRouter();
   const { guests, extras, reset: resetBookingStore } = useBookingStore();
+  const { user: authUser } = useAuthStore();
   const createBookingMutation = useCreateBooking();
 
   const [paymentState, setPaymentState] = useState<PaymentState>('idle');
@@ -270,6 +272,9 @@ export default function PaymentScreen() {
             <Text className="text-base text-mid text-center mt-2">
               Your booking has been confirmed.
             </Text>
+            <Text className="text-xs text-mid/60 text-center mt-1">
+              A confirmation has been sent to your email.
+            </Text>
           </Animated.View>
 
           <Animated.View
@@ -299,7 +304,7 @@ export default function PaymentScreen() {
               </View>
             )}
             <View className="flex-row items-center">
-              <Ionicons name="cash-outline" size={16} color="#E8C97A" />
+              <Ionicons name="checkmark-circle" size={16} color="#4CAF72" />
               <Text className="text-sm font-bold text-sand ml-2">
                 {formatPrice(totalCents)} paid
               </Text>
@@ -352,9 +357,32 @@ export default function PaymentScreen() {
             Pay for {product.title}
           </Text>
           <Text className="text-sm text-text/50 mt-1">
-            {format(startDate, 'EEE, MMM d')} / {format(startDate, 'h:mm')} -{' '}
+            {format(startDate, 'EEE, MMM d')} · {format(startDate, 'h:mm')}–
             {format(endDate, 'h:mm a')}
+            {session.court ? ` · ${session.court.name}` : ''}
           </Text>
+        </Animated.View>
+
+        {/* Attendee details */}
+        <Animated.View
+          entering={FadeInDown.delay(100).duration(300)}
+          className="mx-5 mt-4 bg-surface rounded-2xl p-4 border border-stroke"
+        >
+          <Text className="text-xs text-mid uppercase tracking-wide mb-3">Attendee</Text>
+          <View className="flex-row items-center justify-between">
+            <View className="flex-row items-center">
+              <Ionicons name="person-outline" size={16} color="#8A8FA0" />
+              <Text className="text-sm text-offwhite ml-2">
+                {authUser?.user_metadata?.full_name ?? authUser?.email ?? 'You'}
+              </Text>
+            </View>
+            {hasMembership && (
+              <View className="flex-row items-center bg-success/10 rounded-full px-2 py-0.5">
+                <Ionicons name="checkmark-circle" size={12} color="#4CAF72" />
+                <Text className="text-xs text-success ml-1">Member</Text>
+              </View>
+            )}
+          </View>
         </Animated.View>
 
         {/* Price summary */}
@@ -432,7 +460,7 @@ export default function PaymentScreen() {
             </View>
           </Pressable>
 
-          {/* Card */}
+          {/* Saved Card */}
           <Pressable
             onPress={() => setSelectedMethod('card')}
             className={[
@@ -448,9 +476,12 @@ export default function PaymentScreen() {
             <View className="w-10 h-10 rounded-xl bg-accent/10 items-center justify-center">
               <Ionicons name="card-outline" size={22} color="#D6B07A" />
             </View>
-            <Text className="text-base font-medium text-text ml-3 flex-1">
-              Card
-            </Text>
+            <View className="ml-3 flex-1">
+              <Text className="text-base font-medium text-text">
+                •••• •••• •••• 4242
+              </Text>
+              <Text className="text-xs text-mid mt-0.5">Exp: 12/26</Text>
+            </View>
             <View
               className={[
                 'w-6 h-6 rounded-full border-2 items-center justify-center',
@@ -463,6 +494,20 @@ export default function PaymentScreen() {
                 <View className="w-3.5 h-3.5 rounded-full bg-primary" />
               )}
             </View>
+          </Pressable>
+
+          {/* Add New Card */}
+          <Pressable
+            className="flex-row items-center rounded-2xl p-4 mb-2 border border-dashed border-stroke bg-surface"
+            style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+              opacity: pressed ? 0.7 : 1,
+            })}
+            onPress={() => {}}
+          >
+            <View className="w-10 h-10 rounded-xl bg-stroke items-center justify-center">
+              <Ionicons name="add" size={22} color="#8A8FA0" />
+            </View>
+            <Text className="text-sm text-mid ml-3">+ Add New Card</Text>
           </Pressable>
 
           {/* Simulate Payment (dev mode) */}
@@ -544,23 +589,31 @@ export default function PaymentScreen() {
             </Text>
           </View>
         ) : (
-          <Button
-            title={`Pay Now ${formatPrice(totalCents)}`}
-            variant="primary"
-            size="lg"
-            onPress={handlePayment}
-            loading={false}
-            icon={
-              selectedMethod === 'apple_pay' ? (
-                <Ionicons name="logo-apple" size={20} color="#0D0F14" />
-              ) : selectedMethod === 'simulate' ? (
-                <Ionicons name="bug-outline" size={20} color="#0D0F14" />
-              ) : (
-                <Ionicons name="card-outline" size={20} color="#0D0F14" />
-              )
-            }
-            className="w-full"
-          />
+          <>
+            <Button
+              title={`Pay Now · ${formatPrice(totalCents)}`}
+              variant="primary"
+              size="lg"
+              onPress={handlePayment}
+              loading={false}
+              icon={
+                selectedMethod === 'apple_pay' ? (
+                  <Ionicons name="logo-apple" size={20} color="#0D0F14" />
+                ) : selectedMethod === 'simulate' ? (
+                  <Ionicons name="bug-outline" size={20} color="#0D0F14" />
+                ) : (
+                  <Ionicons name="card-outline" size={20} color="#0D0F14" />
+                )
+              }
+              className="w-full"
+            />
+            <View className="flex-row items-center justify-center mt-2">
+              <Ionicons name="lock-closed-outline" size={11} color="#8A8FA0" />
+              <Text className="text-xs text-mid ml-1">
+                Secured · Free cancellation up to 24 hrs.
+              </Text>
+            </View>
+          </>
         )}
       </Animated.View>
     </SafeAreaView>

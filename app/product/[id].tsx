@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 
+import { format, parseISO } from 'date-fns';
 import { useProduct } from '@/lib/hooks/useFeed';
 import { getSessionsForProduct, logInteraction } from '@/lib/api/feed';
 import { useBookingStore } from '@/lib/stores/bookingStore';
@@ -180,15 +181,19 @@ export default function ProductDetailScreen() {
               style={{ height: 250 }}
               resizeMode="cover"
             />
-            {/* Gradient overlay at bottom */}
-            <View
-              className="absolute bottom-0 left-0 right-0 h-20"
-              style={{
-                backgroundColor: 'transparent',
-              }}
-            />
+            {/* Back button */}
+            <Pressable
+              onPress={() => router.back()}
+              className="absolute top-4 left-4 flex-row items-center bg-black/50 rounded-full px-3 py-1.5"
+              style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              <Ionicons name="arrow-back" size={16} color="#F0EDE6" />
+              <Text className="text-sm text-offwhite ml-1">Schedule</Text>
+            </Pressable>
             {/* Type badge */}
-            <View className="absolute top-4 left-4">
+            <View className="absolute top-4 right-4">
               <Badge
                 label={PRODUCT_TYPE_LABELS[product.type]}
                 variant={PRODUCT_TYPE_VARIANTS[product.type]}
@@ -219,11 +224,35 @@ export default function ProductDetailScreen() {
             entering={FadeInDown.delay(150).duration(350)}
             className="flex-row items-center mt-2.5 flex-wrap gap-3"
           >
-            {product.duration_minutes && (
+            {selectedSession && (
+              <View className="flex-row items-center">
+                <Ionicons name="calendar-outline" size={16} color="#8A8FA0" />
+                <Text className="text-sm text-text/60 ml-1">
+                  {format(parseISO(selectedSession.starts_at), 'EEE, MMM d')}
+                </Text>
+              </View>
+            )}
+            {selectedSession && (
+              <View className="flex-row items-center">
+                <Ionicons name="time-outline" size={16} color="#8A8FA0" />
+                <Text className="text-sm text-text/60 ml-1">
+                  {format(parseISO(selectedSession.starts_at), 'h:mm')}–{format(parseISO(selectedSession.ends_at), 'h:mm a')}
+                </Text>
+              </View>
+            )}
+            {!selectedSession && product.duration_minutes && (
               <View className="flex-row items-center">
                 <Ionicons name="time-outline" size={16} color="#8A8FA0" />
                 <Text className="text-sm text-text/60 ml-1">
                   {product.duration_minutes} min
+                </Text>
+              </View>
+            )}
+            {selectedSession?.court && (
+              <View className="flex-row items-center">
+                <Ionicons name="location-outline" size={16} color="#8A8FA0" />
+                <Text className="text-sm text-text/60 ml-1">
+                  {selectedSession.court.name}
                 </Text>
               </View>
             )}
@@ -341,17 +370,24 @@ export default function ProductDetailScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(500).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
+        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 pt-4"
         style={{ paddingBottom: 34 }}
       >
         <Button
-          title={selectedSession ? 'BOOK THIS SESSION' : 'Select a Time to Book'}
+          title={
+            selectedSession
+              ? `BOOK THIS SESSION · ${formatPrice(selectedSession.price_cents)}`
+              : 'Select a Time to Book'
+          }
           variant="primary"
           size="lg"
           onPress={handleBookNow}
           disabled={!selectedSession}
           className="w-full font-display"
         />
+        <Text className="text-xs text-mid text-center mt-2">
+          Free cancellation up to 24 hrs before
+        </Text>
       </Animated.View>
     </SafeAreaView>
   );

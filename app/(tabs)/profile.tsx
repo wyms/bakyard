@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Alert, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { format, parseISO } from 'date-fns';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
 import { getMyMembership, getMembershipTiers } from '@/lib/api/memberships';
@@ -13,6 +14,17 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Skeleton from '@/components/ui/Skeleton';
 
+interface RecentBooking {
+  id: string;
+  session: {
+    id: string;
+    starts_at: string;
+    ends_at: string;
+    status: string;
+    product?: { title: string } | null;
+  };
+}
+
 export default function ProfileScreen() {
   const { user: authUser, signOut } = useAuth();
   const router = useRouter();
@@ -20,13 +32,14 @@ export default function ProfileScreen() {
   const [membership, setMembership] = useState<Membership | null>(null);
   const [bookingCount, setBookingCount] = useState(0);
   const [totalSessions, setTotalSessions] = useState(0);
+  const [recentBookings, setRecentBookings] = useState<RecentBooking[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = useCallback(async () => {
     if (!authUser?.id) return;
 
     try {
-      const [profileResult, membershipResult, bookingsResult, sessionsResult] =
+      const [profileResult, membershipResult, bookingsResult, sessionsResult, recentResult] =
         await Promise.all([
           supabase
             .from('users')
@@ -52,6 +65,13 @@ export default function ProfileScreen() {
             .select('id', { count: 'exact', head: true })
             .eq('user_id', authUser.id)
             .eq('status', 'confirmed'),
+          supabase
+            .from('bookings')
+            .select('id, session:sessions(id, starts_at, ends_at, status, product:products(title))')
+            .eq('user_id', authUser.id)
+            .eq('status', 'confirmed')
+            .order('created_at', { ascending: false })
+            .limit(5),
         ]);
 
       if (profileResult.data) {
@@ -60,6 +80,9 @@ export default function ProfileScreen() {
       setMembership(membershipResult);
       setBookingCount(bookingsResult.count ?? 0);
       setTotalSessions(sessionsResult.count ?? 0);
+      if (recentResult.data) {
+        setRecentBookings(recentResult.data as unknown as RecentBooking[]);
+      }
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'Failed to load profile.';
@@ -149,9 +172,10 @@ export default function ProfileScreen() {
           <Text className="text-xl font-bold text-offwhite mt-3">
             {displayName}
           </Text>
-          {email ? (
-            <Text className="text-sm text-offwhite/50 mt-0.5">{email}</Text>
-          ) : null}
+          <View className="flex-row items-center mt-0.5">
+            <Ionicons name="location-outline" size={13} color="#8A8FA0" />
+            <Text className="text-sm text-mid ml-1">Plano, TX</Text>
+          </View>
 
           {/* Badges */}
           <View className="flex-row items-center gap-2 mt-3">
@@ -201,7 +225,7 @@ export default function ProfileScreen() {
           onPress={() => router.push('/(tabs)/membership' as never)}
           className="bg-surface rounded-2xl p-4 mb-4 border border-accent/40"
         >
-          <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center justify-between mb-2">
             <View>
               <Text className="text-xs text-mid uppercase tracking-wide mb-0.5">Your Plan</Text>
               <Text className="text-base font-bold text-offwhite">
@@ -213,7 +237,58 @@ export default function ProfileScreen() {
               <Ionicons name="chevron-forward" size={16} color="#E8C97A" />
             </View>
           </View>
+          {membership?.expires_at ? (
+            <Text className="text-xs text-mid mb-2">
+              Renews {format(parseISO(membership.expires_at), 'MMM d, yyyy')}
+            </Text>
+          ) : null}
+          {tierConfig && (
+            <View className="flex-row flex-wrap gap-2">
+              {tierConfig.features?.slice(0, 2).map((f: string) => (
+                <View key={f} className="flex-row items-center">
+                  <Ionicons name="checkmark-circle" size={12} color="#4CAF72" />
+                  <Text className="text-xs text-mid ml-1">{f}</Text>
+                </View>
+              ))}
+            </View>
+          )}
         </Pressable>
+
+        {/* Recent Session History */}
+        {recentBookings.length > 0 && (
+          <View className="mb-4">
+            <Text className="text-base font-semibold text-offwhite mb-3">
+              Recent Sessions
+            </Text>
+            <Card className="p-0">
+              {recentBookings.map((booking, idx) => {
+                const sessionName = booking.session?.product?.title ?? 'Session';
+                const startsAt = booking.session?.starts_at;
+                const isCompleted = booking.session?.status === 'completed';
+                return (
+                  <View
+                    key={booking.id}
+                    className={`flex-row items-center px-4 py-3.5 ${idx < recentBookings.length - 1 ? 'border-b border-stroke' : ''}`}
+                  >
+                    <View className="flex-1">
+                      <Text className="text-sm font-semibold text-offwhite" numberOfLines={1}>
+                        {sessionName}
+                      </Text>
+                      {startsAt ? (
+                        <Text className="text-xs text-mid mt-0.5">
+                          {format(parseISO(startsAt), 'EEE, MMM d · h:mm a')}
+                        </Text>
+                      ) : null}
+                    </View>
+                    {isCompleted && (
+                      <Badge label="Done" variant="done" size="sm" />
+                    )}
+                  </View>
+                );
+              })}
+            </Card>
+          </View>
+        )}
 
         {/* Settings Sections */}
         <View className="mt-2">

@@ -44,9 +44,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="sessions"
         options={{
-          title: 'My Sessions',
+          title: 'Sessions',
+          href: '/(tabs)/book',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
+            <Ionicons name="tennisball-outline" size={size} color={color} />
           ),
         }}
       />

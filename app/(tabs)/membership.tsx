@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, ScrollView, Pressable, Alert, type ViewStyle } from 'react-native';
+import { View, Text, ScrollView, Pressable, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { formatPrice } from '@/lib/utils/pricing';
 import Button from '@/components/ui/Button';
@@ -130,11 +131,13 @@ function PlanCard({ plan, isAnnual, onPress }: PlanCardProps) {
 }
 
 export default function MembershipScreen() {
+  const router = useRouter();
   const [isAnnual, setIsAnnual] = useState(false);
 
   const handlePlanPress = useCallback((plan: PlanConfig) => {
-    Alert.alert(plan.name, `Starting ${plan.name} subscription. Coming soon!`);
-  }, []);
+    // Navigate to Book screen — user picks a session to checkout with selected plan
+    router.push('/(tabs)/book');
+  }, [router]);
 
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
