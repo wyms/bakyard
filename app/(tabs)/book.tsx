@@ -173,17 +173,37 @@ export default function BookScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 8 }}
+        contentContainerStyle={{ paddingHorizontal: 22, paddingTop: 16, paddingBottom: 0, gap: 8 }}
       >
-        {FILTERS.map((f) => (
-          <View key={f.key} className="mr-2">
-            <Chip
-              label={f.label}
-              selected={activeFilter === f.key}
+        {FILTERS.map((f) => {
+          const isActive = activeFilter === f.key;
+          return (
+            <Pressable
+              key={f.key}
               onPress={() => setActiveFilter(f.key)}
-            />
-          </View>
-        ))}
+              style={{
+                paddingVertical: 6,
+                paddingHorizontal: 14,
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: isActive ? '#E8C97A' : 'rgba(255,255,255,0.1)',
+                backgroundColor: isActive ? '#E8C97A' : 'transparent',
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: 'BarlowCondensed_600SemiBold',
+                  fontSize: 11.5,
+                  letterSpacing: 1.9,
+                  textTransform: 'uppercase',
+                  color: isActive ? '#0D0F14' : '#8A8FA0',
+                }}
+              >
+                {f.label}
+              </Text>
+            </Pressable>
+          );
+        })}
       </ScrollView>
 
       {/* Session list */}
