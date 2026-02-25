@@ -13,7 +13,6 @@ import { useQuery } from '@tanstack/react-query';
 import { addDays, format, isSameDay, startOfDay, endOfDay } from 'date-fns';
 import { supabase } from '@/lib/supabase';
 import type { Session, Product, ProductType } from '@/lib/types/database';
-import Chip from '@/components/ui/Chip';
 import SessionRow from '@/components/feed/SessionRow';
 import Skeleton from '@/components/ui/Skeleton';
 
