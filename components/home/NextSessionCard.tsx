@@ -46,10 +46,10 @@ export default function NextSessionCard({ session, product }: NextSessionCardPro
     return (
       <Pressable
         onPress={() => router.push('/(tabs)/book' as never)}
-        className="bg-surface rounded-2xl p-4 border border-stroke mb-4"
+        style={{ backgroundColor: 'rgba(232,201,122,0.07)', borderRadius: 12, padding: 12, borderWidth: 1, borderColor: 'rgba(232,201,122,0.18)' }}
       >
-        <Text className="text-base font-semibold text-offwhite mb-1">No upcoming sessions</Text>
-        <Text className="text-sm text-mid">Book Your First Session →</Text>
+        <Text className="text-sm font-semibold text-offwhite mb-0.5">No upcoming sessions</Text>
+        <Text className="text-xs text-mid">Book Your First Session →</Text>
       </Pressable>
     );
   }
@@ -67,20 +67,23 @@ export default function NextSessionCard({ session, product }: NextSessionCardPro
           params: { id: session.id },
         })
       }
-      className="bg-surface rounded-2xl p-4 border border-stroke mb-4"
+      style={{ backgroundColor: 'rgba(232,201,122,0.1)', borderRadius: 12, padding: 12, paddingHorizontal: 14, borderWidth: 1, borderColor: 'rgba(232,201,122,0.2)', flexDirection: 'row', alignItems: 'center', gap: 12 }}
     >
-      <View className="flex-row items-center mb-2">
-        <PulsingDot />
-        <Text className="text-xs font-semibold text-success ml-2 uppercase tracking-wide">
+      <PulsingDot />
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 10, letterSpacing: 2.8, textTransform: 'uppercase', color: '#4CAF72', marginBottom: 2 }}
+        >
           Next Session
         </Text>
+        <Text style={{ fontSize: 14, fontWeight: '500', color: '#F0EDE6' }} numberOfLines={1}>
+          {sessionName}
+        </Text>
+        <Text style={{ fontSize: 11, color: '#8A8FA0' }}>
+          {dateStr} · {timeStr}
+        </Text>
       </View>
-      <Text className="text-lg font-bold text-offwhite" numberOfLines={1}>
-        {sessionName}
-      </Text>
-      <Text className="text-sm text-mid mt-0.5">
-        {dateStr} · {timeStr}
-      </Text>
+      <Text style={{ color: '#E8C97A', fontSize: 16 }}>›</Text>
     </Pressable>
   );
 }

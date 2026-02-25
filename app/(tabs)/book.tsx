@@ -101,8 +101,9 @@ export default function BookScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
       {/* Header */}
-      <View className="px-5 pt-4 pb-3">
-        <Text className="font-display text-4xl text-offwhite">BOOK</Text>
+      <View style={{ paddingHorizontal: 22, paddingTop: 16, paddingBottom: 16, backgroundColor: '#131720', borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.05)' }}>
+        <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 26, letterSpacing: 1.2, color: '#F0EDE6', lineHeight: 26 }}>BOOK A</Text>
+        <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 26, letterSpacing: 1.2, color: '#F0EDE6', lineHeight: 26 }}>SESSION</Text>
       </View>
 
       {/* 6-day date picker */}

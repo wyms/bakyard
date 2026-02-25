@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, Pressable, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { formatPrice } from '@/lib/utils/pricing';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
@@ -76,55 +75,95 @@ function PlanCard({ plan, isAnnual, onPress }: PlanCardProps) {
     <Pressable
       onPress={() => onPress(plan)}
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
-        opacity: pressed ? 0.9 : 1,
+        borderRadius: 16,
+        marginBottom: 12,
+        overflow: 'hidden',
+        borderWidth: 1.5,
+        borderColor: plan.featured ? 'rgba(232,201,122,0.35)' : 'rgba(255,255,255,0.07)',
+        backgroundColor: plan.featured ? '#141A0A' : '#181C26',
+        opacity: pressed ? 0.92 : 1,
         transform: [{ scale: pressed ? 0.99 : 1 }],
       })}
-      className={[
-        'rounded-2xl p-5 mb-4 border',
-        plan.featured
-          ? 'bg-[#1A1C24] border-sand'
-          : 'bg-surface border-stroke',
-      ]
-        .filter(Boolean)
-        .join(' ')}
     >
-      {/* Header */}
-      <View className="flex-row items-center justify-between mb-3">
-        <Text className="font-display text-2xl text-offwhite">{plan.name.toUpperCase()}</Text>
-        {plan.featured && <Badge label="Most Popular" variant="default" size="sm" />}
-      </View>
-
-      {/* Price */}
-      <View className="flex-row items-baseline mb-1">
-        <Text className="text-3xl font-bold text-sand">{formatPrice(price)}</Text>
-        <Text className="text-sm text-mid ml-1">/mo</Text>
-        {plan.ghost && plan.id === 'drop_in' && (
-          <Text className="text-xs text-mid ml-2">per session</Text>
-        )}
-      </View>
-      {isAnnual && (
-        <Text className="text-xs text-success mb-2">
-          Save 20% · {formatPrice(plan.monthlyPrice * ANNUAL_MULTIPLIER)}/yr
-        </Text>
+      {/* Featured top accent bar */}
+      {plan.featured && (
+        <View style={{ height: 2, flexDirection: 'row' }}>
+          <View style={{ flex: 1, backgroundColor: '#D95F2B' }} />
+          <View style={{ flex: 1, backgroundColor: '#E8C97A' }} />
+        </View>
       )}
 
-      <Text className="text-xs text-mid mb-4">{plan.description}</Text>
+      <View style={{ padding: 18, position: 'relative' }}>
+        {/* Most Popular badge */}
+        {plan.featured && (
+          <View style={{ position: 'absolute', top: 14, right: 14 }}>
+            <Badge label="Most Popular" variant="default" size="sm" />
+          </View>
+        )}
 
-      {/* Features */}
-      {plan.features.map((f) => (
-        <View key={f} className="flex-row items-center mb-2">
-          <Ionicons name="checkmark-circle" size={16} color="#4CAF72" />
-          <Text className="text-sm text-offwhite ml-2">{f}</Text>
+        {/* Plan name */}
+        <Text
+          style={{
+            fontFamily: 'BarlowCondensed_700Bold',
+            fontSize: 12,
+            letterSpacing: 2.8,
+            textTransform: 'uppercase',
+            color: plan.featured ? '#E8C97A' : '#8A8FA0',
+            marginBottom: 4,
+          }}
+        >
+          {plan.name.toUpperCase()}
+        </Text>
+
+        {/* Price */}
+        <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4, marginBottom: plan.ghost && plan.id === 'drop_in' ? 2 : 14 }}>
+          <Text
+            style={{
+              fontFamily: 'BebasNeue_400Regular',
+              fontSize: 36,
+              letterSpacing: 0.6,
+              color: '#F0EDE6',
+              lineHeight: 38,
+            }}
+          >
+            {formatPrice(price)}
+          </Text>
+          <Text style={{ fontSize: 12, color: '#5A5F72', fontWeight: '300' }}>/mo</Text>
         </View>
-      ))}
+        {plan.ghost && plan.id === 'drop_in' && (
+          <Text style={{ fontSize: 11, color: '#5A5F72', marginBottom: 12 }}>per session</Text>
+        )}
 
-      {/* CTA */}
-      <View className="mt-4">
-        <Button
-          title={plan.featured ? 'GET STARTED' : 'Choose Plan'}
-          variant={plan.featured ? 'primary' : 'outline'}
-          onPress={() => onPress(plan)}
-        />
+        {/* Annual savings */}
+        {isAnnual && (
+          <Text style={{ fontSize: 11, color: '#4CAF72', marginBottom: 8 }}>
+            {`Save 20% · ${formatPrice(plan.monthlyPrice * ANNUAL_MULTIPLIER)}/yr`}
+          </Text>
+        )}
+
+        {/* Description */}
+        <Text style={{ fontSize: 13, color: '#5A5F72', marginBottom: 14, fontWeight: '300' }}>
+          {plan.description}
+        </Text>
+
+        {/* Features */}
+        {plan.features.map((f) => (
+          <View key={f} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 7 }}>
+            <Text style={{ color: '#4CAF72', fontSize: 12, marginRight: 8 }}>✓</Text>
+            <Text style={{ fontSize: 12, color: plan.featured ? 'rgba(240,237,230,0.65)' : '#8A8FA0', fontWeight: '300', flex: 1 }}>
+              {f}
+            </Text>
+          </View>
+        ))}
+
+        {/* CTA */}
+        <View style={{ marginTop: 14 }}>
+          <Button
+            title={plan.featured ? 'GET STARTED' : 'Choose Plan'}
+            variant={plan.featured ? 'primary' : 'outline'}
+            onPress={() => onPress(plan)}
+          />
+        </View>
       </View>
     </Pressable>
   );
@@ -135,8 +174,6 @@ export default function MembershipScreen() {
   const [isAnnual, setIsAnnual] = useState(false);
 
   const handlePlanPress = useCallback((plan: PlanConfig) => {
-    // Plan selection: navigate to booking with plan pre-filled once Stripe is configured
-    // For now, navigate to book screen with plan filter
     router.push({
       pathname: '/(tabs)/book',
       params: { plan: plan.id },
@@ -146,43 +183,98 @@ export default function MembershipScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={['top']}>
       {/* Header */}
-      <View className="px-5 pt-4 pb-2">
-        <Text className="font-display text-4xl text-offwhite">PLANS</Text>
-        <Text className="text-sm text-mid mt-1">
+      <View
+        style={{
+          paddingHorizontal: 22,
+          paddingTop: 16,
+          paddingBottom: 18,
+          backgroundColor: '#131720',
+          borderBottomWidth: 1,
+          borderBottomColor: 'rgba(255,255,255,0.05)',
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: 'BebasNeue_400Regular',
+            fontSize: 28,
+            letterSpacing: 1,
+            color: '#F0EDE6',
+            lineHeight: 28,
+          }}
+        >
+          PLANS
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'BebasNeue_400Regular',
+            fontSize: 28,
+            letterSpacing: 1,
+            color: '#F0EDE6',
+            lineHeight: 28,
+            marginBottom: 6,
+          }}
+        >
+          & PRICING
+        </Text>
+        <Text style={{ fontSize: 13, fontWeight: '300', color: '#5A5F72', lineHeight: 20 }}>
           Join the Bakyard community and save on every session.
         </Text>
       </View>
 
       {/* Monthly / Annual toggle */}
-      <View className="flex-row items-center mx-5 mt-3 mb-4 bg-surface rounded-xl p-1 border border-stroke">
-        <Pressable
-          onPress={() => setIsAnnual(false)}
-          className={[
-            'flex-1 items-center py-2 rounded-lg',
-            !isAnnual ? 'bg-accent' : '',
-          ].join(' ')}
-        >
-          <Text className={`text-sm font-semibold ${!isAnnual ? 'text-[#0D0F14]' : 'text-mid'}`}>
-            Monthly
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => setIsAnnual(true)}
-          className={[
-            'flex-1 items-center py-2 rounded-lg',
-            isAnnual ? 'bg-accent' : '',
-          ].join(' ')}
-        >
-          <Text className={`text-sm font-semibold ${isAnnual ? 'text-[#0D0F14]' : 'text-mid'}`}>
-            Annual{' '}
-            <Text className={isAnnual ? 'text-[#0D0F14]' : 'text-success'}>Save 20%</Text>
-          </Text>
-        </Pressable>
+      <View style={{ paddingHorizontal: 22, paddingTop: 16, paddingBottom: 4 }}>
+        <View style={{ flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 10, padding: 3 }}>
+          <Pressable
+            onPress={() => setIsAnnual(false)}
+            style={{
+              flex: 1,
+              paddingVertical: 8,
+              alignItems: 'center',
+              borderRadius: 8,
+              backgroundColor: !isAnnual ? '#1E2330' : 'transparent',
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: 'BarlowCondensed_700Bold',
+                fontSize: 11,
+                letterSpacing: 1.9,
+                textTransform: 'uppercase',
+                color: !isAnnual ? '#F0EDE6' : '#5A5F72',
+              }}
+            >
+              Monthly
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setIsAnnual(true)}
+            style={{
+              flex: 1,
+              paddingVertical: 8,
+              alignItems: 'center',
+              borderRadius: 8,
+              backgroundColor: isAnnual ? '#1E2330' : 'transparent',
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: 'BarlowCondensed_700Bold',
+                fontSize: 11,
+                letterSpacing: 1.9,
+                textTransform: 'uppercase',
+                color: isAnnual ? '#F0EDE6' : '#5A5F72',
+              }}
+            >
+              Annual
+            </Text>
+            <Text style={{ fontSize: 9, color: '#4CAF72', marginTop: 2 }}>Save 20%</Text>
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 80 }}
+        contentContainerStyle={{ paddingHorizontal: 22, paddingTop: 12, paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
       >
         {PRD_PLANS.map((plan) => (

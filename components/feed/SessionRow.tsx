@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, type ViewStyle } from 'react-native';
 import { format, parseISO } from 'date-fns';
-import Badge from '@/components/ui/Badge';
 import { formatPrice } from '@/lib/utils/pricing';
 import type { Session, Product, ProductType } from '@/lib/types/database';
 
@@ -10,16 +9,6 @@ interface SessionRowProps {
   product?: Product | null;
   onPress: () => void;
 }
-
-const TYPE_BADGE_VARIANT: Record<ProductType, 'open-play' | 'clinic' | 'private' | 'default'> = {
-  open_play: 'open-play',
-  clinic: 'clinic',
-  court_rental: 'private',
-  coaching: 'clinic',
-  tournament: 'default',
-  community_day: 'default',
-  food_addon: 'default',
-};
 
 const TYPE_LABELS: Record<ProductType, string> = {
   open_play: 'Open Play',
@@ -31,6 +20,16 @@ const TYPE_LABELS: Record<ProductType, string> = {
   food_addon: 'Add-On',
 };
 
+const TYPE_COLORS: Record<ProductType, string> = {
+  open_play: '#D95F2B',
+  clinic: '#7BC4E2',
+  court_rental: '#E8C97A',
+  coaching: '#7BC4E2',
+  tournament: '#E8C97A',
+  community_day: '#4CAF72',
+  food_addon: '#8A8FA0',
+};
+
 export default function SessionRow({ session, product, onPress }: SessionRowProps) {
   const start = parseISO(session.starts_at);
   const timeStr = format(start, 'h:mm');
@@ -38,42 +37,100 @@ export default function SessionRow({ session, product, onPress }: SessionRowProp
   const sessionName = product?.title ?? 'Session';
   const isUrgent = session.spots_remaining > 0 && session.spots_remaining < 3;
   const productType = product?.type ?? 'open_play';
-  const badgeVariant = TYPE_BADGE_VARIANT[productType];
   const typeLabel = TYPE_LABELS[productType];
+  const typeColor = TYPE_COLORS[productType];
 
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center bg-surface rounded-2xl px-4 py-3 mb-2.5 border border-stroke"
       style={({ pressed }: { pressed: boolean }): ViewStyle => ({
-        opacity: pressed ? 0.85 : 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#181C26',
+        borderRadius: 14,
+        padding: 16,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: pressed ? 'rgba(232,201,122,0.15)' : 'rgba(255,255,255,0.04)',
+        opacity: pressed ? 0.9 : 1,
         transform: [{ scale: pressed ? 0.99 : 1 }],
+        gap: 14,
       })}
     >
-      {/* Time */}
-      <View className="mr-4 items-center" style={{ minWidth: 52 }}>
-        <Text className="font-display text-2xl text-offwhite leading-none">{timeStr}</Text>
-        <Text className="text-xs text-mid">{ampm}</Text>
+      {/* Time column */}
+      <View style={{ alignItems: 'center', minWidth: 44 }}>
+        <Text
+          style={{
+            fontFamily: 'BebasNeue_400Regular',
+            fontSize: 16,
+            letterSpacing: 1,
+            color: '#E8C97A',
+            lineHeight: 17,
+          }}
+        >
+          {timeStr}
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'BarlowCondensed_600SemiBold',
+            fontSize: 9,
+            letterSpacing: 1.9,
+            textTransform: 'uppercase',
+            color: '#5A5F72',
+          }}
+        >
+          {ampm}
+        </Text>
       </View>
 
-      {/* Details */}
-      <View className="flex-1">
-        <View className="flex-row items-center gap-2 mb-0.5">
-          <Badge label={typeLabel} variant={badgeVariant} size="sm" />
-          {isUrgent && <Text className="text-xs">🔥</Text>}
-        </View>
-        <Text className="text-sm font-semibold text-offwhite" numberOfLines={1}>
+      {/* Vertical divider */}
+      <View style={{ width: 1, height: 40, backgroundColor: 'rgba(255,255,255,0.07)', flexShrink: 0 }} />
+
+      {/* Session info */}
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontFamily: 'BarlowCondensed_700Bold',
+            fontSize: 9,
+            letterSpacing: 2.8,
+            textTransform: 'uppercase',
+            color: typeColor,
+            marginBottom: 2,
+          }}
+        >
+          {typeLabel}
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'BarlowCondensed_700Bold',
+            fontSize: 15,
+            letterSpacing: 0.5,
+            color: '#F0EDE6',
+            marginBottom: 3,
+          }}
+          numberOfLines={1}
+        >
           {sessionName}
         </Text>
-        <Text className="text-xs text-mid mt-0.5">
-          {session.spots_remaining} spots left
+        <Text style={{ fontSize: 11, color: '#5A5F72' }}>
+          {session.spots_remaining} spots left{isUrgent ? ' 🔥' : ''}
         </Text>
       </View>
 
       {/* Price */}
-      <Text className="text-sm font-bold text-sand ml-2">
-        {formatPrice(session.price_cents)}
-      </Text>
+      <View style={{ alignItems: 'flex-end' }}>
+        <Text
+          style={{
+            fontFamily: 'BebasNeue_400Regular',
+            fontSize: 18,
+            letterSpacing: 1,
+            color: '#F0EDE6',
+          }}
+        >
+          {formatPrice(session.price_cents)}
+        </Text>
+        <Text style={{ fontSize: 9, color: '#5A5F72', textAlign: 'right' }}>/ person</Text>
+      </View>
     </Pressable>
   );
 }
