@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   FlatList,
+  Pressable,
   type ListRenderItemInfo,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -110,31 +111,60 @@ export default function BookScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 8 }}
+        contentContainerStyle={{ paddingHorizontal: 22, paddingTop: 16, paddingBottom: 3, gap: 8 }}
       >
         {days.map((day, i) => {
           const isActive = i === selectedDayIndex;
           const hasSessions = dayHasSessions(day);
           return (
-            <Chip
+            <Pressable
               key={day.toISOString()}
-              label={`${format(day, 'EEE')}\n${format(day, 'd')}`}
-              selected={isActive}
               onPress={() => setSelectedDayIndex(i)}
-              icon={
-                hasSessions ? (
-                  <View
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: 2.5,
-                      backgroundColor: isActive ? '#0D0F14' : '#E8C97A',
-                      marginBottom: 2,
-                    }}
-                  />
-                ) : undefined
-              }
-            />
+              style={{
+                width: 46,
+                paddingVertical: 8,
+                paddingHorizontal: 4,
+                borderRadius: 12,
+                alignItems: 'center',
+                backgroundColor: isActive ? '#E8C97A' : 'transparent',
+                borderWidth: 1,
+                borderColor: isActive ? '#E8C97A' : 'transparent',
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: 'BarlowCondensed_600SemiBold',
+                  fontSize: 9.5,
+                  letterSpacing: 1.6,
+                  textTransform: 'uppercase',
+                  color: isActive ? '#0D0F14' : '#8A8FA0',
+                  marginBottom: 4,
+                }}
+              >
+                {format(day, 'EEE')}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'BebasNeue_400Regular',
+                  fontSize: 18,
+                  letterSpacing: 0.8,
+                  color: isActive ? '#0D0F14' : '#F0EDE6',
+                }}
+              >
+                {format(day, 'd')}
+              </Text>
+              {hasSessions && (
+                <View
+                  style={{
+                    width: 4,
+                    height: 4,
+                    borderRadius: 2,
+                    backgroundColor: isActive ? '#0D0F14' : '#E8C97A',
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </Pressable>
           );
         })}
       </ScrollView>
