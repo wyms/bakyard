@@ -2,18 +2,12 @@ import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
   Text,
-  ScrollView,
   Pressable,
-  Dimensions,
   Animated,
-  type NativeSyntheticEvent,
-  type NativeScrollEvent,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const SLIDES = [
   {
@@ -133,14 +127,24 @@ function VolleyballAnimation() {
 export default function OnboardingScreen() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const scrollRef = useRef<ScrollView>(null);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
 
-  const handleScroll = useCallback(
-    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const idx = Math.round(e.nativeEvent.contentOffset.x / SCREEN_WIDTH);
-      setCurrentSlide(idx);
+  const goToSlide = useCallback(
+    (idx: number) => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: true,
+      }).start(() => {
+        setCurrentSlide(idx);
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }).start();
+      });
     },
-    []
+    [fadeAnim]
   );
 
   const markComplete = useCallback(async () => {
@@ -163,47 +167,31 @@ export default function OnboardingScreen() {
 
   const handleNext = useCallback(() => {
     if (currentSlide < SLIDES.length - 1) {
-      scrollRef.current?.scrollTo({
-        x: (currentSlide + 1) * SCREEN_WIDTH,
-        animated: true,
-      });
-      setCurrentSlide(currentSlide + 1);
+      goToSlide(currentSlide + 1);
     }
-  }, [currentSlide]);
+  }, [currentSlide, goToSlide]);
 
   const isLastSlide = currentSlide === SLIDES.length - 1;
+  const slide = SLIDES[currentSlide];
 
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={['top', 'bottom']}>
-      {/* Slides */}
-      <ScrollView
-        ref={scrollRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={handleScroll}
-        scrollEventThrottle={16}
-        style={{ flex: 1 }}
+      {/* Slide content */}
+      <Animated.View
+        className="flex-1 items-center justify-center px-8"
+        style={{ opacity: fadeAnim }}
       >
-        {SLIDES.map((s, i) => (
-          <View
-            key={i}
-            style={{ width: SCREEN_WIDTH }}
-            className="flex-1 items-center justify-center px-8"
-          >
-            <VolleyballAnimation />
-            <Text className="text-xs font-semibold text-mid text-center uppercase tracking-widest mt-8 mb-5">
-              {s.eyebrow}
-            </Text>
-            <Text className="font-display text-5xl text-offwhite text-center leading-none mb-5">
-              {s.headline}
-            </Text>
-            <Text className="text-base text-mid text-center leading-6">
-              {s.body}
-            </Text>
-          </View>
-        ))}
-      </ScrollView>
+        <VolleyballAnimation />
+        <Text className="text-xs font-semibold text-mid text-center uppercase tracking-widest mt-8 mb-5">
+          {slide.eyebrow}
+        </Text>
+        <Text className="font-display text-5xl text-offwhite text-center leading-none mb-5">
+          {slide.headline}
+        </Text>
+        <Text className="text-base text-mid text-center leading-6">
+          {slide.body}
+        </Text>
+      </Animated.View>
 
       {/* Progress dots */}
       <View className="flex-row items-center justify-center py-5" style={{ gap: 6 }}>
