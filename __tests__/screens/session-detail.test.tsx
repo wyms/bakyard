@@ -201,7 +201,7 @@ function setupMocks({
     refetch: mockRefetch,
   });
   // useAuthStore uses a selector: useAuthStore(s => s.user)
-  (useAuthStore as jest.Mock).mockImplementation(
+  (useAuthStore as unknown as jest.Mock).mockImplementation(
     (sel: (s: { user: { id: string } | null }) => unknown) =>
       sel({ user: userId ? { ...mockUser, id: userId } : null }),
   );

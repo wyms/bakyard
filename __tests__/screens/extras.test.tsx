@@ -108,7 +108,7 @@ function setupMocks({
       return { data: undefined, isLoading: false };
     },
   );
-  (useBookingStore as jest.Mock).mockReturnValue({
+  (useBookingStore as unknown as jest.Mock).mockReturnValue({
     extras: storeExtras,
     addExtra: mockAddExtra,
     removeExtra: mockRemoveExtra,
@@ -118,7 +118,7 @@ function setupMocks({
 // Returns all nodes with an onPress handler in render-tree order.
 function getOnPressNodes(renderResult: ReturnType<typeof render>) {
   return renderResult.UNSAFE_root.findAll(
-    (node) => typeof node.props.onPress === 'function',
+    (node: { props: Record<string, unknown> }) => typeof node.props.onPress === 'function',
     { deep: true },
   );
 }

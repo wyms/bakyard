@@ -103,7 +103,7 @@ const mockSetGuests = jest.fn();
 interface SetupOptions {
   isLoading?: boolean;
   product?: typeof mockProduct | null;
-  sessions?: (typeof mockSession & { court: { id: string; name: string } | null })[];
+  sessions?: (Omit<typeof mockSession, 'court'> & { court: { id: string; name: string } | null })[];
   membership?: { status: string; discount_percent: number } | null;
   guests?: number;
 }
@@ -128,7 +128,7 @@ function setupMocks({
       return { data: undefined, isLoading: false };
     },
   );
-  (useBookingStore as jest.Mock).mockReturnValue({
+  (useBookingStore as unknown as jest.Mock).mockReturnValue({
     guests,
     setGuests: mockSetGuests,
     extras: [],
@@ -251,7 +251,7 @@ describe('ConfirmBookingScreen', () => {
 
   function getStepperButtons(renderResult: ReturnType<typeof render>) {
     const onPressNodes = renderResult.UNSAFE_root.findAll(
-      (node) => typeof node.props.onPress === 'function',
+      (node: { props: Record<string, unknown> }) => typeof node.props.onPress === 'function',
       { deep: true },
     );
     return { decrement: onPressNodes[0], increment: onPressNodes[1] };

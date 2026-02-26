@@ -161,7 +161,7 @@ const mockSetSession = jest.fn();
 interface SetupOptions {
   productLoading?: boolean;
   productError?: Error | null;
-  product?: typeof mockProduct | null;
+  product?: (Omit<typeof mockProduct, 'type'> & { type: string }) | null;
   sessionsLoading?: boolean;
   sessions?: typeof mockSession[];
 }
@@ -184,7 +184,7 @@ function setupMocks({
     data: sessions,
     isLoading: sessionsLoading,
   });
-  (useBookingStore as jest.Mock).mockReturnValue({
+  (useBookingStore as unknown as jest.Mock).mockReturnValue({
     setSession: mockSetSession,
   });
 }

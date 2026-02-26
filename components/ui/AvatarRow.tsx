@@ -38,8 +38,7 @@ export default function AvatarRow({
           <View className="rounded-full border-2 border-surface">
             <Avatar
               name={user.name}
-              avatarUrl={user.avatar_url}
-              size={size}
+              uri={user.avatar_url}
             />
           </View>
           {user.paid && (

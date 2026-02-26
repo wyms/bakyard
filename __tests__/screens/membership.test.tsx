@@ -77,7 +77,7 @@ function setup() {
 // onPress nodes in document order, before any plan card Pressables).
 function getToggleButtons(renderResult: ReturnType<typeof render>) {
   const nodes = renderResult.UNSAFE_root.findAll(
-    (node) => typeof node.props.onPress === 'function',
+    (node: { props: Record<string, unknown> }) => typeof node.props.onPress === 'function',
     { deep: true },
   );
   return { monthlyBtn: nodes[0], annualBtn: nodes[1] };

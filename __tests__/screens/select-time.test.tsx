@@ -182,7 +182,7 @@ function setupMocks({
       return { data: undefined, isLoading: false };
     },
   );
-  (useBookingStore as jest.Mock).mockReturnValue({
+  (useBookingStore as unknown as jest.Mock).mockReturnValue({
     setSession: mockSetSession,
     selectedSessionId: null,
   });

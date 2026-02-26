@@ -92,8 +92,8 @@ export interface Session {
   created_at: string;
   updated_at: string;
   // Joined relations (optional, populated via queries)
-  product?: Product;
-  court?: Court;
+  product?: Product | null;
+  court?: Court | null;
   bookings?: Booking[];
 }
 
@@ -122,6 +122,7 @@ export interface Membership {
   guest_passes_remaining: number;
   current_period_start: string;
   current_period_end: string;
+  expires_at: string | null;
   created_at: string;
 }
 
@@ -219,72 +220,93 @@ export type FeedInteractionInsert = Omit<FeedInteraction, 'id' | 'created_at'>;
 
 export type NotificationInsert = Omit<Notification, 'id' | 'created_at'>;
 
+// ----- Row-only types (no circular joins, used in Database['Tables'][...]['Row']) -----
+// These break the Session ↔ Booking circular reference so that Database['public']
+// satisfies Supabase's GenericSchema constraint.
+type SessionRow = Omit<Session, 'product' | 'court' | 'bookings'>;
+type BookingRow = Omit<Booking, 'session' | 'user'>;
+type CoachProfileRow = Omit<CoachProfile, 'user'>;
+
 // ----- Database Interface -----
 
 export interface Database {
   public: {
     Tables: {
       users: {
-        Row: User;
+        Row: Omit<User, never>;
         Insert: UserInsert;
         Update: UserUpdate;
+        Relationships: [];
       };
       courts: {
-        Row: Court;
+        Row: Omit<Court, never>;
         Insert: CourtInsert;
         Update: CourtUpdate;
+        Relationships: [];
       };
       products: {
-        Row: Product;
+        Row: Omit<Product, never>;
         Insert: ProductInsert;
         Update: ProductUpdate;
+        Relationships: [];
       };
       sessions: {
-        Row: Session;
+        Row: SessionRow;
         Insert: SessionInsert;
         Update: SessionUpdate;
+        Relationships: [];
       };
       bookings: {
-        Row: Booking;
+        Row: BookingRow;
         Insert: BookingInsert;
         Update: BookingUpdate;
+        Relationships: [];
       };
       orders: {
-        Row: Order;
+        Row: Omit<Order, never>;
         Insert: OrderInsert;
-        Update: never;
+        Update: Partial<Omit<Order, 'id' | 'created_at'>>;
+        Relationships: [];
       };
       memberships: {
-        Row: Membership;
+        Row: Omit<Membership, never>;
         Insert: MembershipInsert;
         Update: MembershipUpdate;
+        Relationships: [];
       };
       coach_profiles: {
-        Row: CoachProfile;
+        Row: CoachProfileRow;
         Insert: CoachProfileInsert;
         Update: CoachProfileUpdate;
+        Relationships: [];
       };
       session_chat_messages: {
-        Row: SessionChatMessage;
+        Row: Omit<SessionChatMessage, never>;
         Insert: Omit<SessionChatMessage, 'id' | 'created_at'>;
-        Update: never;
+        Update: Partial<Omit<SessionChatMessage, 'id' | 'created_at'>>;
+        Relationships: [];
       };
       feed_interactions: {
-        Row: FeedInteraction;
+        Row: Omit<FeedInteraction, never>;
         Insert: FeedInteractionInsert;
-        Update: never;
+        Update: Partial<Omit<FeedInteraction, 'id' | 'created_at'>>;
+        Relationships: [];
       };
       pricing_rules: {
-        Row: PricingRule;
+        Row: Omit<PricingRule, never>;
         Insert: Omit<PricingRule, 'id'>;
         Update: Partial<Omit<PricingRule, 'id'>>;
+        Relationships: [];
       };
       notifications: {
-        Row: Notification;
+        Row: Omit<Notification, never>;
         Insert: NotificationInsert;
         Update: Partial<Pick<Notification, 'is_read'>>;
+        Relationships: [];
       };
     };
+    Views: Record<never, never>;
+    Functions: Record<never, never>;
     Enums: {
       skill_level: SkillLevel;
       user_role: UserRole;

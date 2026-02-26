@@ -128,12 +128,12 @@ function setupMocks({
       return { data: undefined, isLoading: false };
     },
   );
-  (useBookingStore as jest.Mock).mockReturnValue({
+  (useBookingStore as unknown as jest.Mock).mockReturnValue({
     guests,
     extras: [],
     reset: mockReset,
   });
-  (useAuthStore as jest.Mock).mockReturnValue({
+  (useAuthStore as unknown as jest.Mock).mockReturnValue({
     user: {
       email: 'player@bakyard.com',
       user_metadata: { full_name: 'Jane Doe' },

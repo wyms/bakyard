@@ -11,7 +11,8 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
  */
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
   }),
@@ -224,12 +225,12 @@ export function useNotifications() {
 
       // Clean up notification listeners
       if (notificationListenerRef.current) {
-        Notifications.removeNotificationSubscription(notificationListenerRef.current);
+        notificationListenerRef.current.remove();
         notificationListenerRef.current = null;
       }
 
       if (responseListenerRef.current) {
-        Notifications.removeNotificationSubscription(responseListenerRef.current);
+        responseListenerRef.current.remove();
         responseListenerRef.current = null;
       }
     };

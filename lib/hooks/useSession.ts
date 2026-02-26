@@ -5,7 +5,7 @@ import type { Session, Booking } from '@/lib/types/database';
 
 interface SessionWithRoster extends Session {
   bookings: (Booking & {
-    user: { id: string; full_name: string | null; avatar_url: string | null };
+    profile: { id: string; full_name: string | null; avatar_url: string | null };
   })[];
 }
 
@@ -21,7 +21,7 @@ async function fetchSession(id: string): Promise<SessionWithRoster> {
       court:courts (*),
       bookings (
         *,
-        user:users (id, full_name, avatar_url)
+        profile:users (id, full_name, avatar_url)
       )
     `)
     .eq('id', id)
