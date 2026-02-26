@@ -45,13 +45,13 @@ function VolleyballAnimation() {
     Animated.loop(
       Animated.sequence([
         Animated.timing(bounceAnim, {
-          toValue: -18,
-          duration: 550,
+          toValue: -20,
+          duration: 600,
           useNativeDriver: true,
         }),
         Animated.timing(bounceAnim, {
           toValue: 0,
-          duration: 550,
+          duration: 600,
           useNativeDriver: true,
         }),
       ])
@@ -59,71 +59,41 @@ function VolleyballAnimation() {
   }, [bounceAnim]);
 
   return (
-    <View style={{ alignItems: 'center', height: 150 }}>
+    <View style={{ alignItems: 'center', height: 180 }}>
       <Animated.View style={{ transform: [{ translateY: bounceAnim }] }}>
         <View
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: 130,
+            height: 130,
+            borderRadius: 65,
             backgroundColor: '#E8C97A',
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
+            shadowColor: '#E8C97A',
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.25,
+            shadowRadius: 20,
           }}
         >
           {/* Horizontal seam */}
-          <View
-            style={{
-              position: 'absolute',
-              width: 100,
-              height: 2,
-              backgroundColor: '#0D0F14',
-              opacity: 0.35,
-            }}
-          />
+          <View style={{ position: 'absolute', width: 130, height: 2, backgroundColor: '#0D0F14', opacity: 0.3 }} />
           {/* Vertical seam */}
-          <View
-            style={{
-              position: 'absolute',
-              width: 2,
-              height: 100,
-              backgroundColor: '#0D0F14',
-              opacity: 0.35,
-            }}
-          />
+          <View style={{ position: 'absolute', width: 2, height: 130, backgroundColor: '#0D0F14', opacity: 0.3 }} />
           {/* Diagonal seam 1 */}
-          <View
-            style={{
-              position: 'absolute',
-              width: 100,
-              height: 2,
-              backgroundColor: '#0D0F14',
-              opacity: 0.25,
-              transform: [{ rotate: '45deg' }],
-            }}
-          />
+          <View style={{ position: 'absolute', width: 130, height: 2, backgroundColor: '#0D0F14', opacity: 0.2, transform: [{ rotate: '45deg' }] }} />
           {/* Diagonal seam 2 */}
-          <View
-            style={{
-              position: 'absolute',
-              width: 100,
-              height: 2,
-              backgroundColor: '#0D0F14',
-              opacity: 0.25,
-              transform: [{ rotate: '-45deg' }],
-            }}
-          />
+          <View style={{ position: 'absolute', width: 130, height: 2, backgroundColor: '#0D0F14', opacity: 0.2, transform: [{ rotate: '-45deg' }] }} />
         </View>
       </Animated.View>
       {/* Shadow */}
       <View
         style={{
-          width: 56,
+          width: 60,
           height: 8,
-          borderRadius: 28,
-          backgroundColor: 'rgba(0,0,0,0.35)',
-          marginTop: 8,
+          borderRadius: 30,
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          marginTop: 10,
         }}
       />
     </View>
@@ -188,17 +158,16 @@ export default function OnboardingScreen() {
         {SLIDES.map((s, i) => (
           <View
             key={i}
-            style={{ width: SCREEN_WIDTH }}
-            className="flex-1 items-center justify-center px-8"
+            style={{ width: SCREEN_WIDTH, flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 }}
           >
             <VolleyballAnimation />
-            <Text className="text-xs font-semibold text-mid text-center uppercase tracking-widest mt-8 mb-5">
+            <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 11, letterSpacing: 3.2, textTransform: 'uppercase', color: '#E8C97A', textAlign: 'center', marginTop: 32, marginBottom: 16 }}>
               {s.eyebrow}
             </Text>
-            <Text className="font-display text-5xl text-offwhite text-center leading-none mb-5">
+            <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 52, letterSpacing: 1.5, color: '#F0EDE6', textAlign: 'center', lineHeight: 52, marginBottom: 18 }}>
               {s.headline}
             </Text>
-            <Text className="text-base text-mid text-center leading-6">
+            <Text style={{ fontSize: 15, color: '#8A8FA0', textAlign: 'center', lineHeight: 24, fontWeight: '300' }}>
               {s.body}
             </Text>
           </View>
@@ -221,24 +190,35 @@ export default function OnboardingScreen() {
       </View>
 
       {/* CTAs */}
-      <View className="px-6 pb-8" style={{ gap: 12 }}>
+      <View style={{ paddingHorizontal: 24, paddingBottom: 32, gap: 12 }}>
         {isLastSlide ? (
           <>
             <Pressable
               onPress={handleCreateAccount}
-              className="bg-sand rounded-2xl py-4 items-center"
-              style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+              style={({ pressed }) => ({
+                backgroundColor: '#E8C97A',
+                borderRadius: 14,
+                paddingVertical: 16,
+                alignItems: 'center',
+                opacity: pressed ? 0.85 : 1,
+              })}
             >
-              <Text className="text-base font-bold text-[#0D0F14]">
+              <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 15, letterSpacing: 2, textTransform: 'uppercase', color: '#0D0F14' }}>
                 Create Your Account
               </Text>
             </Pressable>
             <Pressable
               onPress={handleAlreadyHaveAccount}
-              className="rounded-2xl py-4 items-center border border-stroke"
-              style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+              style={({ pressed }) => ({
+                borderRadius: 14,
+                paddingVertical: 16,
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: 'rgba(255,255,255,0.1)',
+                opacity: pressed ? 0.7 : 1,
+              })}
             >
-              <Text className="text-base font-semibold text-offwhite">
+              <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 14, letterSpacing: 1.2, color: '#F0EDE6' }}>
                 I Already Have an Account
               </Text>
             </Pressable>
@@ -247,17 +227,27 @@ export default function OnboardingScreen() {
           <>
             <Pressable
               onPress={handleNext}
-              className="bg-sand rounded-2xl py-4 items-center"
-              style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+              style={({ pressed }) => ({
+                backgroundColor: '#E8C97A',
+                borderRadius: 14,
+                paddingVertical: 16,
+                alignItems: 'center',
+                opacity: pressed ? 0.85 : 1,
+              })}
             >
-              <Text className="text-base font-bold text-[#0D0F14]">Next</Text>
+              <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 15, letterSpacing: 2, textTransform: 'uppercase', color: '#0D0F14' }}>
+                Next
+              </Text>
             </Pressable>
             <Pressable
               onPress={handleAlreadyHaveAccount}
-              className="rounded-2xl py-4 items-center"
-              style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+              style={({ pressed }) => ({
+                paddingVertical: 14,
+                alignItems: 'center',
+                opacity: pressed ? 0.7 : 1,
+              })}
             >
-              <Text className="text-sm text-mid text-center">
+              <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 13, letterSpacing: 0.8, color: '#8A8FA0', textAlign: 'center' }}>
                 I Already Have an Account
               </Text>
             </Pressable>
