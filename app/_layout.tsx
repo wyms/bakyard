@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import {
   useFonts,
   BebasNeue_400Regular,
@@ -115,7 +116,7 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded && !fontError) {
+  if (!fontsLoaded && !fontError && Platform.OS !== 'web') {
     return null;
   }
 
