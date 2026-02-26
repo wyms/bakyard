@@ -353,12 +353,12 @@ export default function PaymentScreen() {
         {/* Order summary header */}
         <Animated.View
           entering={FadeInDown.delay(50).duration(300)}
-          className="px-5 pt-4"
+          style={{ paddingHorizontal: 20, paddingTop: 20 }}
         >
-          <Text className="text-xl font-bold text-text">
+          <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 26, letterSpacing: 1.2, color: '#F0EDE6', lineHeight: 26, marginBottom: 4 }}>
             Pay for {product.title}
           </Text>
-          <Text className="text-sm text-text/50 mt-1">
+          <Text style={{ fontSize: 13, color: '#5A5F72' }}>
             {format(startDate, 'EEE, MMM d')} · {format(startDate, 'h:mm')}–
             {format(endDate, 'h:mm a')}
             {session.court ? ` · ${session.court.name}` : ''}
@@ -368,20 +368,20 @@ export default function PaymentScreen() {
         {/* Attendee details */}
         <Animated.View
           entering={FadeInDown.delay(100).duration(300)}
-          className="mx-5 mt-4 bg-surface rounded-2xl p-4 border border-stroke"
+          style={{ marginHorizontal: 20, marginTop: 12, backgroundColor: '#131720', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.06)' }}
         >
-          <Text className="text-xs text-mid uppercase tracking-wide mb-3">Attendee</Text>
-          <View className="flex-row items-center justify-between">
-            <View className="flex-row items-center">
-              <Ionicons name="person-outline" size={16} color="#8A8FA0" />
-              <Text className="text-sm text-offwhite ml-2">
+          <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 10, letterSpacing: 2.4, textTransform: 'uppercase', color: '#8A8FA0', marginBottom: 10 }}>Attendee</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Ionicons name="person-outline" size={15} color="#8A8FA0" />
+              <Text style={{ fontSize: 14, color: '#F0EDE6' }}>
                 {authUser?.user_metadata?.full_name ?? authUser?.email ?? 'You'}
               </Text>
             </View>
             {hasMembership && (
-              <View className="flex-row items-center bg-success/10 rounded-full px-2 py-0.5">
-                <Ionicons name="checkmark-circle" size={12} color="#4CAF72" />
-                <Text className="text-xs text-success ml-1">Member</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(76,175,114,0.12)', borderRadius: 20, paddingHorizontal: 8, paddingVertical: 3, gap: 4 }}>
+                <Ionicons name="checkmark-circle" size={11} color="#4CAF72" />
+                <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 10, letterSpacing: 1.2, color: '#4CAF72' }}>Member</Text>
               </View>
             )}
           </View>
@@ -408,13 +408,13 @@ export default function PaymentScreen() {
         {/* Total highlight */}
         <Animated.View
           entering={FadeInDown.delay(200).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 12 }}
         >
-          <View className="bg-primary/10 rounded-2xl p-4 flex-row items-center justify-between">
-            <Text className="text-base font-semibold text-primary">
+          <View style={{ backgroundColor: 'rgba(232,201,122,0.08)', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: 'rgba(232,201,122,0.2)', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 13, letterSpacing: 0.8, color: '#E8C97A' }}>
               You're in for:
             </Text>
-            <Text className="text-2xl font-bold text-primary">
+            <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 28, letterSpacing: 0.8, color: '#E8C97A', lineHeight: 28 }}>
               {formatPrice(totalCents)}
             </Text>
           </View>
@@ -423,9 +423,9 @@ export default function PaymentScreen() {
         {/* Payment method selection */}
         <Animated.View
           entering={FadeInDown.delay(300).duration(300)}
-          className="px-5 mt-6"
+          style={{ paddingHorizontal: 20, marginTop: 20 }}
         >
-          <Text className="text-base font-semibold text-text mb-3">
+          <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 10, letterSpacing: 2.4, textTransform: 'uppercase', color: '#8A8FA0', marginBottom: 12 }}>
             Payment Method
           </Text>
 
@@ -476,7 +476,7 @@ export default function PaymentScreen() {
             })}
           >
             <View className="w-10 h-10 rounded-xl bg-accent/10 items-center justify-center">
-              <Ionicons name="card-outline" size={22} color="#D6B07A" />
+              <Ionicons name="card-outline" size={22} color="#E8C97A" />
             </View>
             <View className="ml-3 flex-1">
               <Text className="text-base font-medium text-text">

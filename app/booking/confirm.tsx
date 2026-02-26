@@ -158,52 +158,46 @@ export default function ConfirmBookingScreen() {
         {/* Session summary card */}
         <Animated.View
           entering={FadeInDown.delay(50).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 16 }}
         >
-          <View className="bg-surface rounded-2xl p-5 border border-stroke">
-            <View className="flex-row items-start justify-between">
-              <View className="flex-1">
-                <Text className="text-xl font-bold text-text">
+          <View style={{ backgroundColor: '#131720', borderRadius: 16, padding: 18, borderWidth: 1, borderColor: 'rgba(255,255,255,0.06)' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14 }}>
+              <View style={{ flex: 1, marginRight: 12 }}>
+                <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 22, letterSpacing: 1, color: '#F0EDE6', lineHeight: 22, marginBottom: 6 }}>
                   {product.title}
                 </Text>
-                <View className="mt-1">
-                  <Badge
-                    label={product.type.replace('_', ' ')}
-                    variant="info"
-                    size="sm"
-                  />
-                </View>
+                <Badge label={product.type.replace('_', ' ')} variant="info" size="sm" />
               </View>
-              <View className="bg-primary/10 rounded-xl px-3 py-2 items-center">
-                <Text className="text-lg font-bold text-primary">
+              <View style={{ backgroundColor: 'rgba(232,201,122,0.1)', borderRadius: 12, paddingHorizontal: 12, paddingVertical: 8, alignItems: 'center' }}>
+                <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 22, color: '#E8C97A', lineHeight: 22 }}>
                   {formatPrice(session.price_cents)}
                 </Text>
-                <Text className="text-[10px] text-primary/70 font-medium">
+                <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 9, letterSpacing: 1.4, textTransform: 'uppercase', color: '#8A8FA0', marginTop: 2 }}>
                   per person
                 </Text>
               </View>
             </View>
 
+            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.05)', marginBottom: 14 }} />
+
             {/* Time details */}
-            <View className="mt-4 pt-4 border-t border-stroke">
-              <View className="flex-row items-center mb-2">
-                <Ionicons name="calendar-outline" size={18} color="#3F6F6A" />
-                <Text className="text-sm font-medium text-text ml-2">
+            <View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                <Ionicons name="calendar-outline" size={15} color="#E8C97A" />
+                <Text style={{ fontSize: 13, color: '#F0EDE6', marginLeft: 8 }}>
                   {format(startDate, 'EEEE, MMMM d, yyyy')}
                 </Text>
               </View>
-              <View className="flex-row items-center mb-2">
-                <Ionicons name="time-outline" size={18} color="#3F6F6A" />
-                <Text className="text-sm text-text/80 ml-2">
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: session.court ? 10 : 0 }}>
+                <Ionicons name="time-outline" size={15} color="#E8C97A" />
+                <Text style={{ fontSize: 13, color: '#8A8FA0', marginLeft: 8 }}>
                   {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
                 </Text>
               </View>
               {session.court && (
-                <View className="flex-row items-center">
-                  <Ionicons name="location-outline" size={18} color="#3F6F6A" />
-                  <Text className="text-sm text-text/80 ml-2">
-                    {session.court.name}
-                  </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Ionicons name="location-outline" size={15} color="#8A8FA0" />
+                  <Text style={{ fontSize: 13, color: '#8A8FA0', marginLeft: 8 }}>{session.court.name}</Text>
                 </View>
               )}
             </View>
@@ -213,9 +207,9 @@ export default function ConfirmBookingScreen() {
         {/* Capacity indicator */}
         <Animated.View
           entering={FadeInDown.delay(150).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 12 }}
         >
-          <View className="bg-surface rounded-2xl p-4 border border-stroke">
+          <View style={{ backgroundColor: '#131720', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: 'rgba(255,255,255,0.06)' }}>
             <CapacityIndicator
               total={session.spots_total}
               remaining={session.spots_remaining}
@@ -227,52 +221,53 @@ export default function ConfirmBookingScreen() {
         {/* Guest count selector */}
         <Animated.View
           entering={FadeInDown.delay(250).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 12 }}
         >
-          <View className="bg-surface rounded-2xl p-4 border border-stroke">
-            <Text className="text-base font-semibold text-text mb-3">
-              How many people?
+          <View style={{ backgroundColor: '#131720', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: 'rgba(255,255,255,0.06)' }}>
+            <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 10, letterSpacing: 2.4, textTransform: 'uppercase', color: '#8A8FA0', marginBottom: 12 }}>
+              Attendees
             </Text>
-            <View className="flex-row items-center justify-between">
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <View>
-                <Text className="text-sm text-text/70">
+                <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 22, letterSpacing: 0.8, color: '#F0EDE6', lineHeight: 22 }}>
                   You + {guests} {guests === 1 ? 'guest' : 'guests'}
                 </Text>
-                <Text className="text-xs text-text/40 mt-0.5">
+                <Text style={{ fontSize: 11, color: '#5A5F72', marginTop: 4 }}>
                   {session.spots_remaining} spots available
                 </Text>
               </View>
-              <View className="flex-row items-center gap-3">
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                 <Pressable
                   onPress={handleGuestDecrement}
                   disabled={guests === 0}
-                  className={[
-                    'w-10 h-10 rounded-full items-center justify-center',
-                    guests === 0
-                      ? 'bg-gray-100'
-                      : 'bg-primary/10',
-                  ].join(' ')}
                   style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: guests === 0 ? 'rgba(255,255,255,0.04)' : 'rgba(232,201,122,0.12)',
                     opacity: pressed ? 0.7 : guests === 0 ? 0.4 : 1,
                   })}
                 >
-                  <Ionicons
-                    name="remove"
-                    size={20}
-                    color={guests === 0 ? '#CCC' : '#3F6F6A'}
-                  />
+                  <Ionicons name="remove" size={18} color={guests === 0 ? '#5A5F72' : '#E8C97A'} />
                 </Pressable>
-                <Text className="text-xl font-bold text-text min-w-[24px] text-center">
+                <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 26, color: '#F0EDE6', minWidth: 24, textAlign: 'center' }}>
                   {1 + guests}
                 </Text>
                 <Pressable
                   onPress={handleGuestIncrement}
-                  className="w-10 h-10 rounded-full items-center justify-center bg-primary/10"
                   style={({ pressed }: { pressed: boolean }): ViewStyle => ({
-                    opacity: pressed ? 0.7 : 1,
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#E8C97A',
+                    opacity: pressed ? 0.85 : 1,
                   })}
                 >
-                  <Ionicons name="add" size={20} color="#3F6F6A" />
+                  <Ionicons name="add" size={18} color="#0D0F14" />
                 </Pressable>
               </View>
             </View>
@@ -282,7 +277,7 @@ export default function ConfirmBookingScreen() {
         {/* Price summary */}
         <Animated.View
           entering={FadeInDown.delay(350).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 12 }}
         >
           <PriceSummary
             priceCents={session.price_cents}
@@ -300,59 +295,82 @@ export default function ConfirmBookingScreen() {
         {/* Action links */}
         <Animated.View
           entering={FadeInDown.delay(450).duration(300)}
-          className="mx-5 mt-4"
+          style={{ marginHorizontal: 20, marginTop: 12, flexDirection: 'row', gap: 10 }}
         >
-          <View className="flex-row gap-3">
-            <Pressable
-              onPress={handleInviteFriends}
-              className="flex-1 bg-surface rounded-2xl p-4 border border-stroke flex-row items-center justify-center"
-              style={({ pressed }: { pressed: boolean }): ViewStyle => ({
-                opacity: pressed ? 0.8 : 1,
-              })}
-            >
-              <Ionicons name="person-add-outline" size={18} color="#3F6F6A" />
-              <Text className="text-sm font-medium text-primary ml-2">
-                Invite Friends
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={handleAddExtras}
-              className="flex-1 bg-surface rounded-2xl p-4 border border-stroke flex-row items-center justify-center"
-              style={({ pressed }: { pressed: boolean }): ViewStyle => ({
-                opacity: pressed ? 0.8 : 1,
-              })}
-            >
-              <Ionicons name="fast-food-outline" size={18} color="#D6B07A" />
-              <Text className="text-sm font-medium text-accent ml-2">
-                Add Extras
-              </Text>
-            </Pressable>
-          </View>
+          <Pressable
+            onPress={handleInviteFriends}
+            style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+              flex: 1,
+              backgroundColor: '#131720',
+              borderRadius: 12,
+              padding: 14,
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.06)',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              opacity: pressed ? 0.8 : 1,
+            })}
+          >
+            <Ionicons name="person-add-outline" size={16} color="#E8C97A" />
+            <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 12, letterSpacing: 1.4, textTransform: 'uppercase', color: '#E8C97A' }}>
+              Invite Friends
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={handleAddExtras}
+            style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+              flex: 1,
+              backgroundColor: '#131720',
+              borderRadius: 12,
+              padding: 14,
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.06)',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              opacity: pressed ? 0.8 : 1,
+            })}
+          >
+            <Ionicons name="fast-food-outline" size={16} color="#E8C97A" />
+            <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 12, letterSpacing: 1.4, textTransform: 'uppercase', color: '#E8C97A' }}>
+              Add Extras
+            </Text>
+          </Pressable>
         </Animated.View>
 
         {/* Membership upsell */}
         {!hasMembership && (
           <Animated.View
             entering={FadeInDown.delay(550).duration(300)}
-            className="mx-5 mt-4"
+            style={{ marginHorizontal: 20, marginTop: 12 }}
           >
             <Pressable
               onPress={() => router.push('/(tabs)/membership')}
-              className="bg-accent/10 rounded-2xl p-4 border border-accent/30 flex-row items-center"
               style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+                backgroundColor: 'rgba(232,201,122,0.06)',
+                borderRadius: 12,
+                padding: 14,
+                borderWidth: 1,
+                borderColor: 'rgba(232,201,122,0.2)',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 12,
                 opacity: pressed ? 0.85 : 1,
               })}
             >
-              <Ionicons name="star" size={24} color="#D6B07A" />
-              <View className="ml-3 flex-1">
-                <Text className="text-sm font-semibold text-text">
+              <Text style={{ fontSize: 20 }}>⚡</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 13, letterSpacing: 0.6, color: '#E8C97A', marginBottom: 2 }}>
                   Save up to 30% with a membership
                 </Text>
-                <Text className="text-xs text-text/50 mt-0.5">
+                <Text style={{ fontSize: 11, color: '#5A5F72' }}>
                   Members get discounts on every booking
                 </Text>
               </View>
-              <Ionicons name="chevron-forward" size={18} color="#D6B07A" />
+              <Ionicons name="chevron-forward" size={16} color="#E8C97A" />
             </Pressable>
           </Animated.View>
         )}
@@ -361,8 +379,7 @@ export default function ConfirmBookingScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(600).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
-        style={{ paddingBottom: 34 }}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: '#131720', borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', paddingHorizontal: 20, paddingTop: 16, paddingBottom: 34 }}
       >
         <Button
           title="Pay"

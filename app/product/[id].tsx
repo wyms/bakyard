@@ -328,10 +328,10 @@ export default function ProductDetailScreen() {
                     <Ionicons name="person" size={20} color="#FFFFFF" />
                   </View>
                   <View className="ml-3 flex-1">
-                    <Text className="text-sm font-semibold text-text">
+                    <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 14, letterSpacing: 0.6, color: '#F0EDE6', marginBottom: 2 }}>
                       Head Coach
                     </Text>
-                    <Text className="text-xs text-text/50 mt-0.5">
+                    <Text style={{ fontSize: 11, color: '#5A5F72' }}>
                       Bakyard · Plano, TX
                     </Text>
                   </View>
@@ -355,8 +355,8 @@ export default function ProductDetailScreen() {
             entering={FadeInDown.delay(350).duration(350)}
             className="mt-6"
           >
-            <Text className="text-lg font-bold text-text mb-4">
-              Available Sessions
+            <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 18, letterSpacing: 1.6, color: '#F0EDE6', marginBottom: 14 }}>
+              AVAILABLE SESSIONS
             </Text>
 
             {sessionsLoading ? (

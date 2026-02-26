@@ -79,63 +79,63 @@ function ExtraCard({
     <Animated.View
       entering={FadeInDown.delay(index * 80).duration(300)}
     >
-      <View className="bg-surface rounded-2xl p-4 border border-stroke flex-row items-center">
+      <View style={{ backgroundColor: '#131720', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.06)', flexDirection: 'row', alignItems: 'center' }}>
         {/* Icon */}
-        <View className="w-12 h-12 rounded-xl bg-accent/10 items-center justify-center">
-          <Ionicons name={item.icon} size={22} color="#D6B07A" />
+        <View style={{ width: 44, height: 44, borderRadius: 12, backgroundColor: 'rgba(232,201,122,0.1)', alignItems: 'center', justifyContent: 'center' }}>
+          <Ionicons name={item.icon} size={20} color="#E8C97A" />
         </View>
 
         {/* Info */}
-        <View className="flex-1 ml-3">
-          <Text className="text-sm font-semibold text-text">
+        <View style={{ flex: 1, marginLeft: 12 }}>
+          <Text style={{ fontFamily: 'BarlowCondensed_700Bold', fontSize: 14, letterSpacing: 0.6, color: '#F0EDE6', marginBottom: 2 }}>
             {item.name}
           </Text>
           {item.description ? (
-            <Text
-              className="text-xs text-text/50 mt-0.5"
-              numberOfLines={1}
-            >
+            <Text style={{ fontSize: 11, color: '#5A5F72', marginBottom: 4 }} numberOfLines={1}>
               {item.description}
             </Text>
           ) : null}
-          <Text className="text-sm font-bold text-primary mt-1">
+          <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 16, color: '#E8C97A', letterSpacing: 0.6 }}>
             {formatPrice(item.price_cents)}
           </Text>
         </View>
 
         {/* Quantity controls */}
-        <View className="flex-row items-center gap-2">
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           {quantity > 0 && (
             <>
               <Pressable
                 onPress={onDecrement}
-                className="w-8 h-8 rounded-full bg-gray-100 items-center justify-center"
                 style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(232,201,122,0.12)',
                   opacity: pressed ? 0.7 : 1,
                 })}
               >
-                <Ionicons name="remove" size={16} color="#111827" />
+                <Ionicons name="remove" size={15} color="#E8C97A" />
               </Pressable>
-              <Text className="text-base font-bold text-text min-w-[20px] text-center">
+              <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 20, color: '#F0EDE6', minWidth: 18, textAlign: 'center' }}>
                 {quantity}
               </Text>
             </>
           )}
           <Pressable
             onPress={onIncrement}
-            className={[
-              'w-8 h-8 rounded-full items-center justify-center',
-              quantity > 0 ? 'bg-primary/10' : 'bg-primary',
-            ].join(' ')}
             style={({ pressed }: { pressed: boolean }): ViewStyle => ({
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: quantity > 0 ? 'rgba(232,201,122,0.12)' : '#E8C97A',
               opacity: pressed ? 0.7 : 1,
             })}
           >
-            <Ionicons
-              name="add"
-              size={16}
-              color={quantity > 0 ? '#3F6F6A' : '#FFFFFF'}
-            />
+            <Ionicons name="add" size={15} color={quantity > 0 ? '#E8C97A' : '#0D0F14'} />
           </Pressable>
         </View>
       </View>
@@ -249,12 +249,12 @@ export default function ExtrasScreen() {
         {/* Header */}
         <Animated.View
           entering={FadeInDown.delay(50).duration(300)}
-          className="px-5 pt-4"
+          style={{ paddingHorizontal: 20, paddingTop: 20 }}
         >
-          <Text className="text-xl font-bold text-text">
+          <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 26, letterSpacing: 1.2, color: '#F0EDE6', lineHeight: 26, marginBottom: 4 }}>
             Add Extras
           </Text>
-          <Text className="text-sm text-text/50 mt-1">
+          <Text style={{ fontSize: 13, color: '#5A5F72', fontWeight: '300' }}>
             Grab some food, drinks, or gear for your session
           </Text>
         </Animated.View>
@@ -296,16 +296,16 @@ export default function ExtrasScreen() {
         {itemCount > 0 && (
           <Animated.View
             entering={FadeInDown.delay(100).duration(250)}
-            className="mx-5 mt-5"
+            style={{ marginHorizontal: 20, marginTop: 16 }}
           >
-            <View className="bg-primary/5 rounded-2xl p-4 flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <Ionicons name="cart-outline" size={20} color="#3F6F6A" />
-                <Text className="text-sm font-medium text-primary ml-2">
+            <View style={{ backgroundColor: 'rgba(232,201,122,0.08)', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: 'rgba(232,201,122,0.2)', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Ionicons name="cart-outline" size={18} color="#E8C97A" />
+                <Text style={{ fontFamily: 'BarlowCondensed_600SemiBold', fontSize: 13, letterSpacing: 0.8, color: '#E8C97A' }}>
                   {itemCount} {itemCount === 1 ? 'item' : 'items'} added
                 </Text>
               </View>
-              <Text className="text-base font-bold text-primary">
+              <Text style={{ fontFamily: 'BebasNeue_400Regular', fontSize: 20, color: '#E8C97A', letterSpacing: 0.6 }}>
                 +{formatPrice(runningTotal)}
               </Text>
             </View>
@@ -316,8 +316,7 @@ export default function ExtrasScreen() {
       {/* Bottom CTA */}
       <Animated.View
         entering={FadeInUp.delay(400).duration(400)}
-        className="absolute bottom-0 left-0 right-0 bg-surface border-t border-stroke px-5 py-4"
-        style={{ paddingBottom: 34 }}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: '#131720', borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', paddingHorizontal: 20, paddingTop: 16, paddingBottom: 34 }}
       >
         <Button
           title={
@@ -331,8 +330,8 @@ export default function ExtrasScreen() {
           className="w-full"
         />
         {itemCount === 0 && (
-          <Pressable onPress={handleSkip} className="mt-2 py-2">
-            <Text className="text-center text-sm text-text/40 font-medium">
+          <Pressable onPress={handleSkip} style={{ marginTop: 8, paddingVertical: 8 }}>
+            <Text style={{ textAlign: 'center', fontSize: 13, color: '#5A5F72' }}>
               Skip extras
             </Text>
           </Pressable>
