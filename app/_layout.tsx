@@ -82,7 +82,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontError) throw fontError;
+    if (fontError) console.warn('Font loading failed, using system fonts:', fontError);
   }, [fontError]);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 
