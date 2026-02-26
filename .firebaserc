@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "bakyardbeach"
-  }
+  },
+  "targets": {
+    "bakyardbeach": {
+      "hosting": {
+        "app": [
+          "bakyardbeach"
+        ],
+        "coaches": [
+          "bakyardbeach-coaches"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
