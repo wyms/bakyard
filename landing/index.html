@@ -806,436 +806,635 @@
   </div>
 </div>
 
-<!-- SPIKE IT GAME -->
+<!-- BAKYARD BRAWL GAME -->
 <section id="spike-it" style="background:var(--night);padding:5rem 0 4rem;text-align:center;">
-  <div style="max-width:700px;margin:0 auto;padding:0 1.5rem;">
-    <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-bottom:0.75rem;">Mini Game</p>
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,5rem);letter-spacing:0.06em;color:var(--offwhite);line-height:1;margin-bottom:0.5rem;">SPIKE IT</h2>
-    <p style="font-size:0.95rem;color:var(--mid);margin-bottom:2rem;">First to 7 wins. <span style="color:var(--sand)">Arrow keys / WASD</span> to move · <span style="color:var(--sand)">↑ / W / Space</span> to jump &amp; spike</p>
-    <div style="position:relative;display:inline-block;width:100%;max-width:660px;">
-      <canvas id="spikeCanvas" style="display:block;width:100%;border-radius:16px;border:1px solid rgba(232,201,122,0.15);cursor:default;"></canvas>
-      <!-- score overlay -->
-      <div id="scoreBar" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:2rem;align-items:center;pointer-events:none;">
-        <span id="scoreYou" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--sand);min-width:1.5rem;text-align:right;">0</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--mid);">YOU · CPU</span>
-        <span id="scoreCPU" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--ember);min-width:1.5rem;text-align:left;">0</span>
+  <div style="max-width:740px;margin:0 auto;padding:0 1.5rem;">
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-bottom:0.6rem;">2v2 Roguelike Mini Game</p>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--sand);line-height:1;margin-bottom:0.4rem;">BAKYARD BRAWL</h2>
+    <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1.8rem;">You + a teammate vs 2 CPUs · First to 7 · <span style="color:var(--sand)">← →</span> move · <span style="color:var(--sand)">↑ / Space</span> jump · Earn powerups every point</p>
+    <!-- HUD bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;padding:0 4px;">
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--sand);" id="brawlScoreYou">0</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);">YOUR TEAM</span>
       </div>
-      <!-- result overlay -->
-      <div id="resultOverlay" style="display:none;position:absolute;inset:0;background:rgba(8,9,13,0.88);border-radius:16px;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
-        <p id="resultText" style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--sand);letter-spacing:0.1em;"></p>
-        <button onclick="startGame()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:8px;padding:0.75rem 2rem;cursor:pointer;">Play Again</button>
+      <span id="brawlCombo" style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;color:var(--ember);min-height:1em;"></span>
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);">CPU TEAM</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--ember);" id="brawlScoreCPU">0</span>
       </div>
     </div>
+    <!-- canvas wrapper -->
+    <div style="position:relative;display:inline-block;width:100%;">
+      <canvas id="brawlCanvas" style="display:block;width:100%;border-radius:16px;border:1px solid rgba(232,201,122,0.12);"></canvas>
+      <!-- powerup / result overlay -->
+      <div id="brawlPickOverlay" style="display:none;position:absolute;inset:0;background:rgba(8,9,13,0.93);border-radius:16px;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:0;"></div>
+    </div>
+    <!-- active powerup bar -->
+    <div id="brawlPwBar" style="min-height:1.8rem;margin-top:0.6rem;display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;"></div>
     <!-- mobile controls -->
-    <div id="mobileControls" style="display:none;justify-content:center;gap:1rem;margin-top:1rem;">
-      <button id="btnLeft"  style="font-size:1.4rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.6rem 1.2rem;color:var(--sand);cursor:pointer;">◀</button>
-      <button id="btnJump"  style="font-size:1rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.1em;background:var(--sand);border:none;border-radius:10px;padding:0.6rem 1.4rem;color:var(--night);cursor:pointer;">JUMP</button>
-      <button id="btnRight" style="font-size:1.4rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.6rem 1.2rem;color:var(--sand);cursor:pointer;">▶</button>
+    <div id="brawlMobile" style="display:none;justify-content:center;gap:0.8rem;margin-top:0.8rem;">
+      <button id="brawlLeft"  style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">◀</button>
+      <button id="brawlJump"  style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;background:var(--sand);border:none;border-radius:10px;padding:0.65rem 1.6rem;color:var(--night);cursor:pointer;user-select:none;">JUMP</button>
+      <button id="brawlRight" style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">▶</button>
     </div>
   </div>
 </section>
 
 <script>
-(function() {
-  const canvas = document.getElementById('spikeCanvas');
-  const ctx    = canvas.getContext('2d');
+(function () {
+  const canvas = document.getElementById('brawlCanvas');
+  const ctx = canvas.getContext('2d');
 
-  // ── colours ──
-  const C = {
-    night:  '#08090D', deep:  '#0F111A', sand:  '#E8C97A',
-    ember:  '#D95F2B', mid:   '#6B7080', offwhite: '#F0EDE6',
-    court:  '#C4964A', shadow: 'rgba(0,0,0,0.45)',
-  };
-
-  // ── dimensions (logical) ──
-  const LW = 660, LH = 360;
+  // ── logical dimensions ──
+  const LW = 720, LH = 400;
   let scale = 1;
-
   function resize() {
-    const W = canvas.parentElement.clientWidth;
-    scale = Math.min(1, W / LW);
-    canvas.width  = LW * scale;
+    const w = canvas.parentElement.clientWidth;
+    scale = w / LW;
+    canvas.width  = w;
     canvas.height = LH * scale;
   }
   resize();
-  window.addEventListener('resize', () => { resize(); });
+  window.addEventListener('resize', resize);
 
-  // ── physics constants ──
-  const GROUND = LH - 60;
-  const NET_X  = LW / 2;
-  const NET_H  = 90;
+  // ── palette ──
+  const C = {
+    night:'#08090D', deep:'#0F111A', sand:'#E8C97A', ember:'#D95F2B',
+    offwhite:'#F0EDE6', mid:'#6B7080', court:'#B07840', success:'#3DB566',
+    blue:'#5BAEC9',
+  };
+
+  // ── physics ──
+  const GROUND  = LH - 52;
+  const NET_X   = LW / 2;
+  const NET_H   = 90;
   const NET_TOP = GROUND - NET_H;
-  const GRAVITY = 0.55;
-  const JUMP_V  = -13;
-  const SPEED   = 4.2;
-  const BALL_R  = 14;
-  const PW = 28, PH = 50; // player width/height
+  const BASE_G  = 0.52;
+  const BASE_JV = -13.5;
+  const BASE_SP = 4.5;
+  const BALL_BASE_R = 13;
+  const PW = 26, PH = 48;
+
+  // ── powerup catalogue ──
+  const PUPS = [
+    {id:'inferno', icon:'🔥', name:'INFERNO',     desc:'Ball blazes — fire trail + 35% faster',       col:'#FF6030'},
+    {id:'thunder', icon:'⚡', name:'THUNDER',      desc:'Next 3 spikes fly at 3× speed',               col:'#FFE040'},
+    {id:'zerog',   icon:'🎈', name:'ZERO-G',       desc:'Ball gravity cut 70% — drifts like a balloon', col:'#80B0FF'},
+    {id:'freeze',  icon:'🧊', name:'DEEP FREEZE',  desc:'CPU team frozen solid for 4 seconds',         col:'#40CCFF'},
+    {id:'rocket',  icon:'🚀', name:'ROCKET',       desc:'Ball gains 12% speed on every bounce',        col:'#FF4040'},
+    {id:'tsunami', icon:'🌊', name:'TSUNAMI',      desc:'Floor bounces become massive explosions',      col:'#3DB5CC'},
+    {id:'chaos',   icon:'🌀', name:'CHAOS BALL',   desc:'Ball randomly swerves mid-air',               col:'#CC60FF'},
+    {id:'double',  icon:'⭐', name:'DOUBLE TAP',   desc:'Next 3 points you score count as 2',          col:'#FFD700'},
+    {id:'surge',   icon:'💪', name:'POWER SURGE',  desc:'You move 45% faster & jump 30% higher',       col:'#FF8C00'},
+    {id:'bigball', icon:'💥', name:'MEGA BALL',    desc:'Ball grows huge — nearly impossible to dodge',col:'#FF4080'},
+    {id:'clone',   icon:'👥', name:'CLONE SURGE',  desc:'Teammate goes full berserk for 8 seconds',    col:'#80FF80'},
+    {id:'quake',   icon:'🌍', name:'EARTHQUAKE',   desc:'Screen shakes, CPUs stumble on every bounce', col:'#CC8844'},
+  ];
 
   // ── state ──
-  let state, ball, you, cpu, scoreYou, scoreCPU, particles;
-  let keys = {};
-  let mobileLeft = false, mobileRight = false, mobileJump = false;
-  let lastJump = false;
-
-  function startGame() {
-    document.getElementById('resultOverlay').style.display = 'none';
-    scoreYou = 0; scoreCPU = 0;
-    updateScore();
-    newRound('you');
-    state = 'playing';
-    if (!animRunning) loop();
-  }
-
-  function newRound(server) {
-    you = { x: LW * 0.25, y: GROUND, vy: 0, grounded: true };
-    cpu = { x: LW * 0.75, y: GROUND, vy: 0, grounded: true };
-    const dir = server === 'you' ? 1 : -1;
-    ball = {
-      x: server === 'you' ? LW * 0.25 : LW * 0.75,
-      y: GROUND - 80,
-      vx: dir * 2.5,
-      vy: -7,
-      trail: [],
-    };
-    particles = [];
-  }
-
-  function updateScore() {
-    document.getElementById('scoreYou').textContent = scoreYou;
-    document.getElementById('scoreCPU').textContent = scoreCPU;
-  }
-
-  function point(winner) {
-    if (winner === 'you') scoreYou++;
-    else scoreCPU++;
-    updateScore();
-    if (scoreYou >= 7 || scoreCPU >= 7) {
-      endGame();
-    } else {
-      newRound(winner === 'you' ? 'cpu' : 'you');
-    }
-  }
-
-  function endGame() {
-    state = 'over';
-    const won = scoreYou > scoreCPU;
-    const el  = document.getElementById('resultText');
-    el.style.color = won ? C.sand : C.ember;
-    el.textContent = won ? 'YOU WIN!' : 'CPU WINS';
-    document.getElementById('resultOverlay').style.display = 'flex';
-  }
-
-  // ── input ──
-  document.addEventListener('keydown', e => {
-    keys[e.code] = true;
-    if (['Space','ArrowUp','ArrowLeft','ArrowRight','ArrowDown'].includes(e.code)) e.preventDefault();
-  });
-  document.addEventListener('keyup',   e => { keys[e.code] = false; });
-
-  // mobile buttons
-  function hold(id, setter) {
-    const el = document.getElementById(id);
-    const on  = () => setter(true);
-    const off = () => setter(false);
-    el.addEventListener('touchstart', e => { e.preventDefault(); on(); },  { passive: false });
-    el.addEventListener('touchend',   e => { e.preventDefault(); off(); }, { passive: false });
-    el.addEventListener('mousedown',  on);
-    el.addEventListener('mouseup',    off);
-    el.addEventListener('mouseleave', off);
-  }
-  hold('btnLeft',  v => { mobileLeft  = v; });
-  hold('btnRight', v => { mobileRight = v; });
-  hold('btnJump',  v => { mobileJump  = v; });
-
-  // show mobile controls on touch devices
-  if ('ontouchstart' in window) {
-    document.getElementById('mobileControls').style.display = 'flex';
-  }
+  let gstate = 'title';
+  let you, mate, cpu1, cpu2, ball, particles, effects;
+  let scoreYou, scoreCPU, combo, maxCombo;
+  let pw, pickOptions;
+  let keys = {}, mL=false, mR=false, mJ=false, lastJ=false;
+  let shake = 0;
+  let loopRunning = false;
+  let scored = false; // guard double-score
 
   // ── helpers ──
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const rnd   = (a,b)   => a + Math.random()*(b-a);
 
-  function playerRect(p) {
-    return { l: p.x - PW/2, r: p.x + PW/2, t: p.y - PH, b: p.y };
+  function mkPlayer(x, team, name, color) {
+    return {x, y:GROUND, vy:0, grounded:true, team, name, color};
+  }
+  function mkBall(fromLeft) {
+    const r = pw.bigball ? BALL_BASE_R * 2.1 : BALL_BASE_R;
+    return {
+      x: fromLeft ? LW*0.22 : LW*0.78,
+      y: GROUND - 90,
+      vx: fromLeft ? 2.8 : -2.8,
+      vy: -8,
+      trail: [], bounces: 0, r
+    };
   }
 
-  function collideBallPlayer(p, isYou) {
-    const pr = playerRect(p);
-    const bx = ball.x, by = ball.y;
-    const cx = clamp(bx, pr.l, pr.r);
-    const cy = clamp(by, pr.t, pr.b);
-    const dx = bx - cx, dy = by - cy;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    if (dist < BALL_R) {
-      // push ball out
-      const nx = dx / (dist || 1), ny = dy / (dist || 1);
-      ball.x = cx + nx * BALL_R;
-      ball.y = cy + ny * BALL_R;
-      // reflect + add player velocity contribution
-      const dot = ball.vx * nx + ball.vy * ny;
-      ball.vx = ball.vx - 2 * dot * nx;
-      ball.vy = ball.vy - 2 * dot * ny;
-      // spike when airborne
-      if (!p.grounded) {
-        ball.vy = Math.min(ball.vy, -3);
-        ball.vx += isYou ? 3 : -3;
+  function resetPw() {
+    pw = {inferno:false,thunderCharges:0,zerog:false,freeze:0,
+          rocket:false,tsunami:false,chaos:false,doublePoints:0,
+          surge:false,bigball:false,clone:0,quake:false};
+  }
+
+  function initGame() {
+    scoreYou=0; scoreCPU=0; combo=0; maxCombo=0; scored=false;
+    resetPw();
+    particles=[]; effects=[];
+    shake=0;
+    newRound(true);
+    updateHUD();
+    updatePwBar();
+    gstate='playing';
+  }
+
+  function newRound(fromLeft) {
+    scored=false;
+    you  = mkPlayer(LW*0.18,'left','YOU', C.sand);
+    mate = mkPlayer(LW*0.34,'left','MATE','#72C472');
+    cpu1 = mkPlayer(LW*0.66,'right','CPU1',C.ember);
+    cpu2 = mkPlayer(LW*0.82,'right','CPU2','#FF8050');
+    ball = mkBall(fromLeft);
+    particles=[]; effects=[];
+    shake=0;
+  }
+
+  function updateHUD() {
+    document.getElementById('brawlScoreYou').textContent = scoreYou;
+    document.getElementById('brawlScoreCPU').textContent = scoreCPU;
+    document.getElementById('brawlCombo').textContent = combo>1 ? combo+'× COMBO!' : '';
+  }
+
+  function updatePwBar() {
+    const bar = document.getElementById('brawlPwBar');
+    const active = PUPS.filter(p => {
+      switch(p.id) {
+        case'inferno': return pw.inferno;
+        case'thunder': return pw.thunderCharges>0;
+        case'zerog':   return pw.zerog;
+        case'freeze':  return pw.freeze>0;
+        case'rocket':  return pw.rocket;
+        case'tsunami': return pw.tsunami;
+        case'chaos':   return pw.chaos;
+        case'double':  return pw.doublePoints>0;
+        case'surge':   return pw.surge;
+        case'bigball': return pw.bigball;
+        case'clone':   return pw.clone>0;
+        case'quake':   return pw.quake;
       }
-      ball.vx = clamp(ball.vx, -12, 12);
-      ball.vy = clamp(ball.vy, -14, 14);
-      spawnParticles(ball.x, ball.y, isYou ? C.sand : C.ember);
+    });
+    bar.innerHTML = active.map(p =>
+      `<span title="${p.name}" style="font-size:1.1rem;background:rgba(255,255,255,0.06);border:1px solid ${p.col}44;border-radius:6px;padding:0.15rem 0.4rem;">${p.icon}</span>`
+    ).join('');
+  }
+
+  // ── burst ──
+  function burst(x, y, col, n) {
+    for (let i=0;i<n;i++) {
+      const a=rnd(0,Math.PI*2), s=rnd(2,7);
+      particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-3,life:1,col,r:rnd(2,5)});
     }
   }
 
-  function spawnParticles(x, y, color) {
-    for (let i = 0; i < 6; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 1.5 + Math.random() * 3;
-      particles.push({ x, y, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed - 2, life: 1, color });
+  function floatText(txt, col, life=90) {
+    effects.push({txt, col, x:NET_X, y:LH/2-20, vy:-0.5, life, maxLife:life});
+  }
+
+  // ── score a point ──
+  function scorePoint(winner) {
+    if (scored) return;
+    scored = true;
+    gstate = 'pause';
+
+    if (winner==='you') {
+      combo++;
+      if (combo>maxCombo) maxCombo=combo;
+      const pts = pw.doublePoints>0 ? 2 : 1;
+      if (pw.doublePoints>0) pw.doublePoints--;
+      scoreYou += pts;
+      burst(ball.x, ball.y, C.sand, 22);
+      floatText(pts>1?'⭐ DOUBLE!':'POINT!', C.sand);
+    } else {
+      combo=0;
+      scoreCPU++;
+      burst(ball.x, ball.y, C.ember, 14);
+      floatText('CPU SCORES', C.ember);
     }
+    shake=10;
+    updateHUD();
+    updatePwBar();
+
+    if (scoreYou>=7 || scoreCPU>=7) {
+      setTimeout(showEnd, 900);
+    } else if (winner==='you') {
+      setTimeout(offerPowerup, 700);
+    } else {
+      setTimeout(()=>{ newRound(false); gstate='playing'; }, 900);
+    }
+  }
+
+  // ── powerup offer ──
+  function offerPowerup() {
+    gstate='picking';
+    const shuffled = [...PUPS].sort(()=>Math.random()-0.5);
+    pickOptions = shuffled.slice(0,3);
+    const ov = document.getElementById('brawlPickOverlay');
+    ov.style.display='flex';
+    ov.innerHTML = `
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ember);margin-bottom:0.4rem;">YOU SCORED · CHOOSE YOUR UPGRADE</p>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--sand);letter-spacing:0.1em;margin-bottom:1.2rem;line-height:1;">PICK A POWERUP</p>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+        ${pickOptions.map((p,i)=>`
+          <button onclick="brawlPick(${i})" style="
+            background:rgba(19,22,31,0.97);border:1px solid rgba(232,201,122,0.2);
+            border-radius:14px;padding:1.1rem 0.9rem;width:172px;cursor:pointer;
+            transition:all 0.15s;text-align:center;font-family:inherit;color:inherit;
+          "
+          onmouseover="this.style.borderColor='${p.col}';this.style.transform='translateY(-3px)';this.style.boxShadow='0 0 22px ${p.col}55'"
+          onmouseout="this.style.borderColor='rgba(232,201,122,0.2)';this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">${p.icon}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.08em;color:${p.col};margin-bottom:0.35rem;">${p.name}</div>
+            <div style="font-size:0.72rem;color:var(--mid);line-height:1.45;">${p.desc}</div>
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  window.brawlPick = function(i) {
+    applyPw(pickOptions[i].id);
+    document.getElementById('brawlPickOverlay').style.display='none';
+    floatText(pickOptions[i].icon+' '+pickOptions[i].name+'!', pickOptions[i].col, 100);
+    updatePwBar();
+    newRound(true);
+    gstate='playing';
+  };
+
+  function applyPw(id) {
+    switch(id) {
+      case'inferno': pw.inferno=!pw.inferno; break;
+      case'thunder': pw.thunderCharges+=3; break;
+      case'zerog':   pw.zerog=!pw.zerog; break;
+      case'freeze':  pw.freeze=240; break;
+      case'rocket':  pw.rocket=!pw.rocket; break;
+      case'tsunami': pw.tsunami=!pw.tsunami; break;
+      case'chaos':   pw.chaos=!pw.chaos; break;
+      case'double':  pw.doublePoints+=3; break;
+      case'surge':   pw.surge=!pw.surge; break;
+      case'bigball': pw.bigball=!pw.bigball; if(ball) ball.r=pw.bigball?BALL_BASE_R*2.1:BALL_BASE_R; break;
+      case'clone':   pw.clone=480; break;
+      case'quake':   pw.quake=!pw.quake; break;
+    }
+  }
+
+  // ── end screen ──
+  function showEnd() {
+    gstate='over';
+    const won = scoreYou>scoreCPU;
+    const ov = document.getElementById('brawlPickOverlay');
+    ov.style.display='flex';
+    ov.innerHTML=`
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:${won?C.sand:C.ember};letter-spacing:0.12em;margin-bottom:0.3rem;">${won?'VICTORY!':'DEFEAT'}</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--mid);margin-bottom:0.2rem;">${scoreYou} – ${scoreCPU} &nbsp;·&nbsp; Best combo ${maxCombo}×</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;color:var(--mid);margin-bottom:1.4rem;">
+        Powerups: ${PUPS.filter(p=>{switch(p.id){case'inferno':return pw.inferno;case'thunder':return pw.thunderCharges>0;case'zerog':return pw.zerog;case'rocket':return pw.rocket;case'tsunami':return pw.tsunami;case'chaos':return pw.chaos;case'surge':return pw.surge;case'bigball':return pw.bigball;case'quake':return pw.quake;default:return false;}}).map(p=>p.icon).join('')||'none'}
+      </p>
+      <button onclick="brawlStart()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:10px;padding:0.85rem 2.8rem;cursor:pointer;" onmouseover="this.style.boxShadow='0 0 24px rgba(232,201,122,0.5)'" onmouseout="this.style.boxShadow=''">PLAY AGAIN</button>
+    `;
+  }
+
+  window.brawlStart = function() {
+    document.getElementById('brawlPickOverlay').style.display='none';
+    initGame();
+    if (!loopRunning) { loopRunning=true; requestAnimationFrame(loop); }
+  };
+
+  // ── ball-player collision ──
+  function collide(p, friendly) {
+    const l=p.x-PW/2, r=p.x+PW/2, t=p.y-PH, b=p.y;
+    const cx=clamp(ball.x,l,r), cy=clamp(ball.y,t,b);
+    const dx=ball.x-cx, dy=ball.y-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if (dist>=ball.r) return;
+    const nx=dx/(dist||1), ny=dy/(dist||1);
+    ball.x=cx+nx*(ball.r+1); ball.y=cy+ny*(ball.r+1);
+    const dot=ball.vx*nx+ball.vy*ny;
+    ball.vx-=2*dot*nx; ball.vy-=2*dot*ny;
+    if (!p.grounded) {
+      let pow=1;
+      if (friendly && p===you && pw.thunderCharges>0) {
+        pow=3.0; pw.thunderCharges--;
+        floatText('⚡ THUNDER!','#FFE040',55);
+      }
+      if (friendly && pw.surge) pow*=1.35;
+      ball.vx*=pow; ball.vy=Math.min(ball.vy*pow,-3.5);
+    }
+    ball.vx=clamp(ball.vx,-17,17); ball.vy=clamp(ball.vy,-17,13);
+    burst(ball.x,ball.y,friendly?C.sand:'#FF6050',6);
+    if (pw.quake && friendly) shake=7;
   }
 
   // ── AI ──
-  function updateCPU() {
-    if (state !== 'playing') return;
-    const targetX = ball.x > NET_X ? ball.x - 30 : NET_X - 60;
-    const dist = targetX - cpu.x;
-    const speed = SPEED * 0.82; // slightly slower than player
-    if (Math.abs(dist) > 4) cpu.x += Math.sign(dist) * speed;
-    cpu.x = clamp(cpu.x, NET_X + PW/2 + 2, LW - PW/2);
-
-    // jump when ball is on CPU side and falling
-    if (ball.x > NET_X && ball.vy > -2 && cpu.grounded) {
-      const timeToReach = Math.abs(ball.x - cpu.x) / Math.max(Math.abs(ball.vx), 0.5);
-      if (timeToReach < 20 && ball.y < GROUND - 20 && Math.random() < 0.06) {
-        cpu.vy = JUMP_V;
-        cpu.grounded = false;
+  function aiStep(p, side, berserk) {
+    if (gstate!=='playing') return;
+    if (pw.freeze>0 && (p===cpu1||p===cpu2)) return;
+    const spd = berserk ? BASE_SP*1.9 : BASE_SP*0.78;
+    const onMySide = side==='left'? ball.x<NET_X : ball.x>NET_X;
+    let tx;
+    if (onMySide) {
+      tx = ball.x + (side==='left'?-18:18);
+    } else {
+      tx = side==='left'
+        ? (p===mate ? LW*0.34 : LW*0.18)
+        : (p===cpu1 ? LW*0.66 : LW*0.82);
+    }
+    const d=tx-p.x;
+    if (Math.abs(d)>3) p.x+=Math.sign(d)*spd;
+    p.x = side==='left'
+      ? clamp(p.x,PW/2,NET_X-PW/2-3)
+      : clamp(p.x,NET_X+PW/2+3,LW-PW/2);
+    if (p.grounded && onMySide && ball.vy>-2 && ball.y<GROUND-30) {
+      const eta=Math.abs(ball.x-p.x)/Math.max(Math.abs(ball.vx),0.5);
+      if (eta<25 && Math.random()<(berserk?0.12:0.04)) {
+        p.vy=BASE_JV*(berserk?1.25:1); p.grounded=false;
       }
     }
   }
 
   // ── update ──
   function update() {
-    if (state !== 'playing') return;
+    if (gstate!=='playing') return;
 
-    // player movement
-    const goLeft  = keys['ArrowLeft']  || keys['KeyA'] || mobileLeft;
-    const goRight = keys['ArrowRight'] || keys['KeyD'] || mobileRight;
-    const jumpKey = keys['ArrowUp']    || keys['KeyW'] || keys['Space'] || mobileJump;
+    // counters
+    if (pw.freeze>0) pw.freeze--;
+    if (pw.clone>0)  pw.clone--;
+    shake*=0.82;
 
-    if (goLeft)  you.x -= SPEED;
-    if (goRight) you.x += SPEED;
-    you.x = clamp(you.x, PW/2, NET_X - PW/2 - 2);
+    // player input
+    const gL = keys['ArrowLeft'] ||keys['KeyA']||mL;
+    const gR = keys['ArrowRight']||keys['KeyD']||mR;
+    const gJ = keys['ArrowUp']   ||keys['KeyW']||keys['Space']||mJ;
+    const sp = pw.surge ? BASE_SP*1.45 : BASE_SP;
+    const jv = pw.surge ? BASE_JV*1.3  : BASE_JV;
+    if (gL) you.x-=sp; if (gR) you.x+=sp;
+    you.x=clamp(you.x,PW/2,NET_X-PW/2-3);
+    if (gJ&&!lastJ&&you.grounded){ you.vy=jv; you.grounded=false; }
+    lastJ=gJ;
 
-    if (jumpKey && !lastJump && you.grounded) {
-      you.vy = JUMP_V;
-      you.grounded = false;
-    }
-    lastJump = jumpKey;
+    // AI
+    aiStep(mate,'left', pw.clone>0);
+    aiStep(cpu1,'right',false);
+    aiStep(cpu2,'right',false);
 
-    // gravity + ground
-    [you, cpu].forEach(p => {
-      p.vy += GRAVITY;
-      p.y  += p.vy;
-      if (p.y >= GROUND) { p.y = GROUND; p.vy = 0; p.grounded = true; }
+    // gravity
+    [you,mate,cpu1,cpu2].forEach(p=>{
+      p.vy+=BASE_G; p.y+=p.vy;
+      if(p.y>=GROUND){p.y=GROUND;p.vy=0;p.grounded=true;}
     });
 
-    // ball physics
-    ball.trail.push({ x: ball.x, y: ball.y });
-    if (ball.trail.length > 10) ball.trail.shift();
+    // chaos
+    if (pw.chaos&&Math.random()<0.018){ ball.vx+=rnd(-1.5,1.5); ball.vy+=rnd(-0.8,0.8); }
 
-    ball.vy += GRAVITY * 0.9;
-    ball.x  += ball.vx;
-    ball.y  += ball.vy;
+    // inferno drift
+    if (pw.inferno){ ball.vx*=1.002; }
 
-    // net collision
-    if (ball.x > NET_X - BALL_R && ball.x < NET_X + BALL_R && ball.y > NET_TOP) {
-      ball.vx *= -0.8;
-      ball.x   = ball.vx > 0 ? NET_X + BALL_R : NET_X - BALL_R;
-      ball.vy *= 0.7;
+    // ball
+    ball.trail.push({x:ball.x,y:ball.y});
+    if(ball.trail.length>14) ball.trail.shift();
+    const bg = pw.zerog ? BASE_G*0.3 : BASE_G;
+    ball.vy+=bg; ball.x+=ball.vx; ball.y+=ball.vy;
+
+    // net
+    if (Math.abs(ball.x-NET_X)<ball.r+2 && ball.y>NET_TOP-4) {
+      ball.vx*=-0.72; ball.x=ball.vx>0?NET_X+ball.r+3:NET_X-ball.r-3;
+      burst(NET_X,ball.y,C.offwhite,4);
     }
 
     // floor
-    if (ball.y >= GROUND - BALL_R) {
-      ball.y = GROUND - BALL_R;
-      ball.vy *= -0.55;
-      ball.vx *= 0.82;
-      spawnParticles(ball.x, GROUND, C.court);
-      // who scored?
-      if (Math.abs(ball.vy) < 1 || ball.vy > 0) {
-        if (ball.x < NET_X) point('cpu');
-        else                 point('you');
+    if (ball.y>=GROUND-ball.r) {
+      ball.y=GROUND-ball.r;
+      ball.vy*= pw.tsunami?-1.5:-0.52;
+      ball.vx*= pw.tsunami? 1.35: 0.84;
+      ball.bounces++;
+      if (pw.rocket){ ball.vx*=1.12; ball.vy*=1.1; }
+      if (pw.quake) shake=11;
+      burst(ball.x,GROUND,C.court, pw.tsunami?18:7);
+      if (Math.abs(ball.vy)<2.5) {
+        scorePoint(ball.x<NET_X?'cpu':'you');
+        return;
       }
     }
 
-    // out of bounds left/right
-    if (ball.x < BALL_R)      { ball.x = BALL_R;      ball.vx *= -0.8; }
-    if (ball.x > LW - BALL_R) { ball.x = LW - BALL_R; ball.vx *= -0.8; }
+    // walls
+    if(ball.x<ball.r){ball.x=ball.r; ball.vx*=pw.tsunami?-1.6:-0.85;}
+    if(ball.x>LW-ball.r){ball.x=LW-ball.r; ball.vx*=pw.tsunami?-1.6:-0.85;}
+    if(ball.y<ball.r){ball.y=ball.r; ball.vy*=-0.72;}
 
-    // ceiling
-    if (ball.y < BALL_R) { ball.y = BALL_R; ball.vy *= -0.8; }
+    // speed cap
+    const cap=pw.rocket?18+ball.bounces*0.5:16;
+    ball.vx=clamp(ball.vx,-cap,cap); ball.vy=clamp(ball.vy,-cap,cap);
 
-    // ball-player collisions
-    collideBallPlayer(you, true);
-    collideBallPlayer(cpu, false);
-
-    updateCPU();
+    // collisions
+    collide(you,  true); collide(mate, true);
+    collide(cpu1, false); collide(cpu2, false);
 
     // particles
-    particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.life -= 0.05; });
-    particles = particles.filter(p => p.life > 0);
+    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.14;p.life-=0.038;});
+    particles=particles.filter(p=>p.life>0);
+    effects.forEach(e=>{e.y+=e.vy;e.life--;});
+    effects=effects.filter(e=>e.life>0);
   }
 
   // ── draw ──
   function draw() {
     ctx.save();
-    ctx.scale(scale, scale);
+    if (shake>0.5) ctx.translate(rnd(-shake,shake)*scale, rnd(-shake,shake)*scale);
+    ctx.scale(scale,scale);
 
-    // sky gradient
-    const sky = ctx.createLinearGradient(0, 0, 0, LH);
-    sky.addColorStop(0, '#06080F');
-    sky.addColorStop(1, '#0F111A');
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, LW, LH);
+    // sky
+    const sky=ctx.createLinearGradient(0,0,0,LH);
+    sky.addColorStop(0,'#030408'); sky.addColorStop(0.65,'#08090D'); sky.addColorStop(1,'#0D0F18');
+    ctx.fillStyle=sky; ctx.fillRect(0,0,LW,LH);
 
-    // stars
-    ctx.fillStyle = 'rgba(240,237,230,0.6)';
-    for (let i = 0; i < 40; i++) {
-      const sx = ((i * 173) % LW);
-      const sy = ((i * 97)  % (LH * 0.55));
-      const sr = i % 3 === 0 ? 1.2 : 0.7;
-      ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2); ctx.fill();
+    // twinkling stars
+    for(let i=0;i<55;i++){
+      const sx=(i*149)%LW, sy=(i*83)%(GROUND*0.68);
+      const tw=0.45+0.55*Math.sin(Date.now()*0.0008+i*1.3);
+      ctx.globalAlpha=tw*0.7; ctx.fillStyle=C.offwhite;
+      ctx.beginPath(); ctx.arc(sx,sy,i%4===0?1.3:0.7,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+
+    // moon
+    const mg=ctx.createRadialGradient(LW-65,42,3,LW-65,42,42);
+    mg.addColorStop(0,'rgba(232,201,122,0.22)'); mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg; ctx.fillRect(0,0,LW,LH);
+    ctx.fillStyle='rgba(232,201,122,0.88)';
+    ctx.beginPath(); ctx.arc(LW-65,42,15,0,Math.PI*2); ctx.fill();
+
+    // freeze tint on CPU side
+    if(pw.freeze>0){
+      ctx.fillStyle=`rgba(64,200,255,${Math.min(pw.freeze/240,1)*0.1})`;
+      ctx.fillRect(NET_X,0,LW-NET_X,LH);
     }
 
-    // moon glow
-    const mg = ctx.createRadialGradient(LW - 80, 50, 5, LW - 80, 50, 50);
-    mg.addColorStop(0, 'rgba(232,201,122,0.18)');
-    mg.addColorStop(1, 'rgba(232,201,122,0)');
-    ctx.fillStyle = mg; ctx.fillRect(0, 0, LW, LH);
-    ctx.fillStyle = 'rgba(232,201,122,0.9)';
-    ctx.beginPath(); ctx.arc(LW - 80, 50, 18, 0, Math.PI*2); ctx.fill();
+    // sand
+    const sg=ctx.createLinearGradient(0,GROUND,0,LH);
+    sg.addColorStop(0,'#B07840'); sg.addColorStop(1,'#7A5028');
+    ctx.fillStyle=sg; ctx.fillRect(0,GROUND,LW,LH-GROUND);
 
-    // sand court
-    const sand = ctx.createLinearGradient(0, GROUND, 0, LH);
-    sand.addColorStop(0, '#A07840');
-    sand.addColorStop(1, '#7A5820');
-    ctx.fillStyle = sand;
-    ctx.fillRect(0, GROUND, LW, LH - GROUND);
-
-    // court lines
-    ctx.strokeStyle = 'rgba(232,201,122,0.15)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(30, GROUND, LW - 60, 0.5);
-
-    // net pole left
-    ctx.fillStyle = '#888';
-    ctx.fillRect(NET_X - 3, NET_TOP - 10, 6, NET_H + 10);
-
-    // net
-    ctx.strokeStyle = 'rgba(240,237,230,0.85)';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(NET_X, NET_TOP); ctx.lineTo(NET_X, GROUND); ctx.stroke();
-    // net mesh
-    ctx.strokeStyle = 'rgba(240,237,230,0.2)';
-    ctx.lineWidth = 1;
-    for (let y = NET_TOP + 15; y < GROUND; y += 15) {
-      ctx.beginPath(); ctx.moveTo(NET_X - 5, y); ctx.lineTo(NET_X + 5, y); ctx.stroke();
+    // net pole
+    ctx.fillStyle='#aaa'; ctx.fillRect(NET_X-3,NET_TOP-14,6,NET_H+14);
+    // net rope
+    ctx.strokeStyle='rgba(240,237,230,0.88)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(NET_X,NET_TOP); ctx.lineTo(NET_X,GROUND); ctx.stroke();
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(240,237,230,0.17)';
+    for(let ny=NET_TOP+13;ny<GROUND;ny+=13){
+      ctx.beginPath(); ctx.moveTo(NET_X-5,ny); ctx.lineTo(NET_X+5,ny); ctx.stroke();
     }
-    // net tape top
-    ctx.fillStyle = C.sand;
-    ctx.fillRect(NET_X - 4, NET_TOP - 4, 8, 8);
+    ctx.fillStyle=C.sand; ctx.fillRect(NET_X-4,NET_TOP-5,8,9);
 
     // ball trail
-    ball.trail.forEach((t, i) => {
-      const a = (i / ball.trail.length) * 0.25;
-      ctx.beginPath();
-      ctx.arc(t.x, t.y, BALL_R * (i / ball.trail.length), 0, Math.PI*2);
-      ctx.fillStyle = `rgba(232,201,122,${a})`;
-      ctx.fill();
+    const tcol = pw.inferno?'255,100,48': pw.chaos?'200,80,255':'232,201,122';
+    ball.trail.forEach((t,i)=>{
+      const a=(i/ball.trail.length)*0.28;
+      const r=ball.r*(i/ball.trail.length)*0.85;
+      ctx.beginPath(); ctx.arc(t.x,t.y,r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${tcol},${a})`; ctx.fill();
     });
 
     // ball
-    const ballGrad = ctx.createRadialGradient(ball.x - 4, ball.y - 4, 2, ball.x, ball.y, BALL_R);
-    ballGrad.addColorStop(0, '#FFF8DC');
-    ballGrad.addColorStop(0.5, C.sand);
-    ballGrad.addColorStop(1, '#A07030');
-    ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0, Math.PI*2);
-    ctx.fillStyle = ballGrad; ctx.fill();
-    // seams
-    ctx.strokeStyle = 'rgba(80,50,10,0.4)'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0.3, Math.PI + 0.3); ctx.stroke();
-    ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, Math.PI + 0.3, 0.3 + Math.PI*2); ctx.stroke();
+    const bg2=ctx.createRadialGradient(ball.x-4,ball.y-4,2,ball.x,ball.y,ball.r);
+    if(pw.inferno){bg2.addColorStop(0,'#FFEE80');bg2.addColorStop(0.5,'#FF7030');bg2.addColorStop(1,'#CC1800');}
+    else if(pw.chaos){bg2.addColorStop(0,'#EE80FF');bg2.addColorStop(0.5,'#9040CC');bg2.addColorStop(1,'#3A0070');}
+    else if(pw.bigball){bg2.addColorStop(0,'#FFF0A0');bg2.addColorStop(0.5,'#E8C97A');bg2.addColorStop(1,'#804010');}
+    else{bg2.addColorStop(0,'#FFF8DC');bg2.addColorStop(0.5,C.sand);bg2.addColorStop(1,'#906820');}
+    if(pw.bigball){ctx.shadowColor='rgba(232,201,122,0.4)';ctx.shadowBlur=20;}
+    ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
+    ctx.fillStyle=bg2; ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='rgba(0,0,0,0.25)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0.4,Math.PI+0.4); ctx.stroke();
 
     // particles
-    particles.forEach(p => {
-      ctx.globalAlpha = p.life;
-      ctx.fillStyle = p.color;
-      ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI*2); ctx.fill();
+    particles.forEach(p=>{
+      ctx.globalAlpha=p.life; ctx.fillStyle=p.col;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
     });
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha=1;
 
-    // draw player
-    function drawPlayer(p, isYou) {
-      const baseColor = isYou ? C.sand : C.ember;
-      const x = p.x, y = p.y;
+    // players
+    [you,mate,cpu1,cpu2].forEach(p=> drawPlayer(p));
 
-      // shadow
-      ctx.fillStyle = 'rgba(0,0,0,0.3)';
-      ctx.beginPath(); ctx.ellipse(x, GROUND + 4, 16, 5, 0, 0, Math.PI*2); ctx.fill();
-
-      // body
-      ctx.fillStyle = baseColor;
-      ctx.fillRect(x - PW/2, y - PH, PW, PH * 0.65);
-
-      // shorts
-      ctx.fillStyle = isYou ? '#0F111A' : '#1a0a04';
-      ctx.fillRect(x - PW/2, y - PH*0.38, PW, PH * 0.25);
-
-      // head
-      ctx.fillStyle = '#D4A574';
-      ctx.beginPath(); ctx.arc(x, y - PH - 10, 13, 0, Math.PI*2); ctx.fill();
-
-      // arms — raised when airborne
-      ctx.fillStyle = baseColor;
-      if (!p.grounded) {
-        // arms up (spike pose)
-        ctx.fillRect(x - PW/2 - 7, y - PH + 4, 8, 22);
-        ctx.fillRect(x + PW/2 - 1, y - PH - 12, 8, 22);
-      } else {
-        ctx.fillRect(x - PW/2 - 7, y - PH + 8, 8, 20);
-        ctx.fillRect(x + PW/2 - 1, y - PH + 8, 8, 20);
-      }
-
-      // legs
-      ctx.fillStyle = '#D4A574';
-      ctx.fillRect(x - PW/2 + 2,  y - PH*0.13, 10, PH*0.38);
-      ctx.fillRect(x + PW/2 - 12, y - PH*0.13, 10, PH*0.38);
-
-      // name tag
-      ctx.fillStyle = isYou ? C.sand : C.ember;
-      ctx.font = `bold ${7 * scale < 1 ? 7 : 7}px 'Barlow Condensed', sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(isYou ? 'YOU' : 'CPU', x, y - PH - 26);
+    // freeze emoji over CPUs
+    if(pw.freeze>0){
+      [cpu1,cpu2].forEach(p=>{
+        ctx.font='16px serif'; ctx.textAlign='center';
+        ctx.fillText('🧊',p.x,p.y-PH-22);
+      });
     }
 
-    drawPlayer(you, true);
-    drawPlayer(cpu, false);
+    // floating text effects
+    effects.forEach(e=>{
+      const a=Math.min(e.life/30,1);
+      ctx.globalAlpha=a;
+      ctx.fillStyle=e.col;
+      ctx.font=`bold ${e.maxLife>70?18:14}px 'Bebas Neue',sans-serif`;
+      ctx.textAlign='center';
+      ctx.fillText(e.txt,e.x,e.y);
+    });
+    ctx.globalAlpha=1; ctx.textAlign='left';
 
     ctx.restore();
   }
 
-  // ── loop ──
-  let animRunning = false;
-  function loop() {
-    animRunning = true;
-    update();
-    draw();
-    if (state !== 'over') requestAnimationFrame(loop);
-    else animRunning = false;
+  function drawPlayer(p) {
+    const x=p.x, y=p.y, col=p.col;
+    const isFriend = p.team==='left';
+    const isBerserk = (p===mate && pw.clone>0);
+    const isSurge   = (p===you  && pw.surge);
+
+    // shadow
+    ctx.fillStyle='rgba(0,0,0,0.25)';
+    ctx.beginPath(); ctx.ellipse(x,GROUND+4,13,4,0,0,Math.PI*2); ctx.fill();
+
+    // glow
+    if(isBerserk){ ctx.shadowColor='#80FF80'; ctx.shadowBlur=18; }
+    else if(isSurge){ ctx.shadowColor='#FF8C00'; ctx.shadowBlur=14; }
+
+    // jersey
+    ctx.fillStyle=col;
+    ctx.fillRect(x-PW/2, y-PH, PW, PH*0.62);
+    // number
+    ctx.fillStyle='rgba(0,0,0,0.35)';
+    ctx.font=`bold 9px 'Barlow Condensed',sans-serif`; ctx.textAlign='center';
+    ctx.fillText(isFriend?'1':'2',x,y-PH+14);
+
+    // shorts
+    ctx.shadowBlur=0; ctx.fillStyle=isFriend?'#0F111A':'#2A0804';
+    ctx.fillRect(x-PW/2, y-PH*0.38, PW, PH*0.24);
+
+    // head
+    ctx.fillStyle='#D4A070';
+    ctx.beginPath(); ctx.arc(x,y-PH-10,12,0,Math.PI*2); ctx.fill();
+    // hair
+    ctx.fillStyle=isFriend?col:'#8B3010';
+    ctx.beginPath(); ctx.arc(x,y-PH-18,8,Math.PI,Math.PI*2); ctx.fill();
+
+    // arms
+    ctx.fillStyle=col;
+    if(!p.grounded){
+      ctx.fillRect(x-PW/2-7,y-PH-8,8,20);
+      ctx.fillRect(x+PW/2-1,y-PH-14,8,22);
+    } else {
+      ctx.fillRect(x-PW/2-7,y-PH+6,8,18);
+      ctx.fillRect(x+PW/2-1,y-PH+6,8,18);
+    }
+
+    // legs
+    ctx.fillStyle='#C49060';
+    ctx.fillRect(x-PW/2+2, y-PH*0.12,10,PH*0.36);
+    ctx.fillRect(x+PW/2-12,y-PH*0.12,10,PH*0.36);
+
+    ctx.shadowBlur=0;
+    // name badge
+    ctx.fillStyle=col; ctx.font=`700 7px 'Barlow Condensed',sans-serif`; ctx.textAlign='center';
+    ctx.fillText(p.name,x,y-PH-24);
+    ctx.textAlign='left';
   }
 
-  // start on load
-  startGame();
-  window.startGame = startGame;
+  // ── input ──
+  document.addEventListener('keydown',e=>{
+    keys[e.code]=true;
+    if(['Space','ArrowUp','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+  });
+  document.addEventListener('keyup',e=>{ keys[e.code]=false; });
+
+  function hold(id,setter) {
+    const el=document.getElementById(id); if(!el) return;
+    ['touchstart','mousedown'].forEach(ev=>
+      el.addEventListener(ev,e=>{e.preventDefault();setter(true);},{passive:false}));
+    ['touchend','mouseup','mouseleave'].forEach(ev=>
+      el.addEventListener(ev,()=>setter(false)));
+  }
+  hold('brawlLeft', v=>mL=v);
+  hold('brawlRight',v=>mR=v);
+  hold('brawlJump', v=>mJ=v);
+  if('ontouchstart' in window) document.getElementById('brawlMobile').style.display='flex';
+
+  // ── loop ──
+  function loop() {
+    update(); draw();
+    requestAnimationFrame(loop);
+  }
+
+  // ── title screen ──
+  resetPw();
+  newRound(true);
+  draw();
+  const ov=document.getElementById('brawlPickOverlay');
+  ov.style.display='flex';
+  ov.innerHTML=`
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ember);margin-bottom:0.4rem;">Bakyard 2v2 Roguelike</p>
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:var(--sand);letter-spacing:0.1em;line-height:1;margin-bottom:0.2rem;">BAKYARD<br>BRAWL</p>
+    <p style="font-size:0.8rem;color:var(--mid);margin-bottom:0.25rem;">You + AI teammate vs 2 CPUs · First to 7</p>
+    <p style="font-size:0.75rem;color:var(--mid);margin-bottom:1.4rem;">
+      <span style="color:var(--sand)">← →</span> move &nbsp;·&nbsp; <span style="color:var(--sand)">↑ / Space</span> jump &amp; spike<br>
+      Score a point → draft a powerup · Stack them · Go crazy
+    </p>
+    <button onclick="brawlStart()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:10px;padding:0.9rem 2.8rem;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.boxShadow='0 0 28px rgba(232,201,122,0.55)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">ENTER THE BRAWL</button>
+  `;
+  loopRunning=true;
+  requestAnimationFrame(loop);
 })();
 </script>
 
