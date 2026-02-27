@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy:web": "npx expo export --platform web && rm -rf public && mkdir -p public/app && cp -r dist/. public/app/ && cp landing/index.html public/index.html && firebase deploy --only hosting:app"
   },
   "dependencies": {
     "@expo-google-fonts/barlow": "^0.4.1",
