@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bakyard · Where Legends Grow · Plano, TX</title>
+  <meta name="description" content="Beach volleyball sanctuary in Plano, Texas. Train. Play. Belong. Built on sand, backed by family." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --night:    #08090D;
+      --deep:     #0F111A;
+      --card:     #13161F;
+      --sand:     #E8C97A;
+      --sand-dim: #B89A4A;
+      --ember:    #D95F2B;
+      --offwhite: #F0EDE6;
+      --mid:      #6B7080;
+      --muted:    #3A3E4A;
+      --success:  #3DB566;
+      --blue:     #5BAEC9;
+      --teal:     #1D8A7E;
+      --border:   rgba(240,237,230,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--night);
+      color: var(--offwhite);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--night); }
+    ::-webkit-scrollbar-thumb { background: var(--sand-dim); }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, border-bottom 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(8,9,13,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: 0.04em;
+      color: var(--offwhite);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .nav-logo-b {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--sand);
+      color: var(--night);
+      font-size: 1.1rem;
+      border-radius: 3px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--offwhite); }
+
+    .nav-pill {
+      background: var(--sand); color: var(--night);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem; letter-spacing: 0.08em;
+      padding: 0.42rem 1.1rem;
+      border-radius: 2px; text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .nav-pill:hover { background: var(--ember); color: #fff; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--offwhite);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 190;
+      background: rgba(8,9,13,0.97);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem; letter-spacing: 0.05em;
+      color: var(--offwhite); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--sand); }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      position: relative; min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    #heroCanvas {
+      position: absolute; inset: 0; z-index: 0;
+    }
+
+    .hero-orb-1 {
+      position: absolute; z-index: 0;
+      width: 55vw; height: 55vw; max-width: 520px; max-height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,201,122,0.14) 0%, transparent 70%);
+      top: 5%; right: -10%;
+      animation: orb-drift 8s ease-in-out infinite alternate;
+    }
+    .hero-orb-2 {
+      position: absolute; z-index: 0;
+      width: 40vw; height: 40vw; max-width: 380px; max-height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,95,43,0.1) 0%, transparent 70%);
+      bottom: 15%; left: -5%;
+      animation: orb-drift 11s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes orb-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(20px, -20px) scale(1.06); }
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 1.5rem 4rem;
+      max-width: 560px;
+    }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.7rem;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--sand);
+      border: 1px solid rgba(232,201,122,0.25);
+      padding: 0.35rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 1.2rem;
+      backdrop-filter: blur(8px);
+      background: rgba(232,201,122,0.05);
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 0 rgba(61,181,102,0.6);
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(61,181,102,0.6); }
+      70%  { box-shadow: 0 0 0 7px rgba(61,181,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(61,181,102,0); }
+    }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.8rem, 20vw, 9rem);
+      line-height: 0.88;
+      letter-spacing: 0.015em;
+      margin-bottom: 1.5rem;
+    }
+    .h1-sand    { color: var(--sand); }
+    .h1-white   { color: var(--offwhite); }
+    .h1-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(240,237,230,0.35);
+    }
+
+    .hero-desc {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.75;
+      color: var(--mid); max-width: 340px; margin-bottom: 2.25rem;
+    }
+
+    .hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn { display: inline-block; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+    .btn-sand {
+      background: var(--sand); color: var(--night);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.08em;
+      padding: 0.9rem 2.1rem;
+    }
+    .btn-sand:hover { background: var(--ember); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(217,95,43,0.35); }
+    .btn-sand:active { transform: translateY(0); }
+
+    .btn-outline {
+      color: var(--offwhite); border: 1px solid rgba(240,237,230,0.18);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.08em;
+      padding: 0.9rem 2.1rem;
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline:hover { border-color: var(--sand); color: var(--sand); transform: translateY(-2px); }
+
+    .hero-net-decal {
+      position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
+      z-index: 1; opacity: 0.055; width: min(380px, 65vw);
+      pointer-events: none;
+    }
+
+    .hero-scroll-cue {
+      position: absolute; bottom: 1.75rem; right: 1.75rem; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+    }
+    .scroll-ring {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(240,237,230,0.15);
+      display: flex; align-items: center; justify-content: center;
+      animation: ring-float 2.4s ease-in-out infinite;
+    }
+    .scroll-ring svg { width: 14px; opacity: 0.4; }
+    @keyframes ring-float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(5px); }
+    }
+    .scroll-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+      writing-mode: vertical-lr;
+    }
+
+    /* ═══ MARQUEE ═══ */
+    .marquee-strip {
+      position: relative; overflow: hidden;
+      background: var(--sand);
+      padding: 0.7rem 0;
+    }
+    .marquee-strip::before,
+    .marquee-strip::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 1;
+    }
+    .marquee-strip::before { left: 0; background: linear-gradient(to right, var(--sand), transparent); }
+    .marquee-strip::after  { right: 0; background: linear-gradient(to left, var(--sand), transparent); }
+    .marquee-inner {
+      display: flex; width: max-content;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-inner:hover { animation-play-state: paused; }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem; letter-spacing: 0.1em;
+      color: var(--night); padding: 0 1.25rem; white-space: nowrap;
+    }
+    .marquee-sep { color: var(--ember); padding: 0; font-size: 0.8rem; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══ SECTIONS ═══ */
+    .section { position: relative; }
+    .inner {
+      max-width: 500px; margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.68rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--ember); margin-bottom: 0.85rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .eyebrow::before {
+      content: ''; display: block;
+      width: 20px; height: 1px; background: var(--ember);
+    }
+
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 5rem);
+      line-height: 0.92; letter-spacing: 0.02em;
+      color: var(--offwhite); margin-bottom: 1.5rem;
+    }
+    .sec-body {
+      font-size: 0.92rem; font-weight: 300; line-height: 1.8;
+      color: var(--mid); max-width: 420px;
+    }
+
+    /* ═══ ABOUT ═══ */
+    .about { background: var(--deep); }
+
+    .about-accent {
+      position: absolute; right: -0.5rem; top: 3rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(8rem, 30vw, 18rem);
+      line-height: 1; letter-spacing: -0.02em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232,201,122,0.06);
+      pointer-events: none; user-select: none;
+    }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; margin-top: 3rem;
+      background: var(--border); border-radius: 6px; overflow: hidden;
+    }
+    .stat {
+      background: var(--card); padding: 1.75rem 1rem; text-align: center;
+    }
+    .stat-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; color: var(--sand);
+      line-height: 1; display: block;
+    }
+    .stat-l {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--mid); margin-top: 0.25rem;
+    }
+
+    .amenities {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 2.25rem;
+    }
+    .amenity-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .amenity-tag:hover { border-color: rgba(232,201,122,0.3); color: var(--sand); }
+
+    /* ═══ PROGRAMS ═══ */
+    .programs { background: var(--night); }
+
+    .prog-list {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .prog-row {
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      padding: 1.5rem 0; border-bottom: 1px solid var(--border);
+      cursor: default;
+      position: relative;
+      transition: padding-left 0.25s;
+    }
+    .prog-row::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0; background: var(--sand);
+      transition: width 0.25s;
+    }
+    .prog-row:hover { padding-left: 0.75rem; }
+    .prog-row:hover::before { width: 2px; }
+
+    .prog-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.08em; flex-shrink: 0;
+      width: 24px; text-align: right; padding-top: 0.15rem;
+    }
+    .prog-body { flex: 1; }
+    .prog-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      letter-spacing: 0.03em; color: var(--offwhite);
+      margin-bottom: 0.3rem;
+    }
+    .prog-desc {
+      font-size: 0.83rem; color: var(--mid); font-weight: 300; line-height: 1.55;
+    }
+    .prog-right { flex-shrink: 0; text-align: right; }
+    .prog-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem; color: var(--sand);
+    }
+    .prog-badge {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ═══ COUNTDOWN ═══ */
+    .countdown-section { background: var(--ember); overflow: hidden; position: relative; }
+    .countdown-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E");
+    }
+    .countdown-inner {
+      position: relative; z-index: 1;
+      max-width: 500px; margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+      text-align: center;
+    }
+    .cd-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.7rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); margin-bottom: 0.5rem;
+    }
+    .cd-event-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      color: #fff; letter-spacing: 0.03em;
+      margin-bottom: 2rem; line-height: 1;
+    }
+    .cd-boxes {
+      display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 2rem;
+    }
+    .cd-box {
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px; padding: 1rem 0;
+      width: 70px;
+    }
+    .cd-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem; color: #fff;
+      line-height: 1; display: block;
+    }
+    .cd-unit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      display: block; margin-top: 0.2rem;
+    }
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: rgba(255,255,255,0.4);
+      align-self: flex-start; padding-top: 0.75rem;
+    }
+    .btn-white {
+      background: #fff; color: var(--ember);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem; letter-spacing: 0.08em;
+      padding: 0.85rem 2rem; border-radius: 2px;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-white:hover { background: var(--night); color: var(--sand); transform: translateY(-1px); }
+
+    /* ═══ EVENTS ═══ */
+    .events { background: var(--deep); }
+
+    .event-grid { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
+    .event-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .event-card:hover { border-color: rgba(232,201,122,0.25); transform: translateX(4px); }
+
+    .ev-date {
+      flex-shrink: 0; width: 48px; height: 52px;
+      background: var(--deep); border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .ev-d { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--sand); line-height:1; }
+    .ev-m { font-family:'Barlow Condensed',sans-serif; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); }
+
+    .ev-info { flex:1; }
+    .ev-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.02em; color:var(--offwhite); margin-bottom:0.2rem; }
+    .ev-sub { font-size:0.78rem; color:var(--mid); font-weight:300; }
+    .ev-tag {
+      margin-left:auto; flex-shrink:0; align-self:center;
+      font-family:'Barlow Condensed',sans-serif; font-weight:700;
+      font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase;
+      padding:0.25rem 0.55rem; border-radius:2px;
+    }
+    .tag-open   { background:rgba(61,181,102,0.12); color:var(--success); }
+    .tag-weekly { background:rgba(91,174,201,0.12); color:var(--blue); }
+
+    /* ═══ MEMBERSHIP ═══ */
+    .membership { background: var(--night); }
+
+    .plans { display:flex; flex-direction:column; gap:0.75rem; margin-top:2.5rem; }
+
+    .plan {
+      border:1px solid var(--border); border-radius:6px;
+      padding:1.75rem; position:relative; overflow:hidden;
+      transition:border-color 0.25s, transform 0.2s;
+    }
+    .plan:hover { border-color:rgba(232,201,122,0.2); transform:translateX(4px); }
+
+    .plan.featured {
+      border-color:rgba(232,201,122,0.3);
+      background: linear-gradient(145deg, rgba(232,201,122,0.05) 0%, transparent 50%);
+    }
+    .plan.featured::after {
+      content:'MOST POPULAR';
+      position:absolute; top:0; right:0;
+      background:var(--sand); color:var(--night);
+      font-family:'Barlow Condensed',sans-serif; font-weight:700;
+      font-size:0.58rem; letter-spacing:0.15em;
+      padding:0.28rem 0.7rem; border-radius:0 6px 0 4px;
+    }
+
+    .plan-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:1.25rem; }
+    .plan-name { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:0.04em; color:var(--offwhite); }
+    .plan-price-block { text-align:right; }
+    .plan-price { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--sand); line-height:1; }
+    .plan-price-meta { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:var(--mid); display:block; }
+    .plan-divider { height:1px; background:var(--border); margin-bottom:1.25rem; }
+    .plan-features { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+    .plan-features li { font-size:0.84rem; color:var(--mid); font-weight:300; display:flex; align-items:center; gap:0.6rem; }
+    .plan-features li::before { content:'↗'; color:var(--sand); font-size:0.7rem; }
+
+    /* ═══ CULTURE GRID ═══ */
+    .culture-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+    }
+    .culture-cell {
+      padding:3.5rem 1.5rem;
+      display:flex; align-items:flex-end;
+      min-height:220px; position:relative; overflow:hidden;
+    }
+    .culture-cell:nth-child(1) { background:var(--sand); }
+    .culture-cell:nth-child(2) { background:var(--ember); }
+    .culture-cell:nth-child(3) { background:var(--deep); border-top:1px solid var(--border); }
+    .culture-cell:nth-child(4) { background:var(--night); border-top:1px solid var(--border); border-left:1px solid var(--border); }
+    .culture-word {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2.5rem,8vw,4rem); line-height:0.88;
+      letter-spacing:0.02em; position:relative; z-index:1;
+    }
+    .culture-cell:nth-child(1) .culture-word { color:var(--night); }
+    .culture-cell:nth-child(2) .culture-word { color:#fff; }
+    .culture-cell:nth-child(3) .culture-word { color:var(--offwhite); }
+    .culture-cell:nth-child(4) .culture-word { color:var(--sand); }
+    .culture-sub {
+      position:absolute; top:1.25rem; left:1.5rem;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase;
+    }
+    .culture-cell:nth-child(1) .culture-sub { color:rgba(8,9,13,0.4); }
+    .culture-cell:nth-child(2) .culture-sub { color:rgba(255,255,255,0.45); }
+    .culture-cell:nth-child(3) .culture-sub { color:var(--mid); }
+    .culture-cell:nth-child(4) .culture-sub { color:var(--muted); }
+    .culture-bg-char {
+      position:absolute; bottom:-0.5rem; right:0.75rem;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:8rem; line-height:1; opacity:0.06; user-select:none;
+    }
+
+    /* ═══ LOCATION ═══ */
+    .location { background: var(--deep); }
+
+    .loc-card {
+      margin-top:2rem;
+      border:1px solid var(--border); border-radius:6px; overflow:hidden;
+    }
+    .loc-map {
+      height:190px;
+      background:linear-gradient(135deg,#0c0e16 0%,#131825 100%);
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .loc-map::before, .loc-map::after {
+      content:''; position:absolute; border-radius:50%;
+      border:1px solid rgba(232,201,122,0.1);
+    }
+    .loc-map::before { width:260px; height:260px; }
+    .loc-map::after  { width:140px; height:140px; border-color:rgba(232,201,122,0.18); }
+    .map-dot-wrap { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; }
+    .map-dot {
+      width:12px; height:12px; border-radius:50%; background:var(--ember);
+      box-shadow:0 0 0 4px rgba(217,95,43,0.2), 0 0 0 8px rgba(217,95,43,0.1);
+      animation:map-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes map-pulse {
+      0%,100% { box-shadow:0 0 0 4px rgba(217,95,43,0.25),0 0 0 8px rgba(217,95,43,0.1); }
+      50%      { box-shadow:0 0 0 7px rgba(217,95,43,0.15),0 0 0 14px rgba(217,95,43,0.05); }
+    }
+    .map-pin-stem { width:1px; height:20px; background:linear-gradient(to bottom,var(--ember),transparent); margin-top:2px; }
+    .map-coords {
+      position:absolute; bottom:0.75rem; left:50%; transform:translateX(-50%);
+      font-family:'Barlow Condensed',sans-serif; font-size:0.58rem; letter-spacing:0.15em;
+      color:rgba(232,201,122,0.4); white-space:nowrap;
+    }
+    .loc-details { padding:1.5rem; display:flex; flex-direction:column; gap:1rem; }
+    .loc-row { display:flex; gap:0.85rem; align-items:flex-start; }
+    .loc-icon { font-size:0.95rem; flex-shrink:0; padding-top:0.05rem; }
+    .loc-text { font-size:0.85rem; font-weight:300; color:var(--mid); line-height:1.5; }
+    .loc-text strong { font-weight:500; color:var(--offwhite); display:block; margin-bottom:0.1rem; }
+    .loc-text a { color:var(--sand); text-decoration:none; }
+    .loc-text a:hover { text-decoration:underline; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      background:#050609;
+      border-top:1px solid rgba(240,237,230,0.04);
+      padding:4rem 1.5rem 2.5rem;
+    }
+    .footer-inner { max-width:500px; margin:0 auto; }
+    .footer-logo {
+      font-family:'Bebas Neue',sans-serif; font-size:3.5rem;
+      letter-spacing:0.03em; line-height:1; margin-bottom:0.25rem;
+    }
+    .footer-logo .f-sand { color:var(--sand); }
+    .footer-logo .f-dim  { color:var(--muted); }
+    .footer-sub {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:2.5rem;
+    }
+    .footer-cols { display:grid; grid-template-columns:1fr 1fr; gap:2rem 1rem; margin-bottom:2.5rem; }
+    .footer-col-label {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase;
+      color:var(--ember); margin-bottom:0.85rem;
+    }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
+    .footer-col a { font-size:0.85rem; color:var(--mid); text-decoration:none; font-weight:300; transition:color 0.2s; }
+    .footer-col a:hover { color:var(--offwhite); }
+    .footer-divider { height:1px; background:rgba(240,237,230,0.05); margin-bottom:2rem; }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; }
+    .footer-copy { font-size:0.7rem; color:rgba(107,112,128,0.5); }
+    .footer-ig {
+      font-family:'Barlow Condensed',sans-serif; font-weight:600;
+      font-size:0.72rem; letter-spacing:0.1em;
+      color:var(--mid); text-decoration:none;
+      border:1px solid var(--border); padding:0.35rem 0.75rem; border-radius:2px;
+      transition:all 0.2s;
+    }
+    .footer-ig:hover { color:var(--sand); border-color:rgba(232,201,122,0.3); }
+
+    /* ═══ STICKY MOBILE BAR ═══ */
+    .sticky-bar {
+      position:fixed; bottom:0; left:0; right:0; z-index:150;
+      background:rgba(8,9,13,0.96); backdrop-filter:blur(20px);
+      border-top:1px solid var(--border);
+      padding:0.85rem 1.5rem;
+      display:flex; gap:0.65rem;
+      transform:translateY(100%);
+      transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .sticky-bar.visible { transform:translateY(0); }
+    .sticky-bar .btn-sand, .sticky-bar .btn-outline { flex:1; text-align:center; font-size:1rem; padding:0.85rem 0.5rem; }
+
+    /* ═══ REVEAL ═══ */
+    .r {
+      opacity:0; transform:translateY(20px);
+      transition:opacity 0.65s ease, transform 0.65s ease;
+    }
+    .r.in { opacity:1; transform:translateY(0); }
+    .r-d1 { transition-delay:0.1s; }
+    .r-d2 { transition-delay:0.2s; }
+    .r-d3 { transition-delay:0.3s; }
+    .r-d4 { transition-delay:0.4s; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width:639px) {
+      .nav-right .nav-link { display:none; }
+      .nav-right .nav-pill { display:none; }
+      .hamburger { display:flex; }
+      .hero-net-decal { display:none; }
+      .sticky-bar { display:flex; }
+      .cd-box { width:58px; }
+      .cd-num { font-size:2rem; }
+    }
+    @media (min-width:640px) {
+      .hamburger { display:none; }
+      .sticky-bar { display:none; }
+      .plans { flex-direction:row; }
+      .plan { flex:1; }
+      .inner { max-width:700px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-b">B</span>AKYARD
+  </a>
+  <div class="nav-right">
+    <a href="#programs" class="nav-link">Train</a>
+    <a href="#events" class="nav-link">Events</a>
+    <a href="#membership" class="nav-link">Join</a>
+    <a href="#spike-it" class="nav-link">🏐 Play</a>
+    <a href="tel:2148867440" class="nav-pill">Book Now</a>
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#programs" class="mm-link">Train</a>
+  <a href="#events" class="mm-link">Events</a>
+  <a href="#membership" class="mm-link">Join</a>
+  <a href="#location" class="mm-link">Find Us</a>
+  <a href="tel:2148867440" class="mm-link" style="color:var(--sand)">📞 Call</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+
+  <svg class="hero-net-decal" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="100" x2="400" y2="100" stroke="#E8C97A" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="200" stroke="#E8C97A" stroke-width="2.5"/>
+    <line x1="400" y1="0" x2="400" y2="200" stroke="#E8C97A" stroke-width="2.5"/>
+    <path d="M0 0 L50 100 L0 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M50 0 L100 100 L50 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M100 0 L150 100 L100 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M150 0 L200 100 L150 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M200 0 L250 100 L200 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M250 0 L300 100 L250 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M300 0 L350 100 L300 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M350 0 L400 100 L350 200" stroke="#E8C97A" stroke-width="0.8"/>
+    <path d="M50 0 L0 100 L50 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M100 0 L50 100 L100 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M150 0 L100 100 L150 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M200 0 L150 100 L200 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M250 0 L200 100 L250 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M300 0 L250 100 L300 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+    <path d="M350 0 L300 100 L350 200" stroke="#E8C97A" stroke-width="0.6" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-kicker r">
+      <span class="live-dot"></span>
+      Plano, Texas · Courts Open
+    </div>
+    <h1 class="hero-h1 r r-d1">
+      <span class="h1-sand">WHERE</span><br>
+      <span class="h1-white">LEGENDS</span><br>
+      <span class="h1-outline">GROW.</span>
+    </h1>
+    <p class="hero-desc r r-d2">
+      Beach volleyball sanctuary in Plano, TX. Three sand courts, elite coaching, open play every week — and a community that has your back.
+    </p>
+    <div class="hero-ctas r r-d3">
+      <a href="#membership" class="btn btn-sand">Join The Bakyard</a>
+      <a href="#programs" class="btn btn-outline">See Programs</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue">
+    <div class="scroll-ring">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M7 2L7 12M7 12L3 8M7 12L11 8" stroke="#F0EDE6" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">BUILT ON SAND</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">BACKED BY FAMILY</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">IT'S NOT A CLUB</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">OPEN PLAY EVERY SUNDAY</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">SAND IS HOME</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">GRIT GROWS HERE</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">WHERE LEGENDS GROW</span><span class="marquee-item marquee-sep">✦</span>
+    <!-- dupe for seamless loop -->
+    <span class="marquee-item">BUILT ON SAND</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">BACKED BY FAMILY</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">IT'S NOT A CLUB</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">OPEN PLAY EVERY SUNDAY</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">SAND IS HOME</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">GRIT GROWS HERE</span><span class="marquee-item marquee-sep">✦</span>
+    <span class="marquee-item">WHERE LEGENDS GROW</span><span class="marquee-item marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- BAKYARD BRAWL GAME -->
+<section id="spike-it" style="background:var(--night);padding:5rem 0 4rem;text-align:center;">
+  <div style="max-width:740px;margin:0 auto;padding:0 1.5rem;">
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-bottom:0.6rem;">2v2 Roguelike Mini Game</p>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--sand);line-height:1;margin-bottom:0.4rem;">BAKYARD BRAWL</h2>
+    <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1.8rem;">You + a teammate vs 2 CPUs · First to 7 · <span style="color:var(--sand)">← →</span> move · <span style="color:var(--sand)">↑ / Space</span> jump · Earn powerups every point</p>
+    <!-- HUD bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;padding:0 4px;">
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--sand);" id="brawlScoreYou">0</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);">YOUR TEAM</span>
+      </div>
+      <span id="brawlCombo" style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;color:var(--ember);min-height:1em;"></span>
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);">CPU TEAM</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--ember);" id="brawlScoreCPU">0</span>
+      </div>
+    </div>
+    <!-- canvas wrapper -->
+    <div style="position:relative;display:inline-block;width:100%;">
+      <canvas id="brawlCanvas" style="display:block;width:100%;border-radius:16px;border:1px solid rgba(232,201,122,0.12);"></canvas>
+      <!-- powerup / result overlay -->
+      <div id="brawlPickOverlay" style="display:none;position:absolute;inset:0;background:rgba(8,9,13,0.93);border-radius:16px;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:0;"></div>
+    </div>
+    <!-- active powerup bar -->
+    <div id="brawlPwBar" style="min-height:1.8rem;margin-top:0.6rem;display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;"></div>
+    <!-- mobile controls -->
+    <div id="brawlMobile" style="display:none;justify-content:center;gap:0.8rem;margin-top:0.8rem;">
+      <button id="brawlLeft"  style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">◀</button>
+      <button id="brawlJump"  style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;background:var(--sand);border:none;border-radius:10px;padding:0.65rem 1.6rem;color:var(--night);cursor:pointer;user-select:none;">JUMP</button>
+      <button id="brawlRight" style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">▶</button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const canvas = document.getElementById('brawlCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // ── logical dimensions ──
+  const LW = 720, LH = 400;
+  let scale = 1;
+  function resize() {
+    const w = canvas.parentElement.clientWidth;
+    scale = w / LW;
+    canvas.width  = w;
+    canvas.height = LH * scale;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── palette ──
+  const C = {
+    night:'#08090D', deep:'#0F111A', sand:'#E8C97A', ember:'#D95F2B',
+    offwhite:'#F0EDE6', mid:'#6B7080', court:'#B07840', success:'#3DB566',
+    blue:'#5BAEC9',
+  };
+
+  // ── physics ──
+  const GROUND  = LH - 52;
+  const NET_X   = LW / 2;
+  const NET_H   = 90;
+  const NET_TOP = GROUND - NET_H;
+  const BASE_G  = 0.52;
+  const BASE_JV = -13.5;
+  const BASE_SP = 4.5;
+  const BALL_BASE_R = 13;
+  const PW = 26, PH = 48;
+
+  // ── powerup catalogue ──
+  const PUPS = [
+    {id:'inferno', icon:'🔥', name:'INFERNO',     desc:'Ball blazes — fire trail + 35% faster',       col:'#FF6030'},
+    {id:'thunder', icon:'⚡', name:'THUNDER',      desc:'Next 3 spikes fly at 3× speed',               col:'#FFE040'},
+    {id:'zerog',   icon:'🎈', name:'ZERO-G',       desc:'Ball gravity cut 70% — drifts like a balloon', col:'#80B0FF'},
+    {id:'freeze',  icon:'🧊', name:'DEEP FREEZE',  desc:'CPU team frozen solid for 4 seconds',         col:'#40CCFF'},
+    {id:'rocket',  icon:'🚀', name:'ROCKET',       desc:'Ball gains 12% speed on every bounce',        col:'#FF4040'},
+    {id:'tsunami', icon:'🌊', name:'TSUNAMI',      desc:'Floor bounces become massive explosions',      col:'#3DB5CC'},
+    {id:'chaos',   icon:'🌀', name:'CHAOS BALL',   desc:'Ball randomly swerves mid-air',               col:'#CC60FF'},
+    {id:'double',  icon:'⭐', name:'DOUBLE TAP',   desc:'Next 3 points you score count as 2',          col:'#FFD700'},
+    {id:'surge',   icon:'💪', name:'POWER SURGE',  desc:'You move 45% faster & jump 30% higher',       col:'#FF8C00'},
+    {id:'bigball', icon:'💥', name:'MEGA BALL',    desc:'Ball grows huge — nearly impossible to dodge',col:'#FF4080'},
+    {id:'clone',   icon:'👥', name:'CLONE SURGE',  desc:'Teammate goes full berserk for 8 seconds',    col:'#80FF80'},
+    {id:'quake',   icon:'🌍', name:'EARTHQUAKE',   desc:'Screen shakes, CPUs stumble on every bounce', col:'#CC8844'},
+  ];
+
+  // ── state ──
+  let gstate = 'title';
+  let you, mate, cpu1, cpu2, ball, particles, effects;
+  let scoreYou, scoreCPU, combo, maxCombo;
+  let pw, pickOptions;
+  let keys = {}, mL=false, mR=false, mJ=false, lastJ=false;
+  let shake = 0;
+  let loopRunning = false;
+  let scored = false; // guard double-score
+
+  // ── helpers ──
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const rnd   = (a,b)   => a + Math.random()*(b-a);
+
+  function mkPlayer(x, team, name, color) {
+    return {x, y:GROUND, vy:0, grounded:true, team, name, color};
+  }
+  function mkBall(fromLeft) {
+    const r = pw.bigball ? BALL_BASE_R * 2.1 : BALL_BASE_R;
+    return {
+      x: fromLeft ? LW*0.22 : LW*0.78,
+      y: GROUND - 90,
+      vx: fromLeft ? 2.8 : -2.8,
+      vy: -8,
+      trail: [], bounces: 0, r
+    };
+  }
+
+  function resetPw() {
+    pw = {inferno:false,thunderCharges:0,zerog:false,freeze:0,
+          rocket:false,tsunami:false,chaos:false,doublePoints:0,
+          surge:false,bigball:false,clone:0,quake:false};
+  }
+
+  function initGame() {
+    scoreYou=0; scoreCPU=0; combo=0; maxCombo=0; scored=false;
+    resetPw();
+    particles=[]; effects=[];
+    shake=0;
+    newRound(true);
+    updateHUD();
+    updatePwBar();
+    gstate='playing';
+  }
+
+  function newRound(fromLeft) {
+    scored=false;
+    you  = mkPlayer(LW*0.18,'left','YOU', C.sand);
+    mate = mkPlayer(LW*0.34,'left','MATE','#72C472');
+    cpu1 = mkPlayer(LW*0.66,'right','CPU1',C.ember);
+    cpu2 = mkPlayer(LW*0.82,'right','CPU2','#FF8050');
+    ball = mkBall(fromLeft);
+    particles=[]; effects=[];
+    shake=0;
+  }
+
+  function updateHUD() {
+    document.getElementById('brawlScoreYou').textContent = scoreYou;
+    document.getElementById('brawlScoreCPU').textContent = scoreCPU;
+    document.getElementById('brawlCombo').textContent = combo>1 ? combo+'× COMBO!' : '';
+  }
+
+  function updatePwBar() {
+    const bar = document.getElementById('brawlPwBar');
+    const active = PUPS.filter(p => {
+      switch(p.id) {
+        case'inferno': return pw.inferno;
+        case'thunder': return pw.thunderCharges>0;
+        case'zerog':   return pw.zerog;
+        case'freeze':  return pw.freeze>0;
+        case'rocket':  return pw.rocket;
+        case'tsunami': return pw.tsunami;
+        case'chaos':   return pw.chaos;
+        case'double':  return pw.doublePoints>0;
+        case'surge':   return pw.surge;
+        case'bigball': return pw.bigball;
+        case'clone':   return pw.clone>0;
+        case'quake':   return pw.quake;
+      }
+    });
+    bar.innerHTML = active.map(p =>
+      `<span title="${p.name}" style="font-size:1.1rem;background:rgba(255,255,255,0.06);border:1px solid ${p.col}44;border-radius:6px;padding:0.15rem 0.4rem;">${p.icon}</span>`
+    ).join('');
+  }
+
+  // ── burst ──
+  function burst(x, y, col, n) {
+    for (let i=0;i<n;i++) {
+      const a=rnd(0,Math.PI*2), s=rnd(2,7);
+      particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-3,life:1,col,r:rnd(2,5)});
+    }
+  }
+
+  function floatText(txt, col, life=90) {
+    effects.push({txt, col, x:NET_X, y:LH/2-20, vy:-0.5, life, maxLife:life});
+  }
+
+  // ── score a point ──
+  function scorePoint(winner) {
+    if (scored) return;
+    scored = true;
+    gstate = 'pause';
+
+    if (winner==='you') {
+      combo++;
+      if (combo>maxCombo) maxCombo=combo;
+      const pts = pw.doublePoints>0 ? 2 : 1;
+      if (pw.doublePoints>0) pw.doublePoints--;
+      scoreYou += pts;
+      burst(ball.x, ball.y, C.sand, 22);
+      floatText(pts>1?'⭐ DOUBLE!':'POINT!', C.sand);
+    } else {
+      combo=0;
+      scoreCPU++;
+      burst(ball.x, ball.y, C.ember, 14);
+      floatText('CPU SCORES', C.ember);
+    }
+    shake=10;
+    updateHUD();
+    updatePwBar();
+
+    if (scoreYou>=7 || scoreCPU>=7) {
+      setTimeout(showEnd, 900);
+    } else if (winner==='you') {
+      setTimeout(offerPowerup, 700);
+    } else {
+      setTimeout(()=>{ newRound(false); gstate='playing'; }, 900);
+    }
+  }
+
+  // ── powerup offer ──
+  function offerPowerup() {
+    gstate='picking';
+    const shuffled = [...PUPS].sort(()=>Math.random()-0.5);
+    pickOptions = shuffled.slice(0,3);
+    const ov = document.getElementById('brawlPickOverlay');
+    ov.style.display='flex';
+    ov.innerHTML = `
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ember);margin-bottom:0.4rem;">YOU SCORED · CHOOSE YOUR UPGRADE</p>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--sand);letter-spacing:0.1em;margin-bottom:1.2rem;line-height:1;">PICK A POWERUP</p>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+        ${pickOptions.map((p,i)=>`
+          <button onclick="brawlPick(${i})" style="
+            background:rgba(19,22,31,0.97);border:1px solid rgba(232,201,122,0.2);
+            border-radius:14px;padding:1.1rem 0.9rem;width:172px;cursor:pointer;
+            transition:all 0.15s;text-align:center;font-family:inherit;color:inherit;
+          "
+          onmouseover="this.style.borderColor='${p.col}';this.style.transform='translateY(-3px)';this.style.boxShadow='0 0 22px ${p.col}55'"
+          onmouseout="this.style.borderColor='rgba(232,201,122,0.2)';this.style.transform='';this.style.boxShadow=''">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">${p.icon}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.08em;color:${p.col};margin-bottom:0.35rem;">${p.name}</div>
+            <div style="font-size:0.72rem;color:var(--mid);line-height:1.45;">${p.desc}</div>
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  window.brawlPick = function(i) {
+    applyPw(pickOptions[i].id);
+    document.getElementById('brawlPickOverlay').style.display='none';
+    floatText(pickOptions[i].icon+' '+pickOptions[i].name+'!', pickOptions[i].col, 100);
+    updatePwBar();
+    newRound(true);
+    gstate='playing';
+  };
+
+  function applyPw(id) {
+    switch(id) {
+      case'inferno': pw.inferno=!pw.inferno; break;
+      case'thunder': pw.thunderCharges+=3; break;
+      case'zerog':   pw.zerog=!pw.zerog; break;
+      case'freeze':  pw.freeze=240; break;
+      case'rocket':  pw.rocket=!pw.rocket; break;
+      case'tsunami': pw.tsunami=!pw.tsunami; break;
+      case'chaos':   pw.chaos=!pw.chaos; break;
+      case'double':  pw.doublePoints+=3; break;
+      case'surge':   pw.surge=!pw.surge; break;
+      case'bigball': pw.bigball=!pw.bigball; if(ball) ball.r=pw.bigball?BALL_BASE_R*2.1:BALL_BASE_R; break;
+      case'clone':   pw.clone=480; break;
+      case'quake':   pw.quake=!pw.quake; break;
+    }
+  }
+
+  // ── end screen ──
+  function showEnd() {
+    gstate='over';
+    const won = scoreYou>scoreCPU;
+    const ov = document.getElementById('brawlPickOverlay');
+    ov.style.display='flex';
+    ov.innerHTML=`
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:${won?C.sand:C.ember};letter-spacing:0.12em;margin-bottom:0.3rem;">${won?'VICTORY!':'DEFEAT'}</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--mid);margin-bottom:0.2rem;">${scoreYou} – ${scoreCPU} &nbsp;·&nbsp; Best combo ${maxCombo}×</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;color:var(--mid);margin-bottom:1.4rem;">
+        Powerups: ${PUPS.filter(p=>{switch(p.id){case'inferno':return pw.inferno;case'thunder':return pw.thunderCharges>0;case'zerog':return pw.zerog;case'rocket':return pw.rocket;case'tsunami':return pw.tsunami;case'chaos':return pw.chaos;case'surge':return pw.surge;case'bigball':return pw.bigball;case'quake':return pw.quake;default:return false;}}).map(p=>p.icon).join('')||'none'}
+      </p>
+      <button onclick="brawlStart()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:10px;padding:0.85rem 2.8rem;cursor:pointer;" onmouseover="this.style.boxShadow='0 0 24px rgba(232,201,122,0.5)'" onmouseout="this.style.boxShadow=''">PLAY AGAIN</button>
+    `;
+  }
+
+  window.brawlStart = function() {
+    document.getElementById('brawlPickOverlay').style.display='none';
+    initGame();
+    if (!loopRunning) { loopRunning=true; requestAnimationFrame(loop); }
+  };
+
+  // ── ball-player collision ──
+  function collide(p, friendly) {
+    const l=p.x-PW/2, r=p.x+PW/2, t=p.y-PH, b=p.y;
+    const cx=clamp(ball.x,l,r), cy=clamp(ball.y,t,b);
+    const dx=ball.x-cx, dy=ball.y-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if (dist>=ball.r) return;
+    const nx=dx/(dist||1), ny=dy/(dist||1);
+    ball.x=cx+nx*(ball.r+1); ball.y=cy+ny*(ball.r+1);
+    const dot=ball.vx*nx+ball.vy*ny;
+    ball.vx-=2*dot*nx; ball.vy-=2*dot*ny;
+    if (!p.grounded) {
+      let pow=1;
+      if (friendly && p===you && pw.thunderCharges>0) {
+        pow=3.0; pw.thunderCharges--;
+        floatText('⚡ THUNDER!','#FFE040',55);
+      }
+      if (friendly && pw.surge) pow*=1.35;
+      ball.vx*=pow; ball.vy=Math.min(ball.vy*pow,-3.5);
+    }
+    ball.vx=clamp(ball.vx,-17,17); ball.vy=clamp(ball.vy,-17,13);
+    burst(ball.x,ball.y,friendly?C.sand:'#FF6050',6);
+    if (pw.quake && friendly) shake=7;
+  }
+
+  // ── AI ──
+  function aiStep(p, side, berserk) {
+    if (gstate!=='playing') return;
+    if (pw.freeze>0 && (p===cpu1||p===cpu2)) return;
+    const spd = berserk ? BASE_SP*1.9 : BASE_SP*0.78;
+    const onMySide = side==='left'? ball.x<NET_X : ball.x>NET_X;
+    let tx;
+    if (onMySide) {
+      tx = ball.x + (side==='left'?-18:18);
+    } else {
+      tx = side==='left'
+        ? (p===mate ? LW*0.34 : LW*0.18)
+        : (p===cpu1 ? LW*0.66 : LW*0.82);
+    }
+    const d=tx-p.x;
+    if (Math.abs(d)>3) p.x+=Math.sign(d)*spd;
+    p.x = side==='left'
+      ? clamp(p.x,PW/2,NET_X-PW/2-3)
+      : clamp(p.x,NET_X+PW/2+3,LW-PW/2);
+    if (p.grounded && onMySide && ball.vy>-2 && ball.y<GROUND-30) {
+      const eta=Math.abs(ball.x-p.x)/Math.max(Math.abs(ball.vx),0.5);
+      if (eta<25 && Math.random()<(berserk?0.12:0.04)) {
+        p.vy=BASE_JV*(berserk?1.25:1); p.grounded=false;
+      }
+    }
+  }
+
+  // ── update ──
+  function update() {
+    if (gstate!=='playing') return;
+
+    // counters
+    if (pw.freeze>0) pw.freeze--;
+    if (pw.clone>0)  pw.clone--;
+    shake*=0.82;
+
+    // player input
+    const gL = keys['ArrowLeft'] ||keys['KeyA']||mL;
+    const gR = keys['ArrowRight']||keys['KeyD']||mR;
+    const gJ = keys['ArrowUp']   ||keys['KeyW']||keys['Space']||mJ;
+    const sp = pw.surge ? BASE_SP*1.45 : BASE_SP;
+    const jv = pw.surge ? BASE_JV*1.3  : BASE_JV;
+    if (gL) you.x-=sp; if (gR) you.x+=sp;
+    you.x=clamp(you.x,PW/2,NET_X-PW/2-3);
+    if (gJ&&!lastJ&&you.grounded){ you.vy=jv; you.grounded=false; }
+    lastJ=gJ;
+
+    // AI
+    aiStep(mate,'left', pw.clone>0);
+    aiStep(cpu1,'right',false);
+    aiStep(cpu2,'right',false);
+
+    // gravity
+    [you,mate,cpu1,cpu2].forEach(p=>{
+      p.vy+=BASE_G; p.y+=p.vy;
+      if(p.y>=GROUND){p.y=GROUND;p.vy=0;p.grounded=true;}
+    });
+
+    // chaos
+    if (pw.chaos&&Math.random()<0.018){ ball.vx+=rnd(-1.5,1.5); ball.vy+=rnd(-0.8,0.8); }
+
+    // inferno drift
+    if (pw.inferno){ ball.vx*=1.002; }
+
+    // ball
+    ball.trail.push({x:ball.x,y:ball.y});
+    if(ball.trail.length>14) ball.trail.shift();
+    const bg = pw.zerog ? BASE_G*0.3 : BASE_G;
+    ball.vy+=bg; ball.x+=ball.vx; ball.y+=ball.vy;
+
+    // net
+    if (Math.abs(ball.x-NET_X)<ball.r+2 && ball.y>NET_TOP-4) {
+      ball.vx*=-0.72; ball.x=ball.vx>0?NET_X+ball.r+3:NET_X-ball.r-3;
+      burst(NET_X,ball.y,C.offwhite,4);
+    }
+
+    // floor
+    if (ball.y>=GROUND-ball.r) {
+      ball.y=GROUND-ball.r;
+      ball.vy*= pw.tsunami?-1.5:-0.52;
+      ball.vx*= pw.tsunami? 1.35: 0.84;
+      ball.bounces++;
+      if (pw.rocket){ ball.vx*=1.12; ball.vy*=1.1; }
+      if (pw.quake) shake=11;
+      burst(ball.x,GROUND,C.court, pw.tsunami?18:7);
+      if (Math.abs(ball.vy)<2.5) {
+        scorePoint(ball.x<NET_X?'cpu':'you');
+        return;
+      }
+    }
+
+    // walls
+    if(ball.x<ball.r){ball.x=ball.r; ball.vx*=pw.tsunami?-1.6:-0.85;}
+    if(ball.x>LW-ball.r){ball.x=LW-ball.r; ball.vx*=pw.tsunami?-1.6:-0.85;}
+    if(ball.y<ball.r){ball.y=ball.r; ball.vy*=-0.72;}
+
+    // speed cap
+    const cap=pw.rocket?18+ball.bounces*0.5:16;
+    ball.vx=clamp(ball.vx,-cap,cap); ball.vy=clamp(ball.vy,-cap,cap);
+
+    // collisions
+    collide(you,  true); collide(mate, true);
+    collide(cpu1, false); collide(cpu2, false);
+
+    // particles
+    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.14;p.life-=0.038;});
+    particles=particles.filter(p=>p.life>0);
+    effects.forEach(e=>{e.y+=e.vy;e.life--;});
+    effects=effects.filter(e=>e.life>0);
+  }
+
+  // ── draw ──
+  function draw() {
+    ctx.save();
+    if (shake>0.5) ctx.translate(rnd(-shake,shake)*scale, rnd(-shake,shake)*scale);
+    ctx.scale(scale,scale);
+
+    // sky
+    const sky=ctx.createLinearGradient(0,0,0,LH);
+    sky.addColorStop(0,'#030408'); sky.addColorStop(0.65,'#08090D'); sky.addColorStop(1,'#0D0F18');
+    ctx.fillStyle=sky; ctx.fillRect(0,0,LW,LH);
+
+    // twinkling stars
+    for(let i=0;i<55;i++){
+      const sx=(i*149)%LW, sy=(i*83)%(GROUND*0.68);
+      const tw=0.45+0.55*Math.sin(Date.now()*0.0008+i*1.3);
+      ctx.globalAlpha=tw*0.7; ctx.fillStyle=C.offwhite;
+      ctx.beginPath(); ctx.arc(sx,sy,i%4===0?1.3:0.7,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+
+    // moon
+    const mg=ctx.createRadialGradient(LW-65,42,3,LW-65,42,42);
+    mg.addColorStop(0,'rgba(232,201,122,0.22)'); mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg; ctx.fillRect(0,0,LW,LH);
+    ctx.fillStyle='rgba(232,201,122,0.88)';
+    ctx.beginPath(); ctx.arc(LW-65,42,15,0,Math.PI*2); ctx.fill();
+
+    // freeze tint on CPU side
+    if(pw.freeze>0){
+      ctx.fillStyle=`rgba(64,200,255,${Math.min(pw.freeze/240,1)*0.1})`;
+      ctx.fillRect(NET_X,0,LW-NET_X,LH);
+    }
+
+    // sand
+    const sg=ctx.createLinearGradient(0,GROUND,0,LH);
+    sg.addColorStop(0,'#B07840'); sg.addColorStop(1,'#7A5028');
+    ctx.fillStyle=sg; ctx.fillRect(0,GROUND,LW,LH-GROUND);
+
+    // net pole
+    ctx.fillStyle='#aaa'; ctx.fillRect(NET_X-3,NET_TOP-14,6,NET_H+14);
+    // net rope
+    ctx.strokeStyle='rgba(240,237,230,0.88)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(NET_X,NET_TOP); ctx.lineTo(NET_X,GROUND); ctx.stroke();
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(240,237,230,0.17)';
+    for(let ny=NET_TOP+13;ny<GROUND;ny+=13){
+      ctx.beginPath(); ctx.moveTo(NET_X-5,ny); ctx.lineTo(NET_X+5,ny); ctx.stroke();
+    }
+    ctx.fillStyle=C.sand; ctx.fillRect(NET_X-4,NET_TOP-5,8,9);
+
+    // ball trail
+    const tcol = pw.inferno?'255,100,48': pw.chaos?'200,80,255':'232,201,122';
+    ball.trail.forEach((t,i)=>{
+      const a=(i/ball.trail.length)*0.28;
+      const r=ball.r*(i/ball.trail.length)*0.85;
+      ctx.beginPath(); ctx.arc(t.x,t.y,r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${tcol},${a})`; ctx.fill();
+    });
+
+    // ball
+    const bg2=ctx.createRadialGradient(ball.x-4,ball.y-4,2,ball.x,ball.y,ball.r);
+    if(pw.inferno){bg2.addColorStop(0,'#FFEE80');bg2.addColorStop(0.5,'#FF7030');bg2.addColorStop(1,'#CC1800');}
+    else if(pw.chaos){bg2.addColorStop(0,'#EE80FF');bg2.addColorStop(0.5,'#9040CC');bg2.addColorStop(1,'#3A0070');}
+    else if(pw.bigball){bg2.addColorStop(0,'#FFF0A0');bg2.addColorStop(0.5,'#E8C97A');bg2.addColorStop(1,'#804010');}
+    else{bg2.addColorStop(0,'#FFF8DC');bg2.addColorStop(0.5,C.sand);bg2.addColorStop(1,'#906820');}
+    if(pw.bigball){ctx.shadowColor='rgba(232,201,122,0.4)';ctx.shadowBlur=20;}
+    ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
+    ctx.fillStyle=bg2; ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='rgba(0,0,0,0.25)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0.4,Math.PI+0.4); ctx.stroke();
+
+    // particles
+    particles.forEach(p=>{
+      ctx.globalAlpha=p.life; ctx.fillStyle=p.col;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1;
+
+    // players
+    [you,mate,cpu1,cpu2].forEach(p=> drawPlayer(p));
+
+    // freeze emoji over CPUs
+    if(pw.freeze>0){
+      [cpu1,cpu2].forEach(p=>{
+        ctx.font='16px serif'; ctx.textAlign='center';
+        ctx.fillText('🧊',p.x,p.y-PH-22);
+      });
+    }
+
+    // floating text effects
+    effects.forEach(e=>{
+      const a=Math.min(e.life/30,1);
+      ctx.globalAlpha=a;
+      ctx.fillStyle=e.col;
+      ctx.font=`bold ${e.maxLife>70?18:14}px 'Bebas Neue',sans-serif`;
+      ctx.textAlign='center';
+      ctx.fillText(e.txt,e.x,e.y);
+    });
+    ctx.globalAlpha=1; ctx.textAlign='left';
+
+    ctx.restore();
+  }
+
+  function drawPlayer(p) {
+    const x=p.x, y=p.y, col=p.col;
+    const isFriend = p.team==='left';
+    const isBerserk = (p===mate && pw.clone>0);
+    const isSurge   = (p===you  && pw.surge);
+
+    // shadow
+    ctx.fillStyle='rgba(0,0,0,0.25)';
+    ctx.beginPath(); ctx.ellipse(x,GROUND+4,13,4,0,0,Math.PI*2); ctx.fill();
+
+    // glow
+    if(isBerserk){ ctx.shadowColor='#80FF80'; ctx.shadowBlur=18; }
+    else if(isSurge){ ctx.shadowColor='#FF8C00'; ctx.shadowBlur=14; }
+
+    // jersey
+    ctx.fillStyle=col;
+    ctx.fillRect(x-PW/2, y-PH, PW, PH*0.62);
+    // number
+    ctx.fillStyle='rgba(0,0,0,0.35)';
+    ctx.font=`bold 9px 'Barlow Condensed',sans-serif`; ctx.textAlign='center';
+    ctx.fillText(isFriend?'1':'2',x,y-PH+14);
+
+    // shorts
+    ctx.shadowBlur=0; ctx.fillStyle=isFriend?'#0F111A':'#2A0804';
+    ctx.fillRect(x-PW/2, y-PH*0.38, PW, PH*0.24);
+
+    // head
+    ctx.fillStyle='#D4A070';
+    ctx.beginPath(); ctx.arc(x,y-PH-10,12,0,Math.PI*2); ctx.fill();
+    // hair
+    ctx.fillStyle=isFriend?col:'#8B3010';
+    ctx.beginPath(); ctx.arc(x,y-PH-18,8,Math.PI,Math.PI*2); ctx.fill();
+
+    // arms
+    ctx.fillStyle=col;
+    if(!p.grounded){
+      ctx.fillRect(x-PW/2-7,y-PH-8,8,20);
+      ctx.fillRect(x+PW/2-1,y-PH-14,8,22);
+    } else {
+      ctx.fillRect(x-PW/2-7,y-PH+6,8,18);
+      ctx.fillRect(x+PW/2-1,y-PH+6,8,18);
+    }
+
+    // legs
+    ctx.fillStyle='#C49060';
+    ctx.fillRect(x-PW/2+2, y-PH*0.12,10,PH*0.36);
+    ctx.fillRect(x+PW/2-12,y-PH*0.12,10,PH*0.36);
+
+    ctx.shadowBlur=0;
+    // name badge
+    ctx.fillStyle=col; ctx.font=`700 7px 'Barlow Condensed',sans-serif`; ctx.textAlign='center';
+    ctx.fillText(p.name,x,y-PH-24);
+    ctx.textAlign='left';
+  }
+
+  // ── input ──
+  document.addEventListener('keydown',e=>{
+    keys[e.code]=true;
+    if(['Space','ArrowUp','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+  });
+  document.addEventListener('keyup',e=>{ keys[e.code]=false; });
+
+  function hold(id,setter) {
+    const el=document.getElementById(id); if(!el) return;
+    ['touchstart','mousedown'].forEach(ev=>
+      el.addEventListener(ev,e=>{e.preventDefault();setter(true);},{passive:false}));
+    ['touchend','mouseup','mouseleave'].forEach(ev=>
+      el.addEventListener(ev,()=>setter(false)));
+  }
+  hold('brawlLeft', v=>mL=v);
+  hold('brawlRight',v=>mR=v);
+  hold('brawlJump', v=>mJ=v);
+  if('ontouchstart' in window) document.getElementById('brawlMobile').style.display='flex';
+
+  // ── loop ──
+  function loop() {
+    update(); draw();
+    requestAnimationFrame(loop);
+  }
+
+  // ── title screen ──
+  resetPw();
+  newRound(true);
+  draw();
+  const ov=document.getElementById('brawlPickOverlay');
+  ov.style.display='flex';
+  ov.innerHTML=`
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ember);margin-bottom:0.4rem;">Bakyard 2v2 Roguelike</p>
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:var(--sand);letter-spacing:0.1em;line-height:1;margin-bottom:0.2rem;">BAKYARD<br>BRAWL</p>
+    <p style="font-size:0.8rem;color:var(--mid);margin-bottom:0.25rem;">You + AI teammate vs 2 CPUs · First to 7</p>
+    <p style="font-size:0.75rem;color:var(--mid);margin-bottom:1.4rem;">
+      <span style="color:var(--sand)">← →</span> move &nbsp;·&nbsp; <span style="color:var(--sand)">↑ / Space</span> jump &amp; spike<br>
+      Score a point → draft a powerup · Stack them · Go crazy
+    </p>
+    <button onclick="brawlStart()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:10px;padding:0.9rem 2.8rem;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.boxShadow='0 0 28px rgba(232,201,122,0.55)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">ENTER THE BRAWL</button>
+  `;
+  loopRunning=true;
+  requestAnimationFrame(loop);
+})();
+</script>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <span class="about-accent" aria-hidden="true">B</span>
+  <div class="inner">
+    <p class="eyebrow r">The Bakyard</p>
+    <h2 class="sec-title r r-d1">More Than<br>a Court.</h2>
+    <p class="sec-body r r-d2">
+      Plano's only private beach volleyball sanctuary. Three sand courts, a community pond with canoe, pool, covered hangout spaces, and a no-club culture where pros, college athletes, and weekend warriors train and belong together.
+    </p>
+    <div class="stats-row r r-d3">
+      <div class="stat"><span class="stat-n">3</span><span class="stat-l">Sand Courts</span></div>
+      <div class="stat"><span class="stat-n">5+</span><span class="stat-l">Years Deep</span></div>
+      <div class="stat"><span class="stat-n">∞</span><span class="stat-l">Community</span></div>
+    </div>
+    <div class="amenities r r-d4">
+      <span class="amenity-tag">🏐 3 Sand Courts</span>
+      <span class="amenity-tag">🚣 Pond + Canoe</span>
+      <span class="amenity-tag">🏊 Pool</span>
+      <span class="amenity-tag">🏀 Basketball</span>
+      <span class="amenity-tag">🌿 Shaded Arbor</span>
+      <span class="amenity-tag">🔥 Bonfires</span>
+      <span class="amenity-tag">🅿️ Parking</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section programs" id="programs">
+  <div class="inner">
+    <p class="eyebrow r">Training & Play</p>
+    <h2 class="sec-title r r-d1">Pick Your<br>Path.</h2>
+    <div class="prog-list">
+      <div class="prog-row r">
+        <span class="prog-num">01</span>
+        <div class="prog-body">
+          <div class="prog-name">Sideout Sundays — Open Play</div>
+          <div class="prog-desc">Community open play with King/Queen of the Court formats. Drop in any Sunday. All skill levels, big energy.</div>
+        </div>
+        <div class="prog-right"><div class="prog-price">FREE</div><span class="prog-badge">w/ Membership</span></div>
+      </div>
+      <div class="prog-row r r-d1">
+        <span class="prog-num">02</span>
+        <div class="prog-body">
+          <div class="prog-name">Group Training</div>
+          <div class="prog-desc">Focused reps with real coaching. Capped at 12–16 athletes per session so everyone gets touches.</div>
+        </div>
+        <div class="prog-right"><div class="prog-price">$35</div><span class="prog-badge">per session</span></div>
+      </div>
+      <div class="prog-row r r-d2">
+        <span class="prog-num">03</span>
+        <div class="prog-body">
+          <div class="prog-name">Elite 2s Program</div>
+          <div class="prog-desc">Twice-weekly elite doubles training for serious competitors. College prep and competitive pathway.</div>
+        </div>
+        <div class="prog-right"><div class="prog-price">Elite</div><span class="prog-badge">plan required</span></div>
+      </div>
+      <div class="prog-row r r-d3">
+        <span class="prog-num">04</span>
+        <div class="prog-body">
+          <div class="prog-name">Youth Camps</div>
+          <div class="prog-desc">Ages 9–11. Fundamentals, fun, progression — in a family-first sand environment. Limited spots per camp.</div>
+        </div>
+        <div class="prog-right"><div class="prog-price">Seasonal</div><span class="prog-badge">register early</span></div>
+      </div>
+      <div class="prog-row r r-d4">
+        <span class="prog-num">05</span>
+        <div class="prog-body">
+          <div class="prog-name">Private & Semi-Private Lessons</div>
+          <div class="prog-desc">1-on-1 or small group coaching tailored to your game. Schedule directly with a Bakyard coach.</div>
+        </div>
+        <div class="prog-right"><div class="prog-price">Call</div><span class="prog-badge">214-886-7440</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section section">
+  <div class="countdown-inner">
+    <p class="cd-label">Next Event</p>
+    <h2 class="cd-event-name">Sideout Sunday<br>Open Play</h2>
+    <div class="cd-boxes">
+      <div class="cd-box"><span class="cd-num" id="cd-d">00</span><span class="cd-unit">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-h">00</span><span class="cd-unit">Hours</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-m">00</span><span class="cd-unit">Mins</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-s">00</span><span class="cd-unit">Secs</span></div>
+    </div>
+    <a href="mailto:contact@BeachBakyard.com" class="btn-white">Reserve Your Spot</a>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="section events" id="events">
+  <div class="inner">
+    <p class="eyebrow r">Upcoming</p>
+    <h2 class="sec-title r r-d1">On The<br>Calendar.</h2>
+    <div class="event-grid">
+      <div class="event-card r">
+        <div class="ev-date"><span class="ev-d">02</span><span class="ev-m">MAR</span></div>
+        <div class="ev-info"><div class="ev-name">Sideout Sunday — Open Play</div><div class="ev-sub">Every Sunday · All Levels · The Bakyard, Plano</div></div>
+        <span class="ev-tag tag-weekly">Weekly</span>
+      </div>
+      <div class="event-card r r-d1">
+        <div class="ev-date"><span class="ev-d">07</span><span class="ev-m">MAR</span></div>
+        <div class="ev-info"><div class="ev-name">Backyard Brawl</div><div class="ev-sub">Friday Night Competitive Open Play · 7 PM</div></div>
+        <span class="ev-tag tag-open">Open</span>
+      </div>
+      <div class="event-card r r-d2">
+        <div class="ev-date"><span class="ev-d">15</span><span class="ev-m">MAR</span></div>
+        <div class="ev-info"><div class="ev-name">SheBall Women's Tournament</div><div class="ev-sub">Women's Doubles · Register by Mar 12</div></div>
+        <span class="ev-tag tag-open">Open</span>
+      </div>
+      <div class="event-card r r-d3">
+        <div class="ev-date"><span class="ev-d">21</span><span class="ev-m">MAR</span></div>
+        <div class="ev-info"><div class="ev-name">King / Queen of the Beach</div><div class="ev-sub">KOB/QOB Points Series · Competitive</div></div>
+        <span class="ev-tag tag-open">Open</span>
+      </div>
+    </div>
+    <div style="margin-top:1.75rem" class="r r-d4">
+      <a href="mailto:contact@BeachBakyard.com" class="btn btn-outline" style="display:block;text-align:center;">Contact For Full Schedule</a>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="section membership" id="membership">
+  <div class="inner">
+    <p class="eyebrow r">Bakyard University</p>
+    <h2 class="sec-title r r-d1">Find Your<br>Plan.</h2>
+    <div class="plans">
+      <div class="plan r">
+        <div class="plan-header">
+          <div class="plan-name">Drop-In</div>
+          <div class="plan-price-block"><div class="plan-price">$20</div><span class="plan-price-meta">per session</span></div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Single session access</li>
+          <li>Open play eligible</li>
+          <li>No commitment</li>
+          <li>Great for first visits</li>
+        </ul>
+      </div>
+      <div class="plan featured r r-d1">
+        <div class="plan-header">
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price-block"><div class="plan-price">$149</div><span class="plan-price-meta">/ month</span></div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Unlimited open play</li>
+          <li>Group training access</li>
+          <li>Member pricing on events</li>
+          <li>Sideout Sundays priority</li>
+          <li>Save 20% with annual</li>
+        </ul>
+      </div>
+      <div class="plan r r-d2">
+        <div class="plan-header">
+          <div class="plan-name">Elite</div>
+          <div class="plan-price-block"><div class="plan-price">$299</div><span class="plan-price-meta">/ month</span></div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Everything in Monthly</li>
+          <li>Elite 2s program</li>
+          <li>Advanced training blocks</li>
+          <li>Priority court booking</li>
+          <li>Video analysis (coming)</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:2rem" class="r r-d3">
+      <a href="tel:2148867440" class="btn btn-sand" style="display:block;text-align:center;font-size:1.15rem;padding:1rem;">Call To Get Started · 214-886-7440</a>
+    </div>
+  </div>
+</section>
+
+<!-- CULTURE GRID -->
+<div class="culture-grid">
+  <div class="culture-cell">
+    <span class="culture-sub">What we are</span>
+    <div class="culture-word">SAND.<br>FAMILY.<br>GRIT.</div>
+    <span class="culture-bg-char" aria-hidden="true">B</span>
+  </div>
+  <div class="culture-cell">
+    <span class="culture-sub">Our promise</span>
+    <div class="culture-word">PLAY<br>HARD.</div>
+    <span class="culture-bg-char" aria-hidden="true">✦</span>
+  </div>
+  <div class="culture-cell">
+    <span class="culture-sub">Since 2020</span>
+    <div class="culture-word">NOT<br>A CLUB.</div>
+    <span class="culture-bg-char" aria-hidden="true">🏐</span>
+  </div>
+  <div class="culture-cell">
+    <span class="culture-sub">You belong here</span>
+    <div class="culture-word">HOME<br>COURT.</div>
+    <span class="culture-bg-char" aria-hidden="true">→</span>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<section class="section location" id="location">
+  <div class="inner">
+    <p class="eyebrow r">Find Us</p>
+    <h2 class="sec-title r r-d1">Come Play<br>In Plano.</h2>
+    <div class="loc-card r r-d2">
+      <div class="loc-map">
+        <div class="map-dot-wrap">
+          <div class="map-dot"></div>
+          <div class="map-pin-stem"></div>
+        </div>
+        <div class="map-coords">33.0198° N · 96.6989° W</div>
+      </div>
+      <div class="loc-details">
+        <div class="loc-row"><span class="loc-icon">📍</span><div class="loc-text"><strong>Address</strong>3001 Los Rios Blvd, Plano, TX 75074</div></div>
+        <div class="loc-row"><span class="loc-icon">📞</span><div class="loc-text"><strong>Phone</strong><a href="tel:2148867440">214-886-7440</a></div></div>
+        <div class="loc-row"><span class="loc-icon">✉️</span><div class="loc-text"><strong>Email</strong><a href="mailto:contact@BeachBakyard.com">contact@BeachBakyard.com</a></div></div>
+        <div class="loc-row"><span class="loc-icon">📸</span><div class="loc-text"><strong>Instagram</strong><a href="https://www.instagram.com/beach.bakyard" target="_blank" rel="noopener">@beach.bakyard</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="f-sand">THE </span><span class="f-dim">BAK</span><span class="f-sand">YARD</span>
+    </div>
+    <p class="footer-sub">Where Legends Grow · Plano, Texas · Est. 2020</p>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-label">The Bakyard</p>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#events">Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-label">Connect</p>
+        <ul>
+          <li><a href="tel:2148867440">214-886-7440</a></li>
+          <li><a href="mailto:contact@BeachBakyard.com">Email Us</a></li>
+          <li><a href="https://www.instagram.com/beach.bakyard" target="_blank">Instagram</a></li>
+          <li><a href="https://beachbakyard.com" target="_blank">beachbakyard.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 The Bakyard LLC · All Rights Reserved</span>
+      <a href="https://www.instagram.com/beach.bakyard" class="footer-ig" target="_blank">@beach.bakyard ↗</a>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <a href="#membership" class="btn btn-sand">Join Now</a>
+  <a href="tel:2148867440" class="btn btn-outline">📞 Call</a>
+</div>
+
+<script>
+// ─── CANVAS PARTICLE FIELD ───
+(function() {
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles;
+  const COLORS = ['rgba(232,201,122,','rgba(217,95,43,','rgba(240,237,230,'];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  function createParticles() {
+    const count = Math.floor((W * H) / 8500);
+    particles = Array.from({ length: count }, () => ({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      r:  Math.random() * 1.6 + 0.3,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: -Math.random() * 0.3 - 0.05,
+      a:  Math.random() * 0.5 + 0.15,
+      col: COLORS[Math.floor(Math.random() * COLORS.length)],
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.col + p.a + ')';
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
+      if (p.x < -5) p.x = W + 5;
+      if (p.x > W + 5) p.x = -5;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', () => { resize(); createParticles(); }, { passive: true });
+  resize(); createParticles(); draw();
+})();
+
+// ─── NAV ───
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ─── HAMBURGER ───
+const ham = document.getElementById('ham');
+const mobileMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  ham.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}));
+
+// ─── SCROLL REVEAL ───
+const revEls = document.querySelectorAll('.r');
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+revEls.forEach(el => revObs.observe(el));
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .r').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 300 + i * 160);
+  });
+});
+
+// ─── STICKY BAR ───
+const heroEl = document.querySelector('.hero');
+const stickyBar = document.getElementById('stickyBar');
+new IntersectionObserver(([e]) => {
+  stickyBar.classList.toggle('visible', !e.isIntersecting);
+}, { threshold: 0.05 }).observe(heroEl);
+
+// ─── COUNTDOWN to next Sunday 10am CT ───
+function getNextSunday() {
+  const now = new Date();
+  const ct = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+  const day = ct.getDay();
+  const daysUntil = (day === 0 && ct.getHours() < 10) ? 0 : ((7 - day) % 7 || 7);
+  const next = new Date(ct);
+  next.setDate(ct.getDate() + daysUntil);
+  next.setHours(10, 0, 0, 0);
+  return next;
+}
+function updateCD() {
+  const ct = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+  const diff = getNextSunday() - ct;
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+updateCD();
+setInterval(updateCD, 1000);
+</script>
+</body>
+</html>
