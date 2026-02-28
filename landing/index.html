@@ -937,8 +937,8 @@
   // ── physics / layout ──
   const GROUND = LH - 55;
   const CEIL   = 50;
-  const GRAV   = 0.33;
-  const BASE_JUMP  = -13.5;
+  const GRAV   = 0.28;     // slightly less gravity = satisfying hang time
+  const BASE_JUMP  = -14;
   const BASE_SPEED = 4.8;
   const BALL_R     = 12;
   const PW = 24, PH = 52;
@@ -991,7 +991,9 @@
   function mkPlayer() { return {x:LW/2, y:GROUND, vy:0, grounded:true, spikeCD:0}; }
   function mkBall(x,y,vx,vy) {
     const r=getR();
-    return {x:x??LW/2, y:y??GROUND-110, vx:vx??rnd(-3,3), vy:vy??rnd(-12,-8), r, trail:[]};
+    // always give meaningful horizontal speed — never launches straight up
+    const defVx = (Math.random()<0.5?-1:1) * (2.5 + Math.random()*3.5);
+    return {x:x??LW/2, y:y??GROUND-110, vx:vx??defVx, vy:vy??-(10+Math.random()*4), r, trail:[]};
   }
 
   function makeBricks(wn) {
@@ -1025,7 +1027,7 @@
     wave++;
     player.x=LW/2; player.y=GROUND; player.vy=0; player.grounded=true;
     balls=[mkBall()];
-    for (let i=1;i<=pw.multiball;i++) balls.push(mkBall(rnd(200,520),GROUND-110,rnd(-3,3),rnd(-12,-8)));
+    for (let i=1;i<=pw.multiball;i++) balls.push(mkBall(rnd(200,520),GROUND-110));
     bricks=makeBricks(wave); crabs=wave>=2?spawnCrabs(wave):[]; projs=[]; parts=[];
     updateHUD(); updatePwBar(); offerUpgrade();
   }
@@ -1059,13 +1061,16 @@
   function trySpike(ball) {
     if (player.grounded||player.spikeCD>0) return;
     const dx=ball.x-player.x, dy=ball.y-(player.y-PH*0.5);
-    if (Math.hypot(dx,dy)>ball.r+30) return;
+    if (Math.hypot(dx,dy)>ball.r+34) return;
     const mult=1+pw.spike*0.5;
-    const spd=(10+Math.abs(ball.vx)*0.2)*mult;
-    const ang=Math.atan2(dy,dx);
-    ball.vx=Math.cos(ang)*spd; ball.vy=Math.min(Math.sin(ang)*spd-3,-5);
-    player.spikeCD=16;
-    burst(ball.x,ball.y,C.sand,9,7);
+    const spd=(14+Math.abs(ball.vx)*0.25)*mult;
+    // horizontal: proportional to how far ball is left/right of player
+    // vertical: always strong upward — spike goes toward the bricks
+    const relX=clamp(dx/55,-1,1);
+    ball.vx=relX*spd*0.65;
+    ball.vy=-spd*0.88;            // strong upward every time
+    player.spikeCD=14;
+    burst(ball.x,ball.y,C.sand,12,8);
     floatText('SPIKE!',C.sand,ball.x,ball.y-22);
     if (pw.freeze>0) crabs.forEach(c=>{ if(Math.hypot(c.x-ball.x,c.y-ball.y)<140) c.freezeT=180; });
   }
@@ -1102,7 +1107,8 @@
     burst(ball.x,GROUND,C.ember,18,7);
     floatText('OUT!',C.ember,ball.x,GROUND-30); updateHUD();
     if (pw.hp<=0) { gstate='over'; setTimeout(showGameOver,600); return; }
-    ball.x=player.x; ball.y=GROUND-80; ball.vx=rnd(-2,2); ball.vy=-9; ball.trail=[];
+    const rv=(Math.random()<0.5?-1:1)*(2.5+Math.random()*2.5);
+    ball.x=player.x; ball.y=GROUND-80; ball.vx=rv; ball.vy=-(10+Math.random()*3); ball.trail=[];
   }
 
   // ── main update ──
@@ -1124,12 +1130,17 @@
       ball.trail.push({x:ball.x,y:ball.y}); if(ball.trail.length>10) ball.trail.shift();
       if (pw.magnet>0){const dx=player.x-ball.x,dy=(player.y-PH/2)-ball.y,d=Math.hypot(dx,dy);if(d>60&&d<200){ball.vx+=dx/d*0.15;ball.vy+=dy/d*0.10;}}
       ball.vy+=GRAV; ball.x+=ball.vx; ball.y+=ball.vy;
-      const damp=pw.ricochet>0?0.98:0.88;
+      // walls: nearly lossless — ball stays energetic
+      const damp=pw.ricochet>0?1.0:0.97;
       if(ball.x<ball.r){ball.x=ball.r;ball.vx=Math.abs(ball.vx)*damp;}
       if(ball.x>LW-ball.r){ball.x=LW-ball.r;ball.vx=-Math.abs(ball.vx)*damp;}
-      if(ball.y<CEIL+ball.r){ball.y=CEIL+ball.r;ball.vy=Math.abs(ball.vy)*0.85;}
-      const cap=pw.ricochet>0?20:17;
+      // ceiling: elastic bounce
+      if(ball.y<CEIL+ball.r){ball.y=CEIL+ball.r;ball.vy=Math.abs(ball.vy)*0.95;}
+      const cap=pw.ricochet>0?20:18;
       ball.vx=clamp(ball.vx,-cap,cap); ball.vy=clamp(ball.vy,-cap,cap);
+      // minimum speed — ball never gets sluggish
+      const mag=Math.hypot(ball.vx,ball.vy);
+      if(mag<5&&mag>0.1){ball.vx=ball.vx/mag*5;ball.vy=ball.vy/mag*5;}
       trySpike(ball); brickCollide(ball);
       if (ball.y>=GROUND-ball.r) loseHP(ball);
     });
