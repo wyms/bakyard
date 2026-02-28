@@ -701,9 +701,79 @@
       .plan { flex:1; }
       .inner { max-width:700px; }
     }
+  /* ═══ BLITZ MODAL ═══ */
+  #blitzModal {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(8,9,13,0.97); flex-direction:column;
+    align-items:center; justify-content:center; padding:0.6rem;
+  }
+  #blitzModal.open { display:flex; }
+  #blitzModal .bm-close {
+    position:absolute; top:14px; right:18px; background:none; border:none;
+    color:rgba(240,237,230,0.4); font-size:1.6rem; cursor:pointer; line-height:1;
+    transition:color 0.15s;
+  }
+  #blitzModal .bm-close:hover { color:var(--offwhite); }
+  #blitzModal .bm-hud {
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; max-width:760px; margin-bottom:0.3rem; padding:0 4px;
+  }
+  #blitzModal .bm-canvas-wrap {
+    position:relative; width:100%; max-width:760px;
+  }
+  #blitzModal canvas {
+    display:block; width:100%; border-radius:14px;
+    border:1px solid rgba(232,201,122,0.12);
+  }
+  #blitzModal .bm-overlay {
+    display:none; position:absolute; inset:0; background:rgba(8,9,13,0.93);
+    border-radius:14px; flex-direction:column; align-items:center;
+    justify-content:center; padding:1.5rem; gap:0;
+  }
+  #blitzModal .bm-pwbar {
+    min-height:1.6rem; margin-top:0.4rem; display:flex;
+    gap:0.4rem; justify-content:center; flex-wrap:wrap;
+    width:100%; max-width:760px;
+  }
+  #blitzModal .bm-mobile {
+    display:none; justify-content:center; gap:0.8rem; margin-top:0.6rem;
+  }
   </style>
 </head>
 <body>
+
+<!-- BLITZ FULLSCREEN MODAL -->
+<div id="blitzModal">
+  <button class="bm-close" onclick="closeBlitz()" title="Close (Esc)">✕</button>
+  <!-- HUD -->
+  <div class="bm-hud">
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.18em;color:var(--mid);">WAVE</span>
+      <span id="blitzWave" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--sand);">1</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;">
+      <span id="blitzCombo" style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;color:var(--ember);min-height:1em;"></span>
+      <span id="blitzHP" style="font-size:1rem;letter-spacing:0.06em;">❤️❤️❤️❤️❤️</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <span id="blitzScore" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--offwhite);">0</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.18em;color:var(--mid);">PTS</span>
+    </div>
+  </div>
+  <!-- Canvas -->
+  <div class="bm-canvas-wrap">
+    <canvas id="blitzCanvas"></canvas>
+    <div id="blitzOverlay" class="bm-overlay"></div>
+  </div>
+  <!-- Powerup bar -->
+  <div id="blitzPwBar" class="bm-pwbar"></div>
+  <!-- Mobile controls -->
+  <div id="blitzMobile" class="bm-mobile">
+    <button id="blitzLeft"  style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">◀</button>
+    <button id="blitzJump"  style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;background:var(--sand);border:none;border-radius:10px;padding:0.65rem 1.6rem;color:var(--night);cursor:pointer;user-select:none;">JUMP</button>
+    <button id="blitzRight" style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">▶</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -714,7 +784,7 @@
     <a href="#programs" class="nav-link">Train</a>
     <a href="#events" class="nav-link">Events</a>
     <a href="#membership" class="nav-link">Join</a>
-    <a href="#spike-it" class="nav-link">🏐 Play</a>
+    <a href="#" onclick="openBlitz();return false;" class="nav-link">🏐 Play</a>
     <a href="tel:2148867440" class="nav-pill">Book Now</a>
     <button class="hamburger" id="ham" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -806,38 +876,15 @@
   </div>
 </div>
 
-<!-- BAKYARD BLITZ GAME -->
-<section id="spike-it" style="background:var(--night);padding:5rem 0 4rem;text-align:center;">
-  <div style="max-width:740px;margin:0 auto;padding:0 1.5rem;">
+<!-- BAKYARD BLITZ TEASER -->
+<section id="spike-it" style="background:var(--night);padding:4rem 0 3.5rem;text-align:center;">
+  <div style="max-width:540px;margin:0 auto;padding:0 1.5rem;">
     <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-bottom:0.6rem;">Roguelike · Bullet-Hell · Brickbreaker</p>
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--sand);line-height:1;margin-bottom:0.4rem;">BAKYARD BLITZ</h2>
-    <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1.6rem;">Break every brick · Survive crab attacks · Stack powerups · <span style="color:var(--sand)">← →</span> move · <span style="color:var(--sand)">↑ / Space</span> jump &amp; spike</p>
-    <!-- HUD bar -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;padding:0 4px;">
-      <div style="display:flex;align-items:center;gap:0.5rem;">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.18em;color:var(--mid);">WAVE</span>
-        <span id="blitzWave" style="font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--sand);">1</span>
-      </div>
-      <span id="blitzCombo" style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;color:var(--ember);min-height:1em;"></span>
-      <div style="display:flex;align-items:center;gap:0.5rem;">
-        <span id="blitzScore" style="font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--offwhite);">0</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.18em;color:var(--mid);">PTS</span>
-      </div>
-    </div>
-    <div style="margin-bottom:0.4rem;text-align:center;"><span id="blitzHP" style="font-size:1.05rem;letter-spacing:0.08em;">❤️❤️❤️❤️❤️</span></div>
-    <!-- canvas wrapper -->
-    <div style="position:relative;display:inline-block;width:100%;">
-      <canvas id="blitzCanvas" style="display:block;width:100%;border-radius:16px;border:1px solid rgba(232,201,122,0.12);"></canvas>
-      <div id="blitzOverlay" style="display:none;position:absolute;inset:0;background:rgba(8,9,13,0.93);border-radius:16px;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:0;"></div>
-    </div>
-    <!-- active powerup bar -->
-    <div id="blitzPwBar" style="min-height:1.8rem;margin-top:0.5rem;display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;"></div>
-    <!-- mobile controls -->
-    <div id="blitzMobile" style="display:none;justify-content:center;gap:0.8rem;margin-top:0.8rem;">
-      <button id="blitzLeft"  style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">◀</button>
-      <button id="blitzJump"  style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;background:var(--sand);border:none;border-radius:10px;padding:0.65rem 1.6rem;color:var(--night);cursor:pointer;user-select:none;">JUMP</button>
-      <button id="blitzRight" style="font-size:1.3rem;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:0.65rem 1.3rem;color:var(--sand);cursor:pointer;user-select:none;">▶</button>
-    </div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--sand);line-height:1;margin-bottom:0.8rem;">BAKYARD BLITZ</h2>
+    <p style="font-size:0.9rem;color:var(--mid);margin-bottom:1.8rem;line-height:1.6;">Break every brick · Survive the crabs · Stack powerups<br><span style="color:var(--mid);font-size:0.8rem;">← → move &nbsp;·&nbsp; ↑ / Space jump &amp; spike</span></p>
+    <button onclick="openBlitz()" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:0.18em;text-transform:uppercase;background:var(--sand);color:var(--night);border:none;border-radius:10px;padding:1rem 3rem;cursor:pointer;transition:all 0.15s;"
+    onmouseover="this.style.boxShadow='0 0 30px rgba(232,201,122,0.55)';this.style.transform='translateY(-2px)'"
+    onmouseout="this.style.boxShadow='';this.style.transform=''">🏐 PLAY NOW</button>
   </div>
 </section>
 
@@ -847,17 +894,38 @@
   const canvas = document.getElementById('blitzCanvas');
   const ctx = canvas.getContext('2d');
 
-  // ── canvas sizing ──
+  // ── canvas sizing — fills the modal viewport ──
   const LW = 720, LH = 440;
   let scale = 1;
   function resize() {
-    const w = canvas.parentElement.clientWidth;
-    scale = w / LW;
-    canvas.width  = w;
-    canvas.height = LH * scale;
+    // available height: viewport minus HUD (~50px) + pwbar (~28px) + mobile (~0/60px) + padding
+    const hudH   = 90;
+    const maxW   = canvas.parentElement.clientWidth;
+    const maxH   = window.innerHeight - hudH;
+    const wByW   = maxW;
+    const wByH   = maxH * (LW / LH);
+    const w      = Math.min(wByW, wByH);
+    scale        = w / LW;
+    canvas.width  = Math.round(w);
+    canvas.height = Math.round(LH * scale);
   }
   resize();
   window.addEventListener('resize', resize);
+
+  // ── modal open / close ──
+  window.openBlitz = function() {
+    document.getElementById('blitzModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    resize();
+    if (gstate === 'title') { /* already showing title overlay */ }
+  };
+  window.closeBlitz = function() {
+    document.getElementById('blitzModal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeBlitz();
+  });
 
   // ── palette ──
   const C = {
