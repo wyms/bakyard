@@ -504,12 +504,12 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
           <label>Service</label>
           <select id="serviceSelect" onchange="updateCartFromSelect()">
             <option value="">-- Choose a service --</option>
-            <optgroup label="Training">
-              <option value="Evaluation Session|20">Evaluation Session — $20</option>
-              <option value="Private Lesson (2hr)|40">Private Lesson (2hr) — $40/person</option>
-              <option value="Semi-Private (2 athletes)|30">Semi-Private — $30/person</option>
-              <option value="Group Training|38">Group Training — $38/athlete</option>
-              <option value="Advanced Training|40">Advanced Training — $40</option>
+            <optgroup label="Training (most → least athletes per session)">
+              <option value="Open Play Drop-In|15">Open Play Drop-In — $15/person</option>
+              <option value="Evaluation Session|20">Evaluation Session — $20/person</option>
+              <option value="Group Training (3–8 athletes)|40">Group Training (3–8 athletes) — $40/athlete</option>
+              <option value="Semi-Private (2–3 athletes)|60">Semi-Private (2–3 athletes) — $60/person</option>
+              <option value="Private Lesson (1-on-1 · 2hr)|95">Private Lesson (1-on-1) — $95/session</option>
               <option value="Cross-Training Add-On|20">Cross-Training Add-On — $20</option>
             </optgroup>
             <optgroup label="Memberships">
@@ -525,9 +525,9 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
               <option value="Sideout Sunday Drop-In|15">Sideout Sunday Drop-In — $15</option>
               <option value="Tournament Entry|40">Tournament Entry — $40</option>
             </optgroup>
-            <optgroup label="Court Rentals">
-              <option value="Single Court Rental (1hr)|40">Single Court (1hr) — $40</option>
-              <option value="Full Facility (4hr)|200">Full Facility (4hr) — $200</option>
+            <optgroup label="Court Rentals (no coaching)">
+              <option value="Single Court Rental (1hr)|70">Single Court (1hr) — $70</option>
+              <option value="Full Facility (4hr)|250">Full Facility (4hr) — $250</option>
               <option value="Wellness Space (1hr)|60">Wellness Space (1hr) — $60</option>
             </optgroup>
           </select>
@@ -672,12 +672,12 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
             </div>
           </div>
           <div class="ig-posts-grid">
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-1"><div class="ig-placeholder"><span class="ig-caption">🏐 TRAINING</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-2"><div class="ig-placeholder"><span class="ig-caption">🔥 BRAWL</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-3"><div class="ig-placeholder"><span class="ig-caption">🌊 SIDEOUT</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-4"><div class="ig-placeholder"><span class="ig-caption">👑 KOB/QOB</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-5"><div class="ig-placeholder"><span class="ig-caption">🤸 CROSS TRAIN</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
-            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-6"><div class="ig-placeholder"><span class="ig-caption">🎉 EVENTS</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=400&h=400&fit=crop&q=80" alt="Training"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=400&h=400&fit=crop&q=80" alt="Competition"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&q=80" alt="Sideout Sunday"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1592805144716-feeccccef5ac?w=400&h=400&fit=crop&q=80" alt="KOB QOB"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1594470117722-de4b9a02ebed?w=400&h=400&fit=crop&q=80" alt="Cross Training"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post"><img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&h=400&fit=crop&q=80" alt="Events"/><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
           </div>
           <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-follow-btn">📸 FOLLOW @beach.bakyard →</a>
         </div>
@@ -696,7 +696,7 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
   <div class="container">
     <div class="section-label">Pricing</div>
     <h2 class="section-title">Everything <span class="accent">Priced Fair</span></h2>
-    <p style="color:#aaa;margin-bottom:8px;text-align:center;">Base rate: <strong style="color:var(--gold)">$20/hr</strong> · Private lessons: <strong style="color:var(--gold)">$40/person/2hr</strong></p>
+    <p style="color:#aaa;margin-bottom:8px;text-align:center;">Open Play: <strong style="color:var(--gold)">$15</strong> · Group (3–8): <strong style="color:var(--gold)">$40/athlete</strong> · Semi-Private: <strong style="color:var(--gold)">$60/person</strong> · Private 1-on-1: <strong style="color:var(--gold)">$95/session</strong></p>
     <div class="tab-nav" style="margin-top:24px;">
       <button class="tab-btn active" onclick="switchTab('training',this)">Training</button>
       <button class="tab-btn" onclick="switchTab('memberships',this)">Memberships</button>
@@ -706,13 +706,14 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
     </div>
 
     <div class="tab-panel active" id="tab-training">
+      <p style="text-align:center;color:#888;font-size:.82rem;margin-bottom:24px;font-style:italic;">Fewer athletes per session = more 1-on-1 coaching time = higher per-person rate.</p>
       <div class="cards-grid">
-        <div class="price-card"><div class="card-icon">📋</div><div class="card-name">Evaluation</div><div class="card-price">$20<span>/person</span></div><div class="card-desc">Entry point. 1hr skills assessment + program placement.</div><ul class="card-features"><li>Full skills eval</li><li>Placement recommendation</li><li>Meet the coaches</li></ul><button class="card-add" onclick="addItem('Evaluation Session',20)">+ Add to Cart</button></div>
-        <div class="price-card hot"><div class="card-icon">🏐</div><div class="card-name">Private Lesson</div><div class="card-price">$40<span>/person·2hr</span></div><div class="card-desc">1-on-1 focused coaching. Fully customized sessions. Our flagship.</div><ul class="card-features"><li>2-hour dedicated session</li><li>Film review available</li><li>Custom drill design</li><li>Flexible scheduling</li></ul><button class="card-add" onclick="addItem('Private Lesson (2hr)',40)">+ Add to Cart</button></div>
-        <div class="price-card"><div class="card-icon">👥</div><div class="card-name">Semi-Private</div><div class="card-price">$30<span>/person·2hr</span></div><div class="card-desc">Train with a partner. 2–3 athletes, same elite coaching.</div><ul class="card-features"><li>2 athletes — $30 each</li><li>3 athletes — $25 each</li><li>Partner chemistry drills</li></ul><button class="card-add" onclick="addItem('Semi-Private (2hr)',30)">+ Add to Cart</button></div>
-        <div class="price-card"><div class="card-icon">🔥</div><div class="card-name">Group Training</div><div class="card-price">$35–40<span>/athlete</span></div><div class="card-desc">Capped sessions 6–10 athletes. High energy, competitive reps.</div><ul class="card-features"><li>Capped at 10 athletes</li><li>Competitive scrimmage</li><li>Weekly recurring</li></ul><button class="card-add" onclick="addItem('Group Training',38)">+ Add to Cart</button></div>
-        <div class="price-card"><div class="card-icon">⚡</div><div class="card-name">Advanced Training</div><div class="card-price">$40<span>/athlete</span></div><div class="card-desc">Elite doubles pathway. Twice-weekly. College prep + tournament training.</div><ul class="card-features"><li>2x per week</li><li>Video analysis</li><li>Tournament prep</li></ul><button class="card-add" onclick="addItem('Advanced Training',40)">+ Add to Cart</button></div>
-        <div class="price-card"><div class="card-icon">🤸</div><div class="card-name">Cross-Training Add-On</div><div class="card-price">$20<span>/session</span></div><div class="card-desc">30–60min mobility, plyos, diving, footwork. Stack onto any session.</div><ul class="card-features"><li>Mobility & plyos</li><li>Defense diving</li><li>Reaction drills</li></ul><button class="card-add" onclick="addItem('Cross-Training Add-On',20)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">🌅</div><div class="card-name">Open Play Drop-In</div><div class="card-price">$15<span>/person</span></div><div class="card-desc">Community open play. Jump in, run rallies, meet the family. No coaching — just ball.</div><ul class="card-features"><li>Sideout Sundays & community nights</li><li>Self-organized play</li><li>All skill levels welcome</li></ul><button class="card-add" onclick="addItem('Open Play Drop-In',15)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">📋</div><div class="card-name">Evaluation Session</div><div class="card-price">$20<span>/person</span></div><div class="card-desc">1hr skills assessment + program placement. Your entry point to the Bakyard.</div><ul class="card-features"><li>Full skills eval</li><li>Program placement recommendation</li><li>Meet the coaches</li></ul><button class="card-add" onclick="addItem('Evaluation Session',20)">+ Add to Cart</button></div>
+        <div class="price-card hot"><div class="card-icon">🔥</div><div class="card-name">Group Training</div><div class="card-price">$40<span>/athlete</span></div><div class="card-desc">3–8 athletes per session. High reps, competitive drills, coach-led. Best group value.</div><ul class="card-features"><li>3–8 athletes per session</li><li>Structured coach-led drills</li><li>Competitive scrimmage reps</li><li>Weekly recurring sessions</li></ul><button class="card-add" onclick="addItem('Group Training',40)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">👥</div><div class="card-name">Semi-Private</div><div class="card-price">$60<span>/person · 2hr</span></div><div class="card-desc">2–3 athletes. More coaching attention, tighter focus. Great for pairs training.</div><ul class="card-features"><li>2–3 athletes only</li><li>Partner chemistry & system drills</li><li>Film review available</li><li>More coach time per athlete</li></ul><button class="card-add" onclick="addItem('Semi-Private (2hr)',60)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">⚡</div><div class="card-name">Private Lesson</div><div class="card-price">$95<span>/session · 2hr</span></div><div class="card-desc">Full 1-on-1. Every rep, every drill, every minute is yours. Maximum development.</div><ul class="card-features"><li>1-on-1 with head coach</li><li>Custom drill design</li><li>Video analysis & film review</li><li>College prep & tournament focus</li></ul><button class="card-add" onclick="addItem('Private Lesson (1-on-1 · 2hr)',95)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">🤸</div><div class="card-name">Cross-Training Add-On</div><div class="card-price">$20<span>/session</span></div><div class="card-desc">Stack onto any session — 30–60min mobility, plyos, diving, footwork.</div><ul class="card-features"><li>Mobility & plyometrics</li><li>Defensive diving technique</li><li>Reaction & footwork drills</li></ul><button class="card-add" onclick="addItem('Cross-Training Add-On',20)">+ Add to Cart</button></div>
       </div>
     </div>
 
@@ -727,8 +728,8 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
 
     <div class="tab-panel" id="tab-rentals">
       <div class="cards-grid">
-        <div class="price-card"><div class="card-icon">🏐</div><div class="card-name">Single Court</div><div class="card-price">$40<span>/hour</span></div><div class="card-desc">One sand court for your group. Up to 10 players. Balls included.</div><ul class="card-features"><li>Up to 10 players</li><li>Balls included</li><li>2hr min on weekends</li></ul><button class="card-add" onclick="addItem('Single Court Rental (1hr)',40)">+ Add to Cart</button></div>
-        <div class="price-card hot"><div class="card-icon">🎉</div><div class="card-name">Full Facility</div><div class="card-price">$200<span>/4hr</span></div><div class="card-desc">All 3 courts + arbor + pool. Parties, corporate, tournaments.</div><ul class="card-features"><li>All 3 courts</li><li>Arbor & pool</li><li>Up to 60 guests</li></ul><button class="card-add" onclick="addItem('Full Facility Rental (4hr)',200)">+ Add to Cart</button></div>
+        <div class="price-card"><div class="card-icon">🏐</div><div class="card-name">Single Court</div><div class="card-price">$70<span>/hour</span></div><div class="card-desc">One sand court for your group. No coaching. Up to 10 players. Balls included.</div><ul class="card-features"><li>Up to 10 players</li><li>Balls included</li><li>2hr min on weekends</li></ul><button class="card-add" onclick="addItem('Single Court Rental (1hr)',70)">+ Add to Cart</button></div>
+        <div class="price-card hot"><div class="card-icon">🎉</div><div class="card-name">Full Facility</div><div class="card-price">$250<span>/4hr</span></div><div class="card-desc">All 3 courts + arbor + pool. Parties, corporate, tournaments.</div><ul class="card-features"><li>All 3 courts</li><li>Arbor & pool</li><li>Up to 60 guests</li></ul><button class="card-add" onclick="addItem('Full Facility Rental (4hr)',250)">+ Add to Cart</button></div>
         <div class="price-card"><div class="card-icon">🧘</div><div class="card-name">Wellness Space</div><div class="card-price">$60<span>/hour</span></div><div class="card-desc">Arbor for yoga, sound baths, meditation. Up to 20 guests.</div><ul class="card-features"><li>Shaded arbor</li><li>Up to 20 guests</li><li>AV on request</li></ul><button class="card-add" onclick="addItem('Wellness Space Rental (1hr)',60)">+ Add to Cart</button></div>
         <div class="price-card"><div class="card-icon">🏕️</div><div class="card-name">Youth Camp Day</div><div class="card-price">$320<span>/day</span></div><div class="card-desc">Full-day youth camp (ages 9–11). 15–30 kids. All courts + coach curriculum.</div><ul class="card-features"><li>All 3 courts</li><li>Coach curriculum</li><li>15–30 kids</li></ul><button class="card-add" onclick="addItem('Youth Camp Day',320)">+ Add to Cart</button></div>
       </div>
@@ -799,7 +800,7 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
   <div class="container">
     <div class="about-grid">
       <div class="about-photo">
-        <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=700&q=80" alt="Bakyard courts" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1559544948-3c4f90d0e94e?w=700&h=520&fit=crop&q=80" alt="Bakyard beach volleyball courts" loading="lazy"/>
         <div class="photo-badge">🏐 3 Sand Courts + Pool + Pond</div>
       </div>
       <div class="about-text">
