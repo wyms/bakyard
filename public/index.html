@@ -201,25 +201,6 @@ section{padding:70px 20px;}
 .ig-5{background:linear-gradient(135deg,#001a3a,#002a5a);}
 .ig-6{background:linear-gradient(135deg,#1a3a1a,#2a5a2a);}
 
-/* ── MINI GAME ── */
-.game-section{background:#080E0C;}
-.game-wrapper{background:var(--card);border-radius:16px;border:2px solid var(--teal);overflow:hidden;max-width:600px;margin:0 auto;}
-.game-header{background:linear-gradient(135deg,var(--teal),#1A5A52);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
-.game-header h3{font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:1.2rem;}
-.game-scores{display:flex;gap:24px;}
-.game-score-item{text-align:center;}
-.score-label{font-size:.65rem;letter-spacing:2px;color:rgba(255,255,255,.7);}
-.score-num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);}
-.game-canvas-wrap{position:relative;background:#0A1A12;border-bottom:2px solid var(--teal);}
-#gameCanvas{display:block;width:100%;max-width:600px;cursor:pointer;touch-action:none;}
-.game-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:1.6rem;color:var(--gold);text-align:center;text-shadow:0 0 20px rgba(245,200,66,.5);pointer-events:none;}
-.game-controls{padding:16px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
-.game-btn{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:.95rem;padding:10px 24px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;}
-.game-start-btn{background:var(--gold);color:var(--dark);}
-.game-start-btn:hover{background:var(--orange);color:#fff;}
-.game-instructions{font-size:.78rem;color:#888;line-height:1.5;}
-.game-high{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:.9rem;color:var(--teal-light);}
-
 /* ── PRICING ── */
 .pricing-section{background:#0C1510;}
 .tab-nav{display:flex;gap:4px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
@@ -404,7 +385,6 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
     <li><a href="#schedule" onclick="closeNav()">Schedule</a></li>
     <li><a href="#events" onclick="closeNav()">Events</a></li>
     <li><a href="#feed" onclick="closeNav()">Community</a></li>
-    <li><a href="#game" onclick="closeNav()">🏐 Mini Game</a></li>
     <li><a href="#checkout" class="nav-cta" onclick="closeNav()">Book Now</a></li>
   </ul>
 </nav>
@@ -418,7 +398,7 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
   <div class="hero-btns">
     <a href="#courts" class="btn btn-gold">🏐 See Courts</a>
     <a href="#checkout" class="btn btn-outline">Book & Pay</a>
-    <a href="#game" class="btn btn-pink">🎮 Play Game</a>
+    <a href="#availability" class="btn btn-pink">📅 Find a Time</a>
   </div>
 </section>
 
@@ -692,12 +672,12 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
             </div>
           </div>
           <div class="ig-posts-grid">
-            <div class="ig-post ig-1"><div class="ig-placeholder"><span class="ig-caption">🏐 TRAINING</span></div><div class="ig-post-overlay"><span>▶️</span></div></div>
-            <div class="ig-post ig-2"><div class="ig-placeholder"><span class="ig-caption">🔥 BRAWL</span></div><div class="ig-post-overlay"><span>📸</span></div></div>
-            <div class="ig-post ig-3"><div class="ig-placeholder"><span class="ig-caption">🌊 SIDEOUT</span></div><div class="ig-post-overlay"><span>▶️</span></div></div>
-            <div class="ig-post ig-4"><div class="ig-placeholder"><span class="ig-caption">👑 KOB/QOB</span></div><div class="ig-post-overlay"><span>📸</span></div></div>
-            <div class="ig-post ig-5"><div class="ig-placeholder"><span class="ig-caption">🤸 CROSS TRAIN</span></div><div class="ig-post-overlay"><span>▶️</span></div></div>
-            <div class="ig-post ig-6"><div class="ig-placeholder"><span class="ig-caption">🎉 EVENTS</span></div><div class="ig-post-overlay"><span>📸</span></div></div>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-1"><div class="ig-placeholder"><span class="ig-caption">🏐 TRAINING</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-2"><div class="ig-placeholder"><span class="ig-caption">🔥 BRAWL</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-3"><div class="ig-placeholder"><span class="ig-caption">🌊 SIDEOUT</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-4"><div class="ig-placeholder"><span class="ig-caption">👑 KOB/QOB</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-5"><div class="ig-placeholder"><span class="ig-caption">🤸 CROSS TRAIN</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
+            <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-post ig-6"><div class="ig-placeholder"><span class="ig-caption">🎉 EVENTS</span></div><div class="ig-post-overlay"><span>📸 VIEW</span></div></a>
           </div>
           <a href="https://www.instagram.com/beach.bakyard" target="_blank" class="ig-follow-btn">📸 FOLLOW @beach.bakyard →</a>
         </div>
@@ -705,36 +685,6 @@ input[type=range].avail-slider{width:100%;accent-color:var(--teal);cursor:pointe
           <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:1rem;color:#aaa;margin-bottom:6px;">Also Follow Us</div>
           <a href="https://www.instagram.com/daytonbeach" target="_blank" style="display:inline-block;margin:0 8px;color:var(--teal-light);font-size:.85rem;text-decoration:none;">📸 @daytonbeach</a>
           <a href="https://www.facebook.com/people/The-Bakyard/61577914156396/" target="_blank" style="display:inline-block;margin:0 8px;color:#64B5F6;font-size:.85rem;text-decoration:none;">💙 Facebook</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MINI GAME -->
-<section class="game-section" id="game">
-  <div class="container">
-    <div class="section-label text-center" style="border-left:none;text-align:center;display:block;">Mini Game</div>
-    <h2 class="section-title text-center" style="text-align:center;">🏐 <span class="accent">Bakyard</span> Beach Volley</h2>
-    <p style="text-align:center;color:#aaa;margin-bottom:28px;font-size:.9rem;">Keep the rally alive! Tap / click to hit the ball. Mobile friendly.</p>
-    <div class="game-wrapper">
-      <div class="game-header">
-        <h3>🏐 BAKYARD VOLLEY</h3>
-        <div class="game-scores">
-          <div class="game-score-item"><div class="score-label">SCORE</div><div class="score-num" id="gameScore">0</div></div>
-          <div class="game-score-item"><div class="score-label">BEST</div><div class="score-num" id="gameBest">0</div></div>
-          <div class="game-score-item"><div class="score-label">COMBO</div><div class="score-num" id="gameCombo">x1</div></div>
-        </div>
-      </div>
-      <div class="game-canvas-wrap">
-        <canvas id="gameCanvas" width="600" height="340"></canvas>
-        <div class="game-msg" id="gameMsg">TAP TO START 🏐</div>
-      </div>
-      <div class="game-controls">
-        <div class="game-instructions">📱 <strong>Mobile:</strong> Tap screen to hit · <strong>Desktop:</strong> Click or Space bar<br/>Keep the ball in the air — score combos for big points!</div>
-        <div style="text-align:right;">
-          <div class="game-high">🏆 <span id="gameHighDisplay">Best: 0</span></div>
-          <button class="game-btn game-start-btn mt16" id="gameStartBtn" onclick="startGame()">START GAME</button>
         </div>
       </div>
     </div>
@@ -1109,35 +1059,20 @@ function renderCourts() {
 }
 
 renderCourts();
-// Simulate live updates every 45 seconds
-setInterval(() => {
-  const statuses = ['open','occupied','reserved'];
-  courtData.forEach(c => { if (Math.random() > 0.7) c.status = statuses[Math.floor(Math.random()*3)]; });
-  renderCourts();
-}, 45000);
 
 // ============================================================
 // COMMUNITY FEED
 // ============================================================
 let feedUser = null;
-let feedMessages = [
-  {user:'CourtQueen22', avatar:'👑', text:'Sideout Sunday was INSANE today!! See everyone next week 🏐🔥', time:'2 min ago'},
-  {user:'SandKing_Tx', avatar:'🏐', text:'Just booked my first private lesson with Dayton — stoked!!', time:'8 min ago'},
-  {user:'BakyardFam', avatar:'🌊', text:'Who\'s coming to KOB/QOB this Saturday? Looking for a 2s partner 👀', time:'15 min ago'},
-  {user:'HaileyCoach', avatar:'⚡', text:'Youth camp spots filling up fast — only 4 spots left for Saturday!! DM to secure', time:'22 min ago'},
-  {user:'TxBeachBall', avatar:'🌴', text:'The vibes here are unmatched. Been to courts in 3 states — Bakyard hits different', time:'31 min ago'},
-];
-
-const botMessages = [
-  {user:'BakyardBot', avatar:'🤖', text:'📢 Court 1 is now OPEN — book it before it\'s gone!'},
-  {user:'BakyardBot', avatar:'🤖', text:'🔥 Backyard Brawl this Friday — 7pm! $20 entry, bring your game'},
-  {user:'BakyardBot', avatar:'🤖', text:'🏐 Sideout Sunday is tomorrow — open to all, free with membership!'},
-  {user:'BakyardBot', avatar:'🤖', text:'⚡ Advanced Training session starting in 30min — Courts 2 & 3'},
-];
+let feedMessages = [];
 
 function renderFeed() {
   const container = document.getElementById('feedMessages');
   container.innerHTML = '';
+  if (feedMessages.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:#555;padding:40px 20px;font-size:.88rem;">Be the first to post — join the community below 👇</div>';
+    return;
+  }
   feedMessages.forEach(msg => {
     const el = document.createElement('div');
     el.className = 'feed-msg';
@@ -1174,14 +1109,8 @@ function joinFeed() {
   document.getElementById('feedInputArea').classList.remove('hidden');
   document.getElementById('feedEmojiRow').style.display = 'flex';
   
-  // Welcome message
-  feedMessages.push({user:'BakyardBot', avatar:'🤖', text:`Welcome to the Bakyard Feed, @${username}! You're family now 🏐🔥`, time:'just now'});
   renderFeed();
   showToast(`Welcome to the feed, @${username}! 🏐`);
-  
-  // Update online count
-  const count = 12 + Math.floor(Math.random()*5);
-  document.getElementById('onlineCount').textContent = `👥 ${count} online`;
 }
 
 function sendFeedMsg() {
@@ -1191,20 +1120,9 @@ function sendFeedMsg() {
   if (!text) return;
   
   feedMessages.push({user: feedUser, avatar: getInitials(feedUser), text, time: 'just now'});
-  if (feedMessages.length > 30) feedMessages = feedMessages.slice(-30);
+  if (feedMessages.length > 50) feedMessages = feedMessages.slice(-50);
   input.value = '';
   renderFeed();
-  
-  // Occasionally auto-respond
-  if (Math.random() > 0.6) {
-    const responses = ['🔥🔥🔥','Let\'s get it!! 🏐','The sand is calling 🌊','See you on the court! 💪','Bakyard fam always 🤙'];
-    const responders = [{user:'SandKing_Tx',avatar:'🏐'},{user:'CourtQueen22',avatar:'👑'},{user:'TxBeachBall',avatar:'🌴'}];
-    const r = responders[Math.floor(Math.random()*responders.length)];
-    setTimeout(() => {
-      feedMessages.push({...r, text: responses[Math.floor(Math.random()*responses.length)], time:'just now'});
-      renderFeed();
-    }, 1500 + Math.random()*2000);
-  }
 }
 
 function insertEmoji(emoji) {
@@ -1213,241 +1131,9 @@ function insertEmoji(emoji) {
   input.focus();
 }
 
-// Auto bot messages
-setInterval(() => {
-  if (Math.random() > 0.5) {
-    const msg = botMessages[Math.floor(Math.random()*botMessages.length)];
-    feedMessages.push({...msg, time:'just now'});
-    if (feedMessages.length > 30) feedMessages = feedMessages.slice(-30);
-    renderFeed();
-  }
-}, 35000);
-
 renderFeed();
 
-// ============================================================
-// MINI GAME — Beach Volleyball
-// ============================================================
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const W = 600, H = 340;
-canvas.width = W; canvas.height = H;
 
-let gameState = 'idle'; // idle, playing, dead
-let score = 0, bestScore = 0, combo = 1;
-let ball = {x:W/2, y:H/3, vx:3, vy:-4, r:16};
-let player = {x:W/2-30, y:H-70, w:60, h:18, speed:0};
-let net = {x:W/2-3, y:H/2+20, w:6, h:H/2-40};
-let particles = [];
-let animId;
-let bgSand, bgSky;
-
-function drawScene() {
-  // Sky gradient
-  const sky = ctx.createLinearGradient(0,0,0,H*0.55);
-  sky.addColorStop(0,'#0B1E14'); sky.addColorStop(1,'#1A4A32');
-  ctx.fillStyle = sky; ctx.fillRect(0,0,W,H*0.55);
-  
-  // Sand
-  const sand = ctx.createLinearGradient(0,H*0.55,0,H);
-  sand.addColorStop(0,'#C8A850'); sand.addColorStop(1,'#A08030');
-  ctx.fillStyle = sand; ctx.fillRect(0,H*0.55,W,H*0.45);
-  
-  // Sand texture dots
-  ctx.fillStyle = 'rgba(0,0,0,0.08)';
-  for(let i=0;i<80;i++){ctx.beginPath();ctx.arc(i*8+4,H*0.6+Math.sin(i)*8,1,0,Math.PI*2);ctx.fill();}
-  
-  // Net
-  ctx.fillStyle = '#fff'; ctx.globalAlpha = 0.9;
-  ctx.fillRect(net.x, net.y, net.w, net.h);
-  ctx.globalAlpha = 1;
-  // Net stripes
-  ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.lineWidth=1;
-  for(let i=0;i<net.h;i+=14){ctx.beginPath();ctx.moveTo(net.x,net.y+i);ctx.lineTo(net.x+net.w,net.y+i);ctx.stroke();}
-  
-  // Background palm trees
-  drawPalm(80, H*0.55, 0.6, 'rgba(30,80,50,0.4)');
-  drawPalm(W-80, H*0.55, 0.5, 'rgba(30,80,50,0.35)');
-  
-  // Stars in sky
-  ctx.fillStyle='rgba(255,255,220,0.4)';
-  [[50,30],[120,15],[250,40],[420,20],[520,35],[350,10]].forEach(([sx,sy])=>{ctx.beginPath();ctx.arc(sx,sy,1.2,0,Math.PI*2);ctx.fill();});
-}
-
-function drawPalm(x, baseY, scale, color) {
-  ctx.strokeStyle = color; ctx.lineWidth = 4*scale;
-  ctx.beginPath(); ctx.moveTo(x, baseY); ctx.lineTo(x-10*scale, baseY-60*scale); ctx.stroke();
-  ctx.lineWidth = 2*scale;
-  [[0,-60],[15,-55],[-18,-52],[25,-45],[-12,-48]].forEach(([dx,dy])=>{
-    ctx.beginPath();ctx.moveTo(x-10*scale,baseY+dy*scale);ctx.quadraticCurveTo(x-10*scale+dx*0.5*scale,baseY+dy*scale-10,x-10*scale+dx*scale,baseY+dy*scale+5*scale);ctx.stroke();
-  });
-}
-
-function drawPlayer() {
-  // Body glow
-  const grad = ctx.createRadialGradient(player.x+player.w/2,player.y,0,player.x+player.w/2,player.y,30);
-  grad.addColorStop(0,'rgba(61,168,154,0.3)'); grad.addColorStop(1,'transparent');
-  ctx.fillStyle=grad; ctx.beginPath(); ctx.arc(player.x+player.w/2,player.y+player.h/2,30,0,Math.PI*2); ctx.fill();
-  
-  // Paddle
-  const pGrad = ctx.createLinearGradient(player.x,player.y,player.x,player.y+player.h);
-  pGrad.addColorStop(0,'#3DA89A'); pGrad.addColorStop(1,'#2A7A6F');
-  ctx.fillStyle = pGrad;
-  ctx.beginPath();
-  ctx.roundRect(player.x, player.y, player.w, player.h, 6);
-  ctx.fill();
-  ctx.strokeStyle='rgba(245,200,66,0.6)'; ctx.lineWidth=2;
-  ctx.stroke();
-  
-  // Player emoji
-  ctx.font = '22px serif'; ctx.textAlign='center';
-  ctx.fillText('🏐', player.x+player.w/2, player.y-8);
-}
-
-function drawBall() {
-  // Shadow
-  ctx.fillStyle='rgba(0,0,0,0.2)';
-  ctx.beginPath(); ctx.ellipse(ball.x,H-4,ball.r*0.7,4,0,0,Math.PI*2); ctx.fill();
-  
-  // Ball glow
-  const glow = ctx.createRadialGradient(ball.x,ball.y,0,ball.x,ball.y,ball.r*1.5);
-  glow.addColorStop(0,'rgba(245,200,66,0.3)'); glow.addColorStop(1,'transparent');
-  ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r*1.5,0,Math.PI*2); ctx.fill();
-  
-  // Ball
-  const bGrad = ctx.createRadialGradient(ball.x-4,ball.y-4,2,ball.x,ball.y,ball.r);
-  bGrad.addColorStop(0,'#FFE066'); bGrad.addColorStop(0.6,'#F5C842'); bGrad.addColorStop(1,'#D4A820');
-  ctx.fillStyle = bGrad;
-  ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2); ctx.fill();
-  
-  // Ball stripes
-  ctx.strokeStyle='rgba(0,0,0,0.2)'; ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.moveTo(ball.x-ball.r*0.8,ball.y); ctx.lineTo(ball.x+ball.r*0.8,ball.y); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(ball.x,ball.y-ball.r*0.8); ctx.lineTo(ball.x,ball.y+ball.r*0.8); ctx.stroke();
-}
-
-function drawParticles() {
-  particles = particles.filter(p => p.life > 0);
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy; p.life--;
-    ctx.globalAlpha = p.life/20;
-    ctx.fillStyle = p.color;
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-  });
-  ctx.globalAlpha = 1;
-}
-
-function spawnParticles(x, y) {
-  for(let i=0;i<10;i++){
-    particles.push({x,y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,r:Math.random()*4+1,life:20,color:['#F5C842','#3DA89A','#FF6B6B','#fff'][Math.floor(Math.random()*4)]});
-  }
-}
-
-function drawHUD() {
-  // Score
-  ctx.font = 'bold 22px Bebas Neue, sans-serif'; ctx.textAlign='left'; ctx.fillStyle='rgba(255,255,255,0.9)';
-  ctx.fillText(`SCORE: ${score}`, 16, 32);
-  
-  // Combo
-  if (combo > 1) {
-    ctx.font = `bold ${14+combo*2}px Bebas Neue, sans-serif`;
-    ctx.fillStyle = combo > 3 ? '#F5C842' : '#3DA89A';
-    ctx.textAlign = 'right';
-    ctx.fillText(`x${combo} COMBO!`, W-16, 32);
-  }
-  
-  // High score
-  ctx.font = '13px Bebas Neue, sans-serif'; ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.textAlign='right';
-  ctx.fillText(`BEST: ${bestScore}`, W-16, 52);
-}
-
-function gameLoop() {
-  ctx.clearRect(0,0,W,H);
-  drawScene();
-  
-  if (gameState === 'playing') {
-    // Ball physics
-    ball.vy += 0.18; // gravity
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    
-    // Wall bounce
-    if (ball.x - ball.r < 0) { ball.x = ball.r; ball.vx = Math.abs(ball.vx); }
-    if (ball.x + ball.r > W) { ball.x = W - ball.r; ball.vx = -Math.abs(ball.vx); }
-    if (ball.y - ball.r < 0) { ball.y = ball.r; ball.vy = Math.abs(ball.vy) * 0.8; }
-    
-    // Net collision
-    if (ball.x + ball.r > net.x && ball.x - ball.r < net.x + net.w && ball.y > net.y && ball.y < net.y + net.h) {
-      if (ball.vx > 0) { ball.x = net.x - ball.r; ball.vx = -Math.abs(ball.vx); }
-      else { ball.x = net.x + net.w + ball.r; ball.vx = Math.abs(ball.vx); }
-    }
-    
-    // Paddle hit
-    if (ball.y + ball.r >= player.y && ball.y + ball.r <= player.y + player.h + 6 &&
-        ball.x > player.x - 4 && ball.x < player.x + player.w + 4 && ball.vy > 0) {
-      ball.vy = -(4 + Math.random()*3 + Math.min(score*0.05, 2));
-      ball.vx += (ball.x - (player.x + player.w/2)) * 0.1;
-      ball.vx = Math.max(-7, Math.min(7, ball.vx));
-      score += combo;
-      combo++;
-      spawnParticles(ball.x, ball.y);
-      document.getElementById('gameScore').textContent = score;
-      document.getElementById('gameCombo').textContent = `x${combo}`;
-      if (score > bestScore) { bestScore = score; document.getElementById('gameBest').textContent = bestScore; document.getElementById('gameHighDisplay').textContent = `Best: ${bestScore}`; }
-    }
-    
-    // Ground = death
-    if (ball.y - ball.r > H) {
-      gameState = 'dead';
-      document.getElementById('gameMsg').textContent = `GAME OVER! Score: ${score} 🏐`;
-      document.getElementById('gameMsg').style.display = 'block';
-      document.getElementById('gameStartBtn').textContent = 'PLAY AGAIN';
-      combo = 1;
-      document.getElementById('gameCombo').textContent = 'x1';
-    }
-    
-    // Move player towards ball (very slightly, player still needs to aim)
-    const targetX = ball.x - player.w/2;
-    player.x += (targetX - player.x) * 0.04;
-    player.x = Math.max(0, Math.min(W-player.w, player.x));
-  }
-  
-  drawParticles();
-  drawPlayer();
-  drawBall();
-  if (gameState === 'playing') drawHUD();
-  
-  animId = requestAnimationFrame(gameLoop);
-}
-
-function startGame() {
-  gameState = 'playing';
-  score = 0; combo = 1;
-  ball = {x:W/2, y:H/3, vx:(Math.random()>0.5?1:-1)*3, vy:-4, r:16};
-  player = {x:W/2-30, y:H-70, w:60, h:18};
-  particles = [];
-  document.getElementById('gameMsg').style.display = 'none';
-  document.getElementById('gameScore').textContent = '0';
-  document.getElementById('gameCombo').textContent = 'x1';
-  document.getElementById('gameStartBtn').textContent = 'RESTART';
-}
-
-function hitBall() {
-  if (gameState === 'idle') { startGame(); return; }
-  if (gameState === 'dead') { startGame(); return; }
-  // Move paddle toward ball
-  player.x = ball.x - player.w/2 + (Math.random()-0.5)*20;
-  player.x = Math.max(0, Math.min(W-player.w, player.x));
-}
-
-// Click/tap to hit
-canvas.addEventListener('click', hitBall);
-canvas.addEventListener('touchstart', (e) => { e.preventDefault(); hitBall(); }, {passive:false});
-document.addEventListener('keydown', (e) => { if (e.code === 'Space') { e.preventDefault(); hitBall(); }});
-
-// Draw initial frame
-gameLoop();
-document.getElementById('gameMsg').style.display = 'block';
 
 // ============================================================
 // COURT AVAILABILITY SCHEDULER
@@ -1466,15 +1152,7 @@ const TYPE_META = {
   event:    { color:'#F5C842', text:'#131412',  label:'EVENT' }
 };
 
-let courtBlocks = [
-  { id:1, court:1, start:480,  end:600,  type:'training', label:'Training' },
-  { id:2, court:1, start:720,  end:840,  type:'private',  label:'Private' },
-  { id:3, court:2, start:540,  end:660,  type:'openplay', label:'Open Play' },
-  { id:4, court:2, start:900,  end:1020, type:'event',    label:'KOB/QOB' },
-  { id:5, court:3, start:480,  end:570,  type:'training', label:'Training' },
-  { id:6, court:3, start:660,  end:780,  type:'private',  label:'Private' },
-  { id:7, court:3, start:1020, end:1140, type:'openplay', label:'Open Play' }
-];
+let courtBlocks = [];
 
 function minToTime(m) {
   const h = Math.floor(m / 60);
